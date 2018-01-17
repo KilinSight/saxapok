@@ -79,6 +79,46 @@
         .get-regions {
             margin: 50px;
         }
+
+        .both-col {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .left-col {
+            width: 35%;
+        }
+
+        .right-col {
+            width: 55%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eeeeee;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }
+
+        .right-col h2 {
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .both-col {
+                justify-content: center;
+            }
+
+            .left-col {
+                width: 95%;
+            }
+            .right-col {
+                margin-top: 75px;
+                margin-bottom: 50px;
+                min-height: 300px;
+                width: 95%;
+            }
+        }
     </style>
 {% endblock %}
 
@@ -93,8 +133,8 @@
                 </div>
             </div>
         </div>
-            <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
+            <div class="row both-col">
+            <div class="left-col">
                 <form action="/get_results" method="POST" class="search-form">
                     <h5>Введите параметры поиска:</h5>
                     <div class="c-regions">
@@ -110,8 +150,13 @@
                     <button class="btn btn-default" type="submit" name="search" value="1">Будем поискать</button>
                 </form>
             </div>
+                <div class="right-col">
+                    <h2>Выберите параметры в меню</h2>
+                </div>
+            </div>
             <div class="container col-sm-12">
                 <div class="row get-regions">
+
                     <form action="/get_results" method="POST" class="search-form">
                         <button class="btn btn-success btn-lg" type="submit">Получить регионы</button>
                     </form>
