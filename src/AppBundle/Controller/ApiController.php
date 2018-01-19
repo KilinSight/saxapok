@@ -6,9 +6,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Services\XMLparserService;
 
 class ApiController extends Controller
 {
+
+    var $reader;
     /**
     * @Route("/api", name="api_index")
      * @param Request $request
@@ -46,21 +49,156 @@ class ApiController extends Controller
         $limit = $request->get('limit');
         $offset = $request->get('offset');
         $url = 'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml';
-        /** @var \XMLReader $xmlReader */
-        $xmlReader = new \XMLReader();
-        $xmlReader->open($url);
 
-        $i = $offset;
-        while ($i < $limit){
-            if ($xmlReader->nodeType == \XMLReader::ELEMENT)
-            $xmlReader->read();
-            $content [] = $xmlReader->value;
-            var_dump($xmlReader->value);
-            $xmlReader->next();
-            $i++;
-        }
-//        $content = simplexml_load_file($url);
+        /** @var \XMLReader $xmlReader */
+        $content = $this->ParseXML($url,'vacancy');
+
+
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
+//                    if ($xmlReader->name === ''){
+//                        $result[$i][''] = ;
+//                    }
         return new JsonResponse(json_encode($content));
     }
 
+    private function ParseXML($url,$name){
+        $xmlReader = new \XMLReader();
+        $xmlReader->open($url);
+        $found = false;
+        $i=0;
+        while ($xmlReader->read()) {
+            while ($xmlReader->read() && $xmlReader->name !== $name) {
+                $nextName = $xmlReader->name;
+                $found = false;
+                if ($xmlReader->nodeType !== \XMLReader::END_ELEMENT) {
+                    while ($xmlReader->read() && $xmlReader->name !== $nextName) {
+                        if ($xmlReader->nodeType !== \XMLReader::END_ELEMENT) {
+                            if ($xmlReader->hasValue) {
+                                $result[$i]['' . $nextName] = $xmlReader->value;
+                                $found = true;
+                            } else {
+                                $result[$i]['' . $nextName] = '';
+                            }
+                        } else {
+                            if (!$found) {
+                                $result[$i]['' . $nextName] = '';
+                            }
+                        }
+                    }
+                    if ($nextName === $xmlReader->name && !$found) {
+                        $result[$i]['' . $nextName] = '';
+                    }
+                }else{
+                    $result[$i]['' . $nextName] = '';
+                }
+            }
+            $i++;
+        }
+        var_dump($result);
+        return $result;
+    }
 }
