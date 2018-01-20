@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use DoctrineTest\InstantiatorTestAsset\XMLReaderAsset;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -51,126 +52,29 @@ class ApiController extends Controller
         $url = 'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml';
 
         /** @var \XMLReader $xmlReader */
-        $content = $this->ParseXML($url,'vacancy');
+        $content = $this->ParseXML($url,'vacancy',$limit,$offset);
 
-
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
-//                    if ($xmlReader->name === ''){
-//                        $result[$i][''] = ;
-//                    }
         return new JsonResponse(json_encode($content));
     }
 
-    private function ParseXML($url,$name){
+    private function ParseXML($url,$name,$limit = 1000, $offset = 0){
+        $progress = [
+          'done' => false,
+          'offset' => $offset + $limit,
+        ];
         $xmlReader = new \XMLReader();
         $xmlReader->open($url);
         $found = false;
         $i=0;
-        while ($xmlReader->read()) {
+        while ($xmlReader->read() && $i++<$limit+$offset) {
+            if ($i === 0){
+                $startName = $xmlReader->name;
+            }elseif($i < $offset && $i>1){
+                $xmlReader->next($name);
+            }
+            if ($startName === $xmlReader->name && $xmlReader->nodeType === \XMLReader::END_ELEMENT){
+                $progress['done'] = true;
+            }
             while ($xmlReader->read() && $xmlReader->name !== $name) {
                 $nextName = $xmlReader->name;
                 $found = false;
@@ -196,9 +100,9 @@ class ApiController extends Controller
                     $result[$i]['' . $nextName] = '';
                 }
             }
-            $i++;
         }
-        var_dump($result);
-        return $result;
+//        var_dump($result);
+//        $progress['result'] = $result;
+        return $progress;
     }
 }

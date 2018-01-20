@@ -172,7 +172,30 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-
+        var progress = {'done':false, 'offset':0};
+        var count = 1;
+        var timeout;
+        var sendAjaxVacancies = function (progress) {
+            $.ajax({
+                url: Routing.generate('api_vacancies'),
+                data: {
+                    limit: 1000,
+                    offset: progress.offset
+                },
+                success: function (arr) {
+                    data = JSON.parse(arr);
+                    if (!progress.done){
+                        progress.offset = data.offset;
+                        progress.done = data.done;
+                        timeout = setTimeout(sendAjaxVacancies,3000,progress);
+                    }else{
+                        progress.offset = data.offset;
+                        progress.done = data.done;
+                        clearTimeout(timeout);
+                    }
+                }
+            });
+        };
         $(document).ready(function (){
             var arrRegions =[];
             $.ajax({
@@ -188,17 +211,9 @@
                     sortRegions();
                 }
             });
-            $.ajax({
-                url: Routing.generate('api_vacancies'),
-                data: {
-                    limit: 1000,
-                    offset: 0
-                },
-                success:function(data) {
-                    var vacancies = JSON.parse(data);
-                    console.log(vacancies);
-                }
-            });
+
+            sendAjaxVacancies(progress);
+
             // $.ajax({
             //     url: Routing.generate('api_vacancies'),
             //     success:function(data) {
