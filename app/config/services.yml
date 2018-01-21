@@ -17,10 +17,23 @@ services:
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     AppBundle\:
+        autowire: true
         resource: '../../src/AppBundle/*'
+        public: true
+        exclude: '../../src/AppBundle/{Entity,Repository}'
+
+    AppBundle\Entity\:
+            autowire: true
+            resource: '../../src/AppBundle/Entity/*'
+            public: true
+
+    AppBundle\Repository\VacancyRepository:
+       factory: doctrine.orm.entity_manager:getRepository
+       arguments:
+          - AppBundle\Entity\Vacancy
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
-        exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
+#        exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services

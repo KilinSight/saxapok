@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class VacancyRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findAllById($id)
+    {
+        $qb = $this->createQueryBuilder('vacancy');
+        $qb->select('vacancy')
+            ->from('AppBundle\Entity\Vacancy', 'vacancy')
+            ->andWhere($qb->expr()->eq('vacancy.id',$id));
+        $result=$qb->getQuery()->getResult();
+        // returns an array of arrays (i.e. a raw data set)
+        return $result;
+    }
+
 }

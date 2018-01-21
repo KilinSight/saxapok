@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 /**
  * Vacancy
@@ -24,44 +25,143 @@ class Vacancy
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="region", type="string")
      */
-    private $name;
+    private $region;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creation_date", type="date")
+     * @ORM\Column(name="organization", type="string")
+     */
+    private $organization;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="industry", type="string")
+     */
+    private $industry;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profession", type="string")
+     */
+    private $profession;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="creationDate", type="string")
      */
     private $creationDate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="category", type="string")
+     * @ORM\Column(name="datePosted", type="string")
      */
-    private $category;
+    private $datePosted;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etks", type="string")
+     * @ORM\Column(name="identifier", type="string")
      */
-    private $etks;
+    private $identifier;
+
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="active", type="boolean")
+     * @ORM\Column(name="hiringOrganization", type="string")
      */
-    private $active;
+    private $hiringOrganization;
 
     /**
-     * @var \DateTime
+     * @var float
      *
-     * @ORM\Column(name="date_modify", type="date")
+     * @ORM\Column(name="baseSalary", type="float")
      */
-    private $dateModify;
+    private $baseSalary;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string")
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="employmentType", type="string")
+     */
+    private $employmentType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="workHours", type="string")
+     */
+    private $workHours;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="responsibilities", type="string")
+     */
+    private $responsibilities;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="incentiveCompensation", type="string")
+     */
+    private $incentiveCompensation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="requirements", type="string")
+     */
+    private $requirements;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="socialProtecteds", type="string")
+     */
+    private $socialProtecteds;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="metroStations", type="string")
+     */
+    private $metroStations;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source", type="string")
+     */
+    private $source;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="workPlaces", type="integer")
+     */
+    private $workPlaces;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="additionalInfo", type="string")
+     */
+    private $additionalInfo;
 
     /**
      * @var boolean
@@ -70,21 +170,14 @@ class Vacancy
      */
     private $deleted;
 
-
     /**
      * @var string
      *
-     * @ORM\Column(name="type_of", type="string")
+     * @ORM\Column(name="vacUrl", type="string")
      */
-    private $typeOf;
+    private $vacUrl;
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="about", type="string")
-     */
-    private $about;
 
     /**
      * Get id
@@ -96,34 +189,11 @@ class Vacancy
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Vacancy
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
 
     /**
      * Set creationDate
      *
-     * @param \DateTime $creationDate
+     * @param string $creationDate
      *
      * @return Vacancy
      */
@@ -137,7 +207,7 @@ class Vacancy
     /**
      * Get creationDate
      *
-     * @return \DateTime
+     * @return string
      */
     public function getCreationDate()
     {
@@ -147,97 +217,33 @@ class Vacancy
     /**
      * @return string
      */
-    public function getAbout()
+    public function getRegion()
     {
-        return $this->about;
+        return $this->region;
     }
 
     /**
-     * @param string $about
+     * @param string $region
      */
-    public function setAbout($about)
+    public function setRegion($region)
     {
-        $this->about = $about;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTypeOf()
-    {
-        return $this->typeOf;
-    }
-
-    /**
-     * @param string $typeOf
-     */
-    public function setTypeOf($typeOf)
-    {
-        $this->typeOf = $typeOf;
+        $this->region = $region;
     }
 
     /**
      * @return string
      */
-    public function getCategory()
+    public function getVacUrl()
     {
-        return $this->category;
+        return $this->vacUrl;
     }
 
     /**
-     * @param string $category
+     * @param string $vacUrl
      */
-    public function setCategory($category)
+    public function setVacUrl($vacUrl)
     {
-        $this->category = $category;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEtks()
-    {
-        return $this->etks;
-    }
-
-    /**
-     * @param string $etks
-     */
-    public function setEtks($etks)
-    {
-        $this->etks = $etks;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActive()
-    {
-        return $this->active;
-    }
-
-    /**
-     * @param bool $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateModify()
-    {
-        return $this->dateModify;
-    }
-
-    /**
-     * @param \DateTime $dateModify
-     */
-    public function setDateModify($dateModify)
-    {
-        $this->dateModify = $dateModify;
+        $this->vacUrl = $vacUrl;
     }
 
     /**
@@ -255,5 +261,295 @@ class Vacancy
     {
         $this->deleted = $deleted;
     }
+
+    /**
+     * @return string
+     */
+    public function getAdditionalInfo()
+    {
+        return $this->additionalInfo;
+    }
+
+    /**
+     * @param string $additionalInfo
+     */
+    public function setAdditionalInfo($additionalInfo)
+    {
+        $this->additionalInfo = $additionalInfo;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWorkPlaces()
+    {
+        return $this->workPlaces;
+    }
+
+    /**
+     * @param int $workPlaces
+     */
+    public function setWorkPlaces($workPlaces)
+    {
+        $this->workPlaces = $workPlaces;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param string $source
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetroStations()
+    {
+        return $this->metroStations;
+    }
+
+    /**
+     * @param string $metroStations
+     */
+    public function setMetroStations($metroStations)
+    {
+        $this->metroStations = $metroStations;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSocialProtecteds()
+    {
+        return $this->socialProtecteds;
+    }
+
+    /**
+     * @param string $socialProtecteds
+     */
+    public function setSocialProtecteds($socialProtecteds)
+    {
+        $this->socialProtecteds = $socialProtecteds;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequirements()
+    {
+        return $this->requirements;
+    }
+
+    /**
+     * @param string $requirements
+     */
+    public function setRequirements($requirements)
+    {
+        $this->requirements = $requirements;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIncentiveCompensation()
+    {
+        return $this->incentiveCompensation;
+    }
+
+    /**
+     * @param string $incentiveCompensation
+     */
+    public function setIncentiveCompensation($incentiveCompensation)
+    {
+        $this->incentiveCompensation = $incentiveCompensation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponsibilities()
+    {
+        return $this->responsibilities;
+    }
+
+    /**
+     * @param string $responsibilities
+     */
+    public function setResponsibilities($responsibilities)
+    {
+        $this->responsibilities = $responsibilities;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWorkHours()
+    {
+        return $this->workHours;
+    }
+
+    /**
+     * @param string $workHours
+     */
+    public function setWorkHours($workHours)
+    {
+        $this->workHours = $workHours;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmploymentType()
+    {
+        return $this->employmentType;
+    }
+
+    /**
+     * @param string $employmentType
+     */
+    public function setEmploymentType($employmentType)
+    {
+        $this->employmentType = $employmentType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return float
+     */
+    public function getBaseSalary()
+    {
+        return $this->baseSalary;
+    }
+
+    /**
+     * @param float $baseSalary
+     */
+    public function setBaseSalary($baseSalary)
+    {
+        $this->baseSalary = $baseSalary;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHiringOrganization()
+    {
+        return $this->hiringOrganization;
+    }
+
+    /**
+     * @param string $hiringOrganization
+     */
+    public function setHiringOrganization($hiringOrganization)
+    {
+        $this->hiringOrganization = $hiringOrganization;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProfession()
+    {
+        return $this->profession;
+    }
+
+    /**
+     * @param string $profession
+     */
+    public function setProfession($profession)
+    {
+        $this->profession = $profession;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDatePosted()
+    {
+        return $this->datePosted;
+    }
+
+    /**
+     * @param string $datePosted
+     */
+    public function setDatePosted($datePosted)
+    {
+        $this->datePosted = $datePosted;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param string $organization
+     */
+    public function setOrganization($organization)
+    {
+        $this->organization = $organization;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIndustry()
+    {
+        return $this->industry;
+    }
+
+    /**
+     * @param string $industry
+     */
+    public function setIndustry($industry)
+    {
+        $this->industry = $industry;
+    }
+
+
 }
 
