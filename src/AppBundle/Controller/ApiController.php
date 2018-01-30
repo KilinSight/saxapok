@@ -55,38 +55,6 @@ class ApiController extends Controller
 
         /** @var \XMLReader $xmlReader */
         $content = $this->ParseXML($url,'vacancy',$limit,$offset);
-        foreach ($content['result'] as $result){
-            $vac = $em->getRepository('AppBundle\Entity\Vacancy')->findBy(['identifier' => $result['identifier']]);
-            if (!$vac){
-                $vac = new Vacancy();
-                $vac->setIdentifier($result['id']?$result['id']:' ');
-                $vac->setRegion($result['region']?$result['region']:' ');
-                $vac->setOrganization($result['organization']?$result['organization']:' ');
-                $vac->setIndustry($result['industry']?$result['industry']:' ');
-                $vac->setProfession($result['profession']?$result['profession']:' ');
-                $vac->setHiringOrganization($result['hiringOrganization']?$result['hiringOrganization']:' ');
-                $vac->setCreationDate($result['creationDate']?$result['creationDate']:' ');
-                $vac->setDatePosted($result['datePosted']?$result['datePosted']:' ');
-                $vac->setIdentifier($result['identifier']?$result['identifier']:' ');
-                $vac->setBaseSalary($result['baseSalary']?$result['baseSalary']:' ');
-                $vac->setTitle($result['title']?$result['title']:' ');
-                $vac->setEmploymentType($result['employmentType']?$result['employmentType']:' ');
-                $vac->setWorkHours($result['workHours']?$result['workHours']:' ');
-                $vac->setResponsibilities($result['responsibilities']?$result['responsibilities']:' ');
-                $vac->setIncentiveCompensation($result['incentiveCompensation']?$result['incentiveCompensation']:' ');
-                $vac->setRequirements($result['requirements']?$result['requirements']:' ');
-                $vac->setSocialProtecteds($result['socialProtecteds']?$result['socialProtecteds']:' ');
-                $vac->setMetroStations($result['metroStations']?$result['metroStations']:' ');
-                $vac->setSource($result['source']?$result['source']:' ');
-                $vac->setWorkPlaces($result['workPlaces']?$result['workPlaces']:' ');
-                $vac->setAdditionalInfo($result['additionalInfo']?$result['additionalInfo']:' ');
-                $vac->setDeleted($result['innerInfo']?$result['innerInfo']:' ');
-                $vac->setVacUrl($result['vac_url']?$result['vac_url']:' ');
-                $em->persist($vac);
-            }
-        }
-        $em->flush();
-
         return new JsonResponse(json_encode($content));
     }
 
@@ -95,8 +63,9 @@ class ApiController extends Controller
           'done' => false,
           'offset' => $offset + $limit,
         ];
+        $em = $this->getDoctrine()->getManager();
         $xmlReader = new \XMLReader();
-        $xmlReader->open($url);
+        $xmlReader->open($url,true,LIBXML_PARSEHUGE);
         $found = false;
         $i=0;
         while ($xmlReader->read() && $i++<$limit+$offset) {
@@ -115,27 +84,65 @@ class ApiController extends Controller
                     while ($xmlReader->read() && $xmlReader->name !== $nextName) {
                         if ($xmlReader->nodeType !== \XMLReader::END_ELEMENT) {
                             if ($xmlReader->hasValue) {
-                                $result[$i]['' . $nextName] = $xmlReader->value;
+                                $result['' . $nextName] = $xmlReader->value?$xmlReader->value:' ';
                                 $found = true;
                             } else {
-                                $result[$i]['' . $nextName] = ' ';
+                                $result['' . $nextName] = ' ';
                             }
                         } else {
                             if (!$found) {
-                                $result[$i]['' . $nextName] = ' ';
+                                $result['' . $nextName] = ' ';
                             }
                         }
                     }
                     if ($nextName === $xmlReader->name && !$found) {
-                        $result[$i]['' . $nextName] = ' ';
+                        $result['' . $nextName] = ' ';
                     }
                 }else{
-                    $result[$i]['' . $nextName] = '';
+                    $result['' . $nextName] = ' ';
                 }
             }
+            $vac = $em->getRepository('AppBundle\Entity\Vacancy')->findBy(['identifier' => $result['identifier']]);
+            if (!$vac){
+                $this->setVacancyToDB($result);
+                unset($result);
+            }else{
+                unset($result);
+            }
+            unset($vac);
+
         }
-//        var_dump($result);
-        $progress['result'] = $result;
         return $progress;
+    }
+
+    /**@param array $result*/
+    private function setVacancyToDB($result){
+        $em = $this->getDoctrine()->getManager();
+        $vac = new Vacancy();
+        $vac->setIdentifier($result['id']?$result['id']:' ');
+        $vac->setRegion($result['region']?$result['region']:' ');
+        $vac->setOrganization($result['organization']?$result['organization']:' ');
+        $vac->setIndustry($result['industry']?$result['industry']:' ');
+        $vac->setProfession($result['profession']?$result['profession']:' ');
+        $vac->setHiringOrganization($result['hiringOrganization']?$result['hiringOrganization']:' ');
+        $vac->setCreationDate($result['creationDate']?$result['creationDate']:' ');
+        $vac->setDatePosted($result['datePosted']?$result['datePosted']:' ');
+        $vac->setIdentifier($result['identifier']?$result['identifier']:' ');
+        $vac->setBaseSalary($result['baseSalary']?$result['baseSalary']:' ');
+        $vac->setTitle($result['title']?$result['title']:' ');
+        $vac->setEmploymentType($result['employmentType']?$result['employmentType']:' ');
+        $vac->setWorkHours($result['workHours']?$result['workHours']:' ');
+        $vac->setResponsibilities($result['responsibilities']?$result['responsibilities']:' ');
+        $vac->setIncentiveCompensation($result['incentiveCompensation']?$result['incentiveCompensation']:' ');
+        $vac->setRequirements($result['requirements']?$result['requirements']:' ');
+        $vac->setSocialProtecteds($result['socialProtecteds']?$result['socialProtecteds']:' ');
+        $vac->setMetroStations($result['metroStations']?$result['metroStations']:' ');
+        $vac->setSource($result['source']?$result['source']:' ');
+        $vac->setWorkPlaces($result['workPlaces']?$result['workPlaces']:' ');
+        $vac->setAdditionalInfo($result['additionalInfo']?$result['additionalInfo']:' ');
+        $vac->setDeleted($result['innerInfo']?$result['innerInfo']:' ');
+        $vac->setVacUrl($result['vac_url']?$result['vac_url']:' ');
+        $em->persist($vac);
+        $em->flush();
     }
 }

@@ -179,7 +179,7 @@
             $.ajax({
                 url: Routing.generate('api_vacancies'),
                 data: {
-                    limit: 5000,
+                    limit: 10000000,
                     offset: progress.offset
                 },
                 success: function (arr) {
@@ -187,7 +187,7 @@
                     if (!progress.done){
                         progress.offset = data.offset;
                         progress.done = data.done;
-                        timeout = setTimeout(sendAjaxVacancies,120000,progress);
+                        timeout = setTimeout(sendAjaxVacancies,60000,progress);
                     }else{
                         progress.offset = data.offset;
                         progress.done = data.done;
