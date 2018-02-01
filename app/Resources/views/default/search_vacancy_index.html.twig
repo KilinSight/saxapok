@@ -147,7 +147,7 @@
                     <input class="form-control" type="text" id="town" name="town" placeholder="Введите город">
                     <h5>Введите диапазон заработной платы:</h5><input class="form-control" type="text" name="money1" id="money1" placeholder="От">
                     <input  class="form-control" type="text" id="money2" name="money2" placeholder="До">
-                    <button class="btn btn-default" type="submit" name="search" value="1">Будем поискать</button>
+                    <button class="btn btn-default" type="submit" name="search" value="1">Поиск</button>
                 </form>
             </div>
                 <div class="right-col">
@@ -177,7 +177,7 @@
             $.ajax({
                 url: Routing.generate('api_vacancies'),
                 data: {
-                    limit: 5000,
+                    limit: 9999999,
                     offset: progress.offset
                 },
                 success: function (arr) {
@@ -185,11 +185,11 @@
                     if (!progress.done){
                         progress.offset = data.offset;
                         progress.done = data.done;
-                        timeout = setTimeout(sendAjaxVacancies,5000,progress);
+                        // timeout = setTimeout(sendAjaxVacancies,5000,progress);
                     }else{
                         progress.offset = data.offset;
                         progress.done = data.done;
-                        clearTimeout(timeout);
+                        // clearTimeout(timeout);
                     }
                 }
             });
