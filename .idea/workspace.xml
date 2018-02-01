@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/aguproject.iml" afterPath="$PROJECT_DIR$/.idea/aguproject.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/default/analyze_vacancy_index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/default/analyze_vacancy_index.html.twig" />
       <change beforePath="$PROJECT_DIR$/app/Resources/views/default/search_vacancy_index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/default/search_vacancy_index.html.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +32,8 @@
       <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="6" lean-forward="false" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
+            <state relative-caret-position="600">
+              <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
               <folding>
                 <marker date="1517306872562" expanded="true" signature="1034:1199" ph="..." />
               </folding>
@@ -65,18 +66,18 @@
       <file leaf-file-name="analyze_vacancy_index.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/default/analyze_vacancy_index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2941">
-              <caret line="173" column="40" lean-forward="false" selection-start-line="173" selection-start-column="40" selection-end-line="174" selection-end-column="40" />
+            <state relative-caret-position="221">
+              <caret line="107" column="9" lean-forward="false" selection-start-line="107" selection-start-column="9" selection-end-line="107" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search_vacancy_index.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="search_vacancy_index.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/default/search_vacancy_index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="153" column="54" lean-forward="true" selection-start-line="153" selection-start-column="54" selection-end-line="153" selection-end-column="54" />
+            <state relative-caret-position="434">
+              <caret line="107" column="33" lean-forward="false" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -91,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analyze_region_index.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="analyze_region_index.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3978">
-              <caret line="234" column="23" lean-forward="false" selection-start-line="234" selection-start-column="23" selection-end-line="234" selection-end-column="23" />
+            <state relative-caret-position="430">
+              <caret line="111" column="40" lean-forward="false" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -131,6 +132,7 @@
       <find>ENVIRO</find>
       <find>env</find>
       <find>api_regions</find>
+      <find>бу</find>
     </findStrings>
     <dirStrings>
       <dir>C:\OpenServer\domains\aguproject\src\AppBundle\Controller</dir>
@@ -188,12 +190,12 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/AnalyzeRegionController.php" />
         <option value="$PROJECT_DIR$/web/app.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/ApiController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/default/analyze_vacancy_index.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/AnalyzeVacancyController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/default/search_vacancy_index.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/default/analyze_vacancy_index.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig" />
       </list>
     </option>
   </component>
@@ -427,7 +429,7 @@
       <workItem from="1517301425662" duration="5575000" />
       <workItem from="1517308708293" duration="867000" />
       <workItem from="1517324304651" duration="1460000" />
-      <workItem from="1517491600774" duration="39000" />
+      <workItem from="1517491600774" duration="920000" />
     </task>
     <task id="LOCAL-00001" summary="first commit 16.01.2018">
       <created>1516107585638</created>
@@ -499,11 +501,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517307381371</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Search button renamed 01.02.2018">
+      <created>1517491811546</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1517491811546</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117905000" />
+    <option name="totallyTimeSpent" value="118786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -571,7 +580,8 @@
     <MESSAGE value="XMLParser (need export array to database) 20.01.2018" />
     <MESSAGE value="XMLParser (export to DB done) 20.01.2018" />
     <MESSAGE value="Views for report done 30.01.2018" />
-    <option name="LAST_COMMIT_MESSAGE" value="Views for report done 30.01.2018" />
+    <MESSAGE value="Search button renamed 01.02.2018" />
+    <option name="LAST_COMMIT_MESSAGE" value="Search button renamed 01.02.2018" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -854,14 +864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AnalyzeVacancyController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="11" column="7" lean-forward="false" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AnalyzeRegionController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -884,24 +886,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="6" lean-forward="false" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
-          <folding>
-            <marker date="1517306872562" expanded="true" signature="1034:1199" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3978">
-          <caret line="234" column="23" lean-forward="false" selection-start-line="234" selection-start-column="23" selection-end-line="234" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/js/fos_js_routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -919,14 +903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/analyze_vacancy_index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2941">
-          <caret line="173" column="40" lean-forward="false" selection-start-line="173" selection-start-column="40" selection-end-line="174" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ApiController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1615">
@@ -935,10 +911,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
+          <folding>
+            <marker date="1517306872562" expanded="true" signature="1034:1199" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/default/search_vacancy_index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="153" column="54" lean-forward="true" selection-start-line="153" selection-start-column="54" selection-end-line="153" selection-end-column="54" />
+        <state relative-caret-position="434">
+          <caret line="107" column="33" lean-forward="false" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/analyze_vacancy_index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="107" column="9" lean-forward="false" selection-start-line="107" selection-start-column="9" selection-end-line="107" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/AnalyzeVacancyController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="7" lean-forward="false" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="111" column="40" lean-forward="false" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
           <folding />
         </state>
       </provider>

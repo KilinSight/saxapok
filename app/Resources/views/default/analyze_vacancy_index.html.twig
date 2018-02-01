@@ -103,6 +103,9 @@
         .right-col h2 {
             margin: 0 auto;
         }
+        .content {
+            min-height: calc(100vh - 111px);
+        }
 
         @media screen and (max-width: 1200px) {
             .both-col {
@@ -125,7 +128,7 @@
 {% block body %}
     <body>
 
-    <div class="container text-center">
+    <div class="container content text-center">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
@@ -142,7 +145,7 @@
                         <ul class="c-vacancies__container">
                         </ul>
                     </div>
-                    <button class="btn btn-default" type="submit" name="search" value="1">Будем поискать</button>
+                    <button class="btn btn-default" type="submit" name="search" value="1">Поиск</button>
                 </form>
             </div>
                 <div class="right-col">
