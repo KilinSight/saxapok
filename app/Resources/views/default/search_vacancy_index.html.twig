@@ -91,10 +91,14 @@
         }
 
         .right-col {
+
+            height: 1000px;
+            max-height: calc(100vh - 300px);
+            /*overflow-y: scroll;*/
             width: 55%;
             display: flex;
             justify-content: center;
-            align-items: center;
+            /*align-items: center;*/
             background-color: #eeeeee;
             border-radius: 4px;
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
@@ -106,7 +110,20 @@
 
         .content {
             min-height: calc(100vh - 111px);
+
         }
+
+        .content {
+            min-width: 98%;
+            max-width: calc(100% - 100px);
+        }
+
+        .iframe{
+            min-width: 98%;
+            max-width: calc(100% - 100px);
+        }
+
+
 
         @media screen and (max-width: 1200px) {
             .both-col {
@@ -155,8 +172,11 @@
                 </form>
             </div>
                 <div class="right-col" id="result_area">
-                    <h2>Выберите параметры в меню</h2>
+                    {#<h2>Выберите параметры в меню</h2>#}
+                    {#<div class="vac-title">Web-разработчик</div>#}
+                    <iframe class="iframe" src="https://trudvsem.ru/vacancy/card/313171916400040/1693bbb6-28e2-11e7-bdb6-037acc02728d" >  </iframe>
                 </div>
+
             </div>
             <div class="container col-sm-12">
                 <div class="row get-regions">
