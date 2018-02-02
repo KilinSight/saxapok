@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Vacancy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -49,5 +50,21 @@ class DefaultController extends Controller
             'content' => $content,
             'regions' => $regions
         ]);
+    }
+
+    /**
+     * @Route("/search_vacancies", name="search_vacancies", options = {"expose":true})
+     * @param Request $request
+     * @return mixed
+     */
+    public function searchVacanciesAction(Request $request)
+    {
+        $result = [
+          'success' => true,
+        ];
+        $region = $request->get('region');
+        $vacancy = $request->get('vacancy');
+        $doctrine = $this->getDoctrine();
+        return new JsonResponse($result);
     }
 }

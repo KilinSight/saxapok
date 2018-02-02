@@ -146,15 +146,15 @@
                         <ul class="c-regions__container">
                         </ul>
                     </div>
-                    <input class="form-control" type="text" id="vacancy" name="vacancy" placeholder="Введите вакансию">
-                    <input class="form-control" type="text" id="region" name="region" placeholder="Введите регион">
-                    <input class="form-control" type="text" id="town" name="town" placeholder="Введите город">
+                    <input class="form-control" type="text" id="vacancy" placeholder="Введите вакансию">
+                    <input class="form-control" type="text" id="region" placeholder="Введите регион">
+                    <input class="form-control" type="text" id="town" placeholder="Введите город">
                     <h5>Введите диапазон заработной платы:</h5><input class="form-control" type="text" name="money1" id="money1" placeholder="От">
                     <input  class="form-control" type="text" id="money2" name="money2" placeholder="До">
-                    <button class="btn btn-default" type="submit" name="search" value="1">Поиск</button>
+                    <button class="btn btn-default" type="button" id="search_button" value="1">Поиск</button>
                 </form>
             </div>
-                <div class="right-col">
+                <div class="right-col" id="result_area">
                     <h2>Выберите параметры в меню</h2>
                 </div>
             </div>
@@ -201,6 +201,25 @@
         $('#update_db').on('click',function(){
             sendAjaxVacancies(progress);
         });
+
+        $(document).on('click', '#search_button',function(){
+            $.ajax({
+                url: Routing.generate('search_vacancies'),
+                data:{
+                  region: $('#region').val(),
+                  vacancy: $('#vacancy').val(),
+                },
+                success:function(data) {
+                    $('#result_area').html(' ');
+                    if (data.success){
+                        $('#result_area').append('Racoon Poloscoon');
+                    }else{
+                        $('#result_area').append('Even your mother');
+                    }
+                }
+            });
+        });
+
         $(document).ready(function (){
             var arrRegions =[];
             $.ajax({

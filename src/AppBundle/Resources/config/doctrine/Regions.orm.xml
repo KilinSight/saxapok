@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Regions" table="regions">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="regionCode" type="text" column="region_code" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="name" type="text" column="name" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="home" type="float" column="home" precision="10" scale="0" nullable="false"/>
+    <field name="economicGrowth" type="float" column="economic_growth" precision="10" scale="0" nullable="false"/>
+    <field name="kindergartenCount" type="integer" column="kindergarten_count" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="avgSalary" type="float" column="avg_salary" precision="10" scale="0" nullable="false"/>
+    <field name="priceLevel" type="float" column="price_level" precision="10" scale="0" nullable="false"/>
+    <field name="unemploymentLevel" type="float" column="unemployment_level" precision="10" scale="0" nullable="false"/>
+  </entity>
+</doctrine-mapping>
