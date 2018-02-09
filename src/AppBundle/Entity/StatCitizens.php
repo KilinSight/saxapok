@@ -41,6 +41,102 @@ class StatCitizens
     private $avgSalary;
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getResumeCount()
+    {
+        return $this->resumeCount;
+    }
+
+    /**
+     * @param int $resumeCount
+     */
+    public function setResumeCount($resumeCount)
+    {
+        $this->resumeCount = $resumeCount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAvgSalary()
+    {
+        return $this->avgSalary;
+    }
+
+    /**
+     * @param float $avgSalary
+     */
+    public function setAvgSalary($avgSalary)
+    {
+        $this->avgSalary = $avgSalary;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Regions
+     */
+    public function getRegionCode()
+    {
+        return $this->regionCode;
+    }
+
+    /**
+     * @param Regions $regionCode
+     */
+    public function setRegionCode($regionCode)
+    {
+        $this->regionCode = $regionCode;
+    }
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")

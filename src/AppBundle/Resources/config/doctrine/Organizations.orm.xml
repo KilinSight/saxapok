@@ -12,11 +12,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="creationDate" type="integer" column="creation_date" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
+    <field name="creationDate" type="date" column="creation_date" nullable="false"/>
     <field name="ogrn" type="text" column="ogrn" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
@@ -47,16 +43,8 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="dateModify" type="text" column="date_modify" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="deleted" type="text" column="deleted" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
+    <field name="dateModify" type="date" column="date_modify" nullable="false"/>
+    <field name="deleted" type="boolean" column="deleted" nullable="false"/>
     <field name="status" type="text" column="status" length="65535" nullable="false">
       <options>
         <option name="fixed"/>

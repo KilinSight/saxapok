@@ -181,6 +181,7 @@
             <div class="container col-sm-12">
                 <div class="row get-regions">
                     <button class="btn btn-success btn-lg" id="update_db" type="button"> Обновить базу</button>
+                    <button class="btn btn-success btn-lg" id="get_raw_xml" type="button"> Прочитать xml</button>
                     <label for="update_db">(операция занимает около 30 минут)</label>
                 </div>
             </div>
@@ -197,29 +198,66 @@
         var progress = {'done':false, 'offset':0};
         var count = 1;
         var timeout;
+        var urlsArray = {
+            'vacancy':'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml',
+            'cv' : 'http://opendata.trudvsem.ru/7710538364-cv/data-20180206T053855-structure-20161130T143000.xml',
+            'organization' : 'http://opendata.trudvsem.ru/7710538364-organizations/data-20180206T053855-structure-20161130T143000.xml',
+            'region' : 'http://opendata.trudvsem.ru/7710538364-regions/data-20180206T053855-structure-20161130T143000.xml',
+            'prof' : 'http://opendata.trudvsem.ru/7710538364-professions/data-20180206T053855-structure-20161130T143000.xml',
+            'industry' : 'http://opendata.trudvsem.ru/7710538364-industries/data-20180206T053855-structure-20161130T143000.xml'
+            // 'stats_citizens' : 'http://opendata.trudvsem.ru/7710538364-stat-citizens/data-20180205T050000-structure-20170101T000000.xml',
+            // 'stats_company' : 'http://opendata.trudvsem.ru/7710538364-stat-company/data-20180205T050000-structure-20170101T000000.xml'
+        };
         var sendAjaxVacancies = function (progress) {
+            // $.each(urlsArray,function(indexUrl, itemUrl){
+                $.ajax({
+                    url: Routing.generate('api_vacancies'),
+                    data: {
+                        // url:itemUrl,
+                        // name: indexUrl,
+                        url: 'http://opendata.trudvsem.ru/7710538364-professions/data-20180206T053855-structure-20161130T143000.xml',
+                        name: 'prof',
+                        limit: 100,
+                        offset: progress.offset
+                    },
+                    success: function (arr) {
+                        data = JSON.parse(arr);
+                        if (!progress.done){
+                            progress.offset = data.offset;
+                            progress.done = data.done;
+                            // timeout = setTimeout(sendAjaxVacancies,5000,progress);
+                        }else{
+                            progress.offset = data.offset;
+                            progress.done = data.done;
+                            // clearTimeout(timeout);
+                        }
+                    }
+                });
+            // });
+
+        };
+        var getRawXml = function(){
             $.ajax({
-                url: Routing.generate('api_vacancies'),
+                url: Routing.generate('get_raw_xml'),
                 data: {
-                    limit: 9999999,
-                    offset: progress.offset
+                    // url:itemUrl,
+                    // name: indexUrl,
+                    url: urlsArray['prof'],
+                    name: 'prof',
+                    limit: 100,
+                    offset: 0
                 },
                 success: function (arr) {
-                    data = JSON.parse(arr);
-                    if (!progress.done){
-                        progress.offset = data.offset;
-                        progress.done = data.done;
-                        // timeout = setTimeout(sendAjaxVacancies,5000,progress);
-                    }else{
-                        progress.offset = data.offset;
-                        progress.done = data.done;
-                        // clearTimeout(timeout);
-                    }
                 }
             });
         };
+
         $('#update_db').on('click',function(){
             sendAjaxVacancies(progress);
+        });
+
+        $('#get_raw_xml').on('click',function(){
+            getRawXml();
         });
 
         $(document).on('click', '#search_button',function(){

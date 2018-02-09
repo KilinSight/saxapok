@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Vacancy;
 use AppBundle\Repository\VacancyRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
 use DoctrineTest\InstantiatorTestAsset\XMLReaderAsset;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -38,7 +40,28 @@ class ApiController extends Controller
 //        $url = 'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml';
 
         $content = simplexml_load_file($url);
-        return new JsonResponse(json_encode($content));
+        return new JsonResponse($content);
+    }
+
+    /**
+     * @Route("/api/get_raw_xml", name="get_raw_xml", options = {"expose" : true})
+     * @param Request $request
+     * @return mixed
+     */
+    public function readRawXMLAction(Request $request)
+    {
+        $result=[];
+        $limit = $request->get('limit');
+        $offset = $request->get('offset');
+        $url = $request->get('url');
+        $xmlReader = new \XMLReader();
+        $xmlReader->open($url,true,LIBXML_PARSEHUGE);
+        $i=0;
+        while ($xmlReader->read() && $i++<$limit+$offset) {
+            $result[$xmlReader->name] = $xmlReader->value;
+        }
+
+        return new JsonResponse($result);
     }
 
     /**
@@ -48,14 +71,37 @@ class ApiController extends Controller
      */
     public function getVacanciesAction(Request $request)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $limit = $request->get('limit');
         $offset = $request->get('offset');
-        $url = 'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml';
+        $url = $request->get('url');
+        $name = $request->get('name');
+//        $urlsArray = [
+//            'vacancies' =>'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml',
+//            'resumes' => 'http://opendata.trudvsem.ru/7710538364-cv/data-20180206T053855-structure-20161130T143000.xml',
+//            'organizations' => 'http://opendata.trudvsem.ru/7710538364-organizations/data-20180206T053855-structure-20161130T143000.xml',
+//            'regions' => 'http://opendata.trudvsem.ru/7710538364-regions/data-20180206T053855-structure-20161130T143000.xml',
+//            'professions' => 'http://opendata.trudvsem.ru/7710538364-professions/data-20180206T053855-structure-20161130T143000.xml',
+//            'spheres' => 'http://opendata.trudvsem.ru/7710538364-industries/data-20180206T053855-structure-20161130T143000.xml',
+//            'stats_citizens' => 'http://opendata.trudvsem.ru/7710538364-stat-citizens/data-20180205T050000-structure-20170101T000000.xml',
+//            'stats_company' => 'http://opendata.trudvsem.ru/7710538364-stat-company/data-20180205T050000-structure-20170101T000000.xml'
+//        ];
+//        $vacancyUrl = 'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml';
+//        $resumesUrl = 'http://opendata.trudvsem.ru/7710538364-cv/data-20180206T053855-structure-20161130T143000.xml';
+//        $organizationsUrl = 'http://opendata.trudvsem.ru/7710538364-organizations/data-20180206T053855-structure-20161130T143000.xml';
+//        $regionsUrl = 'http://opendata.trudvsem.ru/7710538364-regions/data-20180206T053855-structure-20161130T143000.xml';
+//        $professionsUrl = 'http://opendata.trudvsem.ru/7710538364-professions/data-20180206T053855-structure-20161130T143000.xml';
+//        $spheresUrl = 'http://opendata.trudvsem.ru/7710538364-industries/data-20180206T053855-structure-20161130T143000.xml';
+//        $statsCitizensUrl = 'http://opendata.trudvsem.ru/7710538364-stat-citizens/data-20180205T050000-structure-20170101T000000.xml';
+//        $statsCompaniesUrl = 'http://opendata.trudvsem.ru/7710538364-stat-company/data-20180205T050000-structure-20170101T000000.xml';
 
         /** @var \XMLReader $xmlReader */
-        $content = $this->ParseXML($url,'vacancy',$limit,$offset);
-        return new JsonResponse(json_encode($content));
+
+        var_dump($url);
+        $content = $this->ParseXML($url,$name,$limit,$offset);
+        $result[]=$content;
+        return new JsonResponse($content);
     }
 
     private function ParseXML($url,$name,$limit = 1000, $offset = 0){
@@ -67,6 +113,7 @@ class ApiController extends Controller
         $xmlReader = new \XMLReader();
         $xmlReader->open($url,true,LIBXML_PARSEHUGE);
         $found = false;
+        $foundAttribute = [];
         $i=0;
         while ($xmlReader->read() && $i++<$limit+$offset) {
             if ($i === 0){
@@ -77,35 +124,68 @@ class ApiController extends Controller
             if ($startName === $xmlReader->name && $xmlReader->nodeType === \XMLReader::END_ELEMENT){
                 $progress['done'] = true;
             }
+
             while ($xmlReader->read() && $xmlReader->name !== $name) {
                 $nextName = $xmlReader->name;
                 $found = false;
+                $foundAttribute['success'] = false;
+                $foundAttribute['result'] = '';
+                if ($xmlReader->getAttribute('resource') !== null) {
+                    $foundAttribute['result'] = $this->parseNode($xmlReader->getAttribute('resource'));
+                    $foundAttribute['success'] = true;
+//                    print_r("\n");
+//                    print_r($xmlReader->name.' : '.$xmlReader->getAttribute('resource'));
+//                    print_r($xmlReader->name.' : '.$this->parseNode($xmlReader->getAttribute('resource')));
+                }
+                if ($xmlReader->getAttribute('about') !== null) {
+                    $foundAttribute['result'] = $this->parseNode($xmlReader->getAttribute('about'));
+                    $foundAttribute['success'] = true;
+                }
+
                 if ($xmlReader->nodeType !== \XMLReader::END_ELEMENT) {
                     while ($xmlReader->read() && $xmlReader->name !== $nextName) {
                         if ($xmlReader->nodeType !== \XMLReader::END_ELEMENT) {
                             if ($xmlReader->hasValue) {
                                 $result['' . $nextName] = $xmlReader->value?$xmlReader->value:' ';
                                 $found = true;
-                            } else {
+                            } elseif($foundAttribute['success']) {
+                                $result['' . $nextName] = $foundAttribute['result'];
+                            }else{
                                 $result['' . $nextName] = ' ';
                             }
                         } else {
-                            if (!$found) {
-                                $result['' . $nextName] = ' ';
+                            if (!$foundAttribute['success']) {
+                                if (!$found){
+                                    $result['' . $nextName] = ' ';
+                                }
+                            }else{
+                                $result['' . $nextName] = $foundAttribute['result'];
                             }
                         }
                     }
                     if ($nextName === $xmlReader->name && !$found) {
-                        $result['' . $nextName] = ' ';
+                        if (!$foundAttribute['success']){
+                            $result['' . $nextName] = ' ';
+                        }else{
+                            $result['' . $nextName] = $foundAttribute['result'];
+                        }
+
                     }
                 }else{
-                    $result['' . $nextName] = ' ';
+                    if (!$foundAttribute['success']) {
+                        if (!$found){
+                            $result['' . $nextName] = ' ';
+                        }
+                    }else{
+                        $result['' . $nextName] = $foundAttribute['result'];
+                    }
                 }
             }
             $vac = $em->getRepository('AppBundle\Entity\Vacancy')->findBy(['identifier' => $result['identifier']]);
             if (!$vac){
-                $this->setVacancyToDB($result);
-                unset($result);
+                print_r($result);
+//                $this->setVacancyToDB($result);
+//                unset($result);
             }else{
                 unset($result);
             }
@@ -114,6 +194,16 @@ class ApiController extends Controller
         }
         return $progress;
     }
+
+    /**@param String $node
+ *
+ * @return integer
+ */
+    public function parseNode($node){
+        $attribute = array_pop(explode('#',$node));
+        return $attribute;
+    }
+
 
     /**@param array $result*/
     private function setVacancyToDB($result){

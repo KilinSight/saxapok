@@ -62,6 +62,150 @@ class StatCompany
     private $largeOver500Count;
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAllCount()
+    {
+        return $this->allCount;
+    }
+
+    /**
+     * @param int $allCount
+     */
+    public function setAllCount($allCount)
+    {
+        $this->allCount = $allCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMicro50Count()
+    {
+        return $this->micro50Count;
+    }
+
+    /**
+     * @param int $micro50Count
+     */
+    public function setMicro50Count($micro50Count)
+    {
+        $this->micro50Count = $micro50Count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSmall100Count()
+    {
+        return $this->small100Count;
+    }
+
+    /**
+     * @param int $small100Count
+     */
+    public function setSmall100Count($small100Count)
+    {
+        $this->small100Count = $small100Count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMiddle250Count()
+    {
+        return $this->middle250Count;
+    }
+
+    /**
+     * @param int $middle250Count
+     */
+    public function setMiddle250Count($middle250Count)
+    {
+        $this->middle250Count = $middle250Count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBig500Count()
+    {
+        return $this->big500Count;
+    }
+
+    /**
+     * @param int $big500Count
+     */
+    public function setBig500Count($big500Count)
+    {
+        $this->big500Count = $big500Count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLargeOver500Count()
+    {
+        return $this->largeOver500Count;
+    }
+
+    /**
+     * @param int $largeOver500Count
+     */
+    public function setLargeOver500Count($largeOver500Count)
+    {
+        $this->largeOver500Count = $largeOver500Count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Regions
+     */
+    public function getRegionCode()
+    {
+        return $this->regionCode;
+    }
+
+    /**
+     * @param Regions $regionCode
+     */
+    public function setRegionCode($regionCode)
+    {
+        $this->regionCode = $regionCode;
+    }
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")

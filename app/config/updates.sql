@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 02 2018 г., 17:00
+-- Время создания: Фев 06 2018 г., 15:10
 -- Версия сервера: 5.5.53
 -- Версия PHP: 5.6.29
 
@@ -45,6 +45,23 @@ CREATE TABLE `organizations` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `professions`
+--
+
+CREATE TABLE `professions` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `creation_date` date NOT NULL,
+  `category` text NOT NULL,
+  `etks` int(11) NOT NULL,
+  `modify_date` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `regions`
 --
 
@@ -58,6 +75,58 @@ CREATE TABLE `regions` (
   `avg_salary` double NOT NULL,
   `price_level` double NOT NULL,
   `unemployment_level` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `resumes`
+--
+
+CREATE TABLE `resumes` (
+  `id` int(11) NOT NULL,
+  `region_code` int(11) NOT NULL,
+  `industry` text NOT NULL,
+  `job_title` text NOT NULL,
+  `demands` text NOT NULL,
+  `qualification` text NOT NULL,
+  `graduate_year` text NOT NULL,
+  `specialty` text NOT NULL,
+  `legal_name` text NOT NULL,
+  `faculty` text NOT NULL,
+  `add_course_name` text NOT NULL,
+  `add_legal_name` text NOT NULL,
+  `drive_license` text NOT NULL,
+  `skills` text NOT NULL,
+  `country_name` text NOT NULL,
+  `publish_date` datetime NOT NULL,
+  `schedule_type` text NOT NULL,
+  `experience` text NOT NULL,
+  `salary` double NOT NULL,
+  `additional_skills` int(11) NOT NULL,
+  `busy_type` int(11) NOT NULL,
+  `candidate_id` int(11) NOT NULL,
+  `other_info` int(11) NOT NULL,
+  `visibility` int(11) NOT NULL,
+  `date_modify` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `fullness_rate` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `spheres`
+--
+
+CREATE TABLE `spheres` (
+  `id` int(11) NOT NULL,
+  `code` text NOT NULL,
+  `name` text NOT NULL,
+  `creation_date` date NOT NULL,
+  `modify_date` date NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -133,6 +202,13 @@ CREATE TABLE `vacancy` (
 -- Индексы таблицы `organizations`
 --
 ALTER TABLE `organizations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `region_code` (`region_code`);
+
+--
+-- Индексы таблицы `professions`
+--
+ALTER TABLE `professions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -142,16 +218,31 @@ ALTER TABLE `regions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `resumes`
+--
+ALTER TABLE `resumes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `region_code` (`region_code`);
+
+--
+-- Индексы таблицы `spheres`
+--
+ALTER TABLE `spheres`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `stat_citizens`
 --
 ALTER TABLE `stat_citizens`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `region_code` (`region_code`);
 
 --
 -- Индексы таблицы `stat_company`
 --
 ALTER TABLE `stat_company`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `region_code` (`region_code`);
 
 --
 -- Индексы таблицы `vacancy`
@@ -170,9 +261,24 @@ ALTER TABLE `vacancy`
 ALTER TABLE `organizations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT для таблицы `professions`
+--
+ALTER TABLE `professions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT для таблицы `regions`
 --
 ALTER TABLE `regions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `resumes`
+--
+ALTER TABLE `resumes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `spheres`
+--
+ALTER TABLE `spheres`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `stat_citizens`
@@ -194,6 +300,30 @@ ALTER TABLE `vacancy`
 --
 
 --
+-- Ограничения внешнего ключа таблицы `organizations`
+--
+ALTER TABLE `organizations`
+  ADD CONSTRAINT `organizations_ibfk_1` FOREIGN KEY (`region_code`) REFERENCES `regions` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `resumes`
+--
+ALTER TABLE `resumes`
+  ADD CONSTRAINT `resumes_ibfk_1` FOREIGN KEY (`region_code`) REFERENCES `regions` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `stat_citizens`
+--
+ALTER TABLE `stat_citizens`
+  ADD CONSTRAINT `stat_citizens_ibfk_1` FOREIGN KEY (`region_code`) REFERENCES `regions` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `stat_company`
+--
+ALTER TABLE `stat_company`
+  ADD CONSTRAINT `stat_company_ibfk_1` FOREIGN KEY (`region_code`) REFERENCES `regions` (`id`) ON DELETE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `vacancy`
 --
 ALTER TABLE `vacancy`
@@ -202,6 +332,3 @@ ALTER TABLE `vacancy`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-ALTER TABLE `organizations` ADD  FOREIGN KEY (`region_code`) REFERENCES `regions`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `stat_citizens` ADD  FOREIGN KEY (`region_code`) REFERENCES `regions`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-ALTER TABLE `stat_company` ADD  FOREIGN KEY (`region_code`) REFERENCES `regions`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;

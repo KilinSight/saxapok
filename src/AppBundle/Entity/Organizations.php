@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * Organizations
@@ -20,9 +20,9 @@ class Organizations
     private $title;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="creation_date", type="integer", nullable=false)
+     * @ORM\Column(name="creation_date", type="date", nullable=false)
      */
     private $creationDate;
 
@@ -69,16 +69,16 @@ class Organizations
     private $businessSize;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="date_modify", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="date_modify", type="date", nullable=false)
      */
     private $dateModify;
 
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="deleted", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="deleted", type="boolean", nullable=false)
      */
     private $deleted;
 
@@ -88,6 +88,118 @@ class Organizations
      * @ORM\Column(name="status", type="text", length=65535, nullable=false)
      */
     private $status;
+
+    /**
+     * @return string
+     */
+    public function getRateCompany()
+    {
+        return $this->rateCompany;
+    }
+
+    /**
+     * @param string $rateCompany
+     */
+    public function setRateCompany($rateCompany)
+    {
+        $this->rateCompany = $rateCompany;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusinessSize()
+    {
+        return $this->businessSize;
+    }
+
+    /**
+     * @param string $businessSize
+     */
+    public function setBusinessSize($businessSize)
+    {
+        $this->businessSize = $businessSize;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateModify()
+    {
+        return $this->dateModify;
+    }
+
+    /**
+     * @param \DateTime $dateModify
+     */
+    public function setDateModify($dateModify)
+    {
+        $this->dateModify = $dateModify;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Regions
+     */
+    public function getRegionCode()
+    {
+        return $this->regionCode;
+    }
+
+    /**
+     * @param Regions $regionCode
+     */
+    public function setRegionCode($regionCode)
+    {
+        $this->regionCode = $regionCode;
+    }
 
     /**
      * @var integer
@@ -107,6 +219,102 @@ class Organizations
      * })
      */
     private $regionCode;
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param \DateTime $creationDate
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOgrn()
+    {
+        return $this->ogrn;
+    }
+
+    /**
+     * @param string $ogrn
+     */
+    public function setOgrn($ogrn)
+    {
+        $this->ogrn = $ogrn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInn()
+    {
+        return $this->inn;
+    }
+
+    /**
+     * @param string $inn
+     */
+    public function setInn($inn)
+    {
+        $this->inn = $inn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKpp()
+    {
+        return $this->kpp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdressCode()
+    {
+        return $this->adressCode;
+    }
+
+    /**
+     * @param string $adressCode
+     */
+    public function setAdressCode($adressCode)
+    {
+        $this->adressCode = $adressCode;
+    }
+
+    /**
+     * @param string $kpp
+     */
+    public function setKpp($kpp)
+    {
+        $this->kpp = $kpp;
+    }
 
 
 }
