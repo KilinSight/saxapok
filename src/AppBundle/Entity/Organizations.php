@@ -2,12 +2,12 @@
 
 namespace AppBundle\Entity;
 
-
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Organizations
  *
- * @ORM\Table(name="organizations", indexes={@ORM\Index(name="region_code", columns={"region_code"})})
+ * @ORM\Table(name="organizations", indexes={@ORM\Index(name="region_id", columns={"region_id"})})
  * @ORM\Entity
  */
 class Organizations
@@ -15,9 +15,9 @@ class Organizations
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="name", type="text", length=65535, nullable=false)
      */
-    private $title;
+    private $name;
 
     /**
      * @var \DateTime
@@ -29,9 +29,9 @@ class Organizations
     /**
      * @var string
      *
-     * @ORM\Column(name="ogrn", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="legal_name", type="text", length=65535, nullable=false)
      */
-    private $ogrn;
+    private $legalName;
 
     /**
      * @var string
@@ -43,13 +43,6 @@ class Organizations
     /**
      * @var string
      *
-     * @ORM\Column(name="kpp", type="text", length=65535, nullable=false)
-     */
-    private $kpp;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="adress_code", type="text", length=65535, nullable=false)
      */
     private $adressCode;
@@ -57,9 +50,9 @@ class Organizations
     /**
      * @var string
      *
-     * @ORM\Column(name="rate_company", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="first_rate_company", type="text", length=65535, nullable=false)
      */
-    private $rateCompany;
+    private $firstRateCompany;
 
     /**
      * @var string
@@ -69,171 +62,19 @@ class Organizations
     private $businessSize;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_modify", type="date", nullable=false)
-     */
-    private $dateModify;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="deleted", type="boolean", nullable=false)
-     */
-    private $deleted;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="text", length=65535, nullable=false)
-     */
-    private $status;
-
-    /**
      * @return string
      */
-    public function getRateCompany()
+    public function getName()
     {
-        return $this->rateCompany;
+        return $this->name;
     }
 
     /**
-     * @param string $rateCompany
+     * @param string $name
      */
-    public function setRateCompany($rateCompany)
+    public function setName($name)
     {
-        $this->rateCompany = $rateCompany;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBusinessSize()
-    {
-        return $this->businessSize;
-    }
-
-    /**
-     * @param string $businessSize
-     */
-    public function setBusinessSize($businessSize)
-    {
-        $this->businessSize = $businessSize;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateModify()
-    {
-        return $this->dateModify;
-    }
-
-    /**
-     * @param \DateTime $dateModify
-     */
-    public function setDateModify($dateModify)
-    {
-        $this->dateModify = $dateModify;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDeleted()
-    {
-        return $this->deleted;
-    }
-
-    /**
-     * @param bool $deleted
-     */
-    public function setDeleted($deleted)
-    {
-        $this->deleted = $deleted;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return Regions
-     */
-    public function getRegionCode()
-    {
-        return $this->regionCode;
-    }
-
-    /**
-     * @param Regions $regionCode
-     */
-    public function setRegionCode($regionCode)
-    {
-        $this->regionCode = $regionCode;
-    }
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
-     * @var \AppBundle\Entity\Regions
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Regions")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="region_code", referencedColumnName="id")
-     * })
-     */
-    private $regionCode;
-
-    /**
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
+        $this->name = $name;
     }
 
     /**
@@ -255,17 +96,17 @@ class Organizations
     /**
      * @return string
      */
-    public function getOgrn()
+    public function getLegalName()
     {
-        return $this->ogrn;
+        return $this->legalName;
     }
 
     /**
-     * @param string $ogrn
+     * @param string $legalName
      */
-    public function setOgrn($ogrn)
+    public function setLegalName($legalName)
     {
-        $this->ogrn = $ogrn;
+        $this->legalName = $legalName;
     }
 
     /**
@@ -287,14 +128,6 @@ class Organizations
     /**
      * @return string
      */
-    public function getKpp()
-    {
-        return $this->kpp;
-    }
-
-    /**
-     * @return string
-     */
     public function getAdressCode()
     {
         return $this->adressCode;
@@ -309,11 +142,132 @@ class Organizations
     }
 
     /**
-     * @param string $kpp
+     * @return string
      */
-    public function setKpp($kpp)
+    public function getFirstRateCompany()
     {
-        $this->kpp = $kpp;
+        return $this->firstRateCompany;
+    }
+
+    /**
+     * @param string $firstRateCompany
+     */
+    public function setFirstRateCompany($firstRateCompany)
+    {
+        $this->firstRateCompany = $firstRateCompany;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusinessSize()
+    {
+        return $this->businessSize;
+    }
+
+    /**
+     * @param string $businessSize
+     */
+    public function setBusinessSize($businessSize)
+    {
+        $this->businessSize = $businessSize;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
+    /**
+     * @return Organizations
+     */
+    public function getOrganizationId()
+    {
+        return $this->organizationId;
+    }
+
+    /**
+     * @param Organizations $organizationId
+     */
+    public function setOrganizationId($organizationId)
+    {
+        $this->organizationId = $organizationId;
+    }
+
+    /**
+     * @return Regions
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param Regions $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=false)
+     */
+    private $deleted;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="organization_id", type="text")
+     */
+    private $organizationId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="organization_id", type="int")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="Identity")
+     */
+    private $id;
+
+    /**
+     * @var \AppBundle\Entity\Regions
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Regions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="region_id", referencedColumnName="region_id")
+     * })
+     */
+    private $region;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 

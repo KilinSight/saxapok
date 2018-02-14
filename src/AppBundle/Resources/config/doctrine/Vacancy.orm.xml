@@ -2,50 +2,33 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AppBundle\Entity\Vacancy" table="vacancy">
     <indexes>
-      <index name="region" columns="region"/>
+      <index name="region__id" columns="region__id"/>
+      <index name="organization_id" columns="organization_id"/>
+      <index name="industry_id" columns="industry_id"/>
+      <index name="profession_id" columns="profession_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="organization" type="text" column="organization" length="65535" nullable="false">
+    <field name="vacancyId" type="text" column="vacancy_id" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="industry" type="text" column="industry" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="profession" type="text" column="profession" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="creationdate" type="date" column="creationDate" nullable="false"/>
-    <field name="dateposted" type="datetime" column="datePosted" nullable="false"/>
-    <field name="identifier" type="text" column="identifier" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="hiringorganization" type="text" column="hiringOrganization" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="basesalary" type="float" column="baseSalary" precision="10" scale="0" nullable="false"/>
+    <field name="creationDate" type="date" column="creation_date" nullable="false"/>
+    <field name="datePosted" type="datetime" column="date_posted" nullable="false"/>
+    <field name="baseSalary" type="float" column="base_salary" precision="10" scale="0" nullable="false"/>
     <field name="title" type="text" column="title" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="employmenttype" type="text" column="employmentType" length="65535" nullable="false">
+    <field name="employmentType" type="text" column="employment_type" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="workhours" type="text" column="workHours" length="65535" nullable="false">
+    <field name="workHours" type="text" column="work_hours" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
@@ -55,7 +38,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="incentivecompensation" type="text" column="incentiveCompensation" length="65535" nullable="false">
+    <field name="incentiveCompensation" type="text" column="incentive_compensation" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
@@ -65,12 +48,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="socialprotecteds" type="text" column="socialProtecteds" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="metrostations" type="text" column="metroStations" length="65535" nullable="false">
+    <field name="socialProtecteds" type="text" column="social_protecteds" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
@@ -80,29 +58,40 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="workplaces" type="integer" column="workPlaces" nullable="false">
+    <field name="workPlaces" type="integer" column="work_places" nullable="false">
       <options>
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="additionalinfo" type="text" column="additionalInfo" length="65535" nullable="false">
+    <field name="additionalInfo" type="text" column="additional_info" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="deleted" type="text" column="deleted" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
+    <field name="deleted" type="boolean" column="deleted" nullable="false"/>
     <field name="vacurl" type="text" column="vacUrl" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
     </field>
+    <many-to-one field="industry" target-entity="Industries" fetch="LAZY">
+      <join-columns>
+        <join-column name="industry_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="organization" target-entity="Organizations" fetch="LAZY">
+      <join-columns>
+        <join-column name="organization_id" referenced-column-name="id" />
+      </join-columns>
+    </many-to-one>
     <many-to-one field="region" target-entity="Regions" fetch="LAZY">
       <join-columns>
-        <join-column name="region" referenced-column-name="id"/>
+        <join-column name="region__id" referenced-column-name="region_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="profession" target-entity="Professions" fetch="LAZY" >
+      <join-columns>
+        <join-column name="profession_id" referenced-column-name="id" nullable="true"/>
       </join-columns>
     </many-to-one>
   </entity>

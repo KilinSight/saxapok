@@ -2,18 +2,24 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AppBundle\Entity\Organizations" table="organizations">
     <indexes>
-      <index name="region_code" columns="region_code"/>
+      <index name="id" columns="id"/>
+      <index name="region_id" columns="region_id"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="title" type="text" column="title" length="65535" nullable="false">
+    <field name="organizationId" type="text" column="organization_id" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="name" type="text" column="name" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
     </field>
     <field name="creationDate" type="date" column="creation_date" nullable="false"/>
-    <field name="ogrn" type="text" column="ogrn" length="65535" nullable="false">
+    <field name="legalName" type="text" column="legal_name" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
@@ -23,17 +29,12 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="kpp" type="text" column="kpp" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
     <field name="adressCode" type="text" column="adress_code" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="rateCompany" type="text" column="rate_company" length="65535" nullable="false">
+    <field name="firstRateCompany" type="text" column="first_rate_company" length="65535" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
@@ -43,16 +44,10 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="dateModify" type="date" column="date_modify" nullable="false"/>
     <field name="deleted" type="boolean" column="deleted" nullable="false"/>
-    <field name="status" type="text" column="status" length="65535" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <many-to-one field="regionCode" target-entity="Regions" fetch="LAZY">
+    <many-to-one field="region" target-entity="Regions" fetch="LAZY">
       <join-columns>
-        <join-column name="region_code" referenced-column-name="id"/>
+        <join-column name="region_id" referenced-column-name="region_id"/>
       </join-columns>
     </many-to-one>
   </entity>

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Vacancy
  *
- * @ORM\Table(name="vacancy", indexes={@ORM\Index(name="region", columns={"region"})})
+ * @ORM\Table(name="vacancy", indexes={@ORM\Index(name="region__id", columns={"region__id"}), @ORM\Index(name="organization_id", columns={"organization_id"}), @ORM\Index(name="industry_id", columns={"industry_id"}), @ORM\Index(name="profession_id", columns={"profession_id"})})
  * @ORM\Entity
  */
 class Vacancy
@@ -15,143 +15,206 @@ class Vacancy
     /**
      * @var string
      *
-     * @ORM\Column(name="organization", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="vacancy_id", type="text", length=65535, nullable=false)
      */
-    private $organization;
+    private $vacancyId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_date", type="date", nullable=false)
+     */
+    private $creationDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_posted", type="datetime", nullable=false)
+     */
+    private $datePosted;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="base_salary", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $baseSalary;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="industry", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="title", type="text", length=65535, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="employment_type", type="text", length=65535, nullable=false)
+     */
+    private $employmentType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="work_hours", type="text", length=65535, nullable=false)
+     */
+    private $workHours;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="responsibilities", type="text", length=65535, nullable=false)
+     */
+    private $responsibilities;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="incentive_compensation", type="text", length=65535, nullable=false)
+     */
+    private $incentiveCompensation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="requirements", type="text", length=65535, nullable=false)
+     */
+    private $requirements;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="social_protecteds", type="text", length=65535, nullable=false)
+     */
+    private $socialProtecteds;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source", type="text", length=65535, nullable=false)
+     */
+    private $source;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="work_places", type="integer", nullable=false)
+     */
+    private $workPlaces;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="additional_info", type="text", length=65535, nullable=false)
+     */
+    private $additionalInfo;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=false)
+     */
+    private $deleted;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vacUrl", type="text", length=65535, nullable=false)
+     */
+    private $vacurl;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="Identity")
+     */
+    private $id;
+
+    /**
+     * @var \AppBundle\Entity\Industries
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Industries")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="industry_id", referencedColumnName="id", nullable=true)
+     * })
      */
     private $industry;
 
     /**
-     * @return string
+     * @var \AppBundle\Entity\Organizations
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organizations")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="organization_id", referencedColumnName="id", nullable=true)
+     * })
      */
-    public function getOrganization()
-    {
-        return $this->organization;
-    }
-
-    /**
-     * @param string $organization
-     */
-    public function setOrganization($organization)
-    {
-        $this->organization = $organization;
-    }
+    private $organization;
 
     /**
      * @return string
      */
-    public function getIndustry()
+    public function getVacancyId()
     {
-        return $this->industry;
+        return $this->vacancyId;
     }
 
     /**
-     * @param string $industry
+     * @param string $vacancyId
      */
-    public function setIndustry($industry)
+    public function setVacancyId($vacancyId)
     {
-        $this->industry = $industry;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProfession()
-    {
-        return $this->profession;
-    }
-
-    /**
-     * @param string $profession
-     */
-    public function setProfession($profession)
-    {
-        $this->profession = $profession;
+        $this->vacancyId = $vacancyId;
     }
 
     /**
      * @return \DateTime
      */
-    public function getCreationdate()
+    public function getCreationDate()
     {
-        return $this->creationdate;
+        return $this->creationDate;
     }
 
     /**
-     * @param \DateTime $creationdate
+     * @param \DateTime $creationDate
      */
-    public function setCreationdate($creationdate)
+    public function setCreationDate($creationDate)
     {
-        $this->creationdate = $creationdate;
+        $this->creationDate = $creationDate;
     }
 
     /**
      * @return \DateTime
      */
-    public function getDateposted()
+    public function getDatePosted()
     {
-        return $this->dateposted;
+        return $this->datePosted;
     }
 
     /**
-     * @param \DateTime $dateposted
+     * @param \DateTime $datePosted
      */
-    public function setDateposted($dateposted)
+    public function setDatePosted($datePosted)
     {
-        $this->dateposted = $dateposted;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = $identifier;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHiringorganization()
-    {
-        return $this->hiringorganization;
-    }
-
-    /**
-     * @param string $hiringorganization
-     */
-    public function setHiringorganization($hiringorganization)
-    {
-        $this->hiringorganization = $hiringorganization;
+        $this->datePosted = $datePosted;
     }
 
     /**
      * @return float
      */
-    public function getBasesalary()
+    public function getBaseSalary()
     {
-        return $this->basesalary;
+        return $this->baseSalary;
     }
 
     /**
-     * @param float $basesalary
+     * @param float $baseSalary
      */
-    public function setBasesalary($basesalary)
+    public function setBaseSalary($baseSalary)
     {
-        $this->basesalary = $basesalary;
+        $this->baseSalary = $baseSalary;
     }
 
     /**
@@ -173,33 +236,33 @@ class Vacancy
     /**
      * @return string
      */
-    public function getEmploymenttype()
+    public function getEmploymentType()
     {
-        return $this->employmenttype;
+        return $this->employmentType;
     }
 
     /**
-     * @param string $employmenttype
+     * @param string $employmentType
      */
-    public function setEmploymenttype($employmenttype)
+    public function setEmploymentType($employmentType)
     {
-        $this->employmenttype = $employmenttype;
+        $this->employmentType = $employmentType;
     }
 
     /**
      * @return string
      */
-    public function getWorkhours()
+    public function getWorkHours()
     {
-        return $this->workhours;
+        return $this->workHours;
     }
 
     /**
-     * @param string $workhours
+     * @param string $workHours
      */
-    public function setWorkhours($workhours)
+    public function setWorkHours($workHours)
     {
-        $this->workhours = $workhours;
+        $this->workHours = $workHours;
     }
 
     /**
@@ -221,17 +284,17 @@ class Vacancy
     /**
      * @return string
      */
-    public function getIncentivecompensation()
+    public function getIncentiveCompensation()
     {
-        return $this->incentivecompensation;
+        return $this->incentiveCompensation;
     }
 
     /**
-     * @param string $incentivecompensation
+     * @param string $incentiveCompensation
      */
-    public function setIncentivecompensation($incentivecompensation)
+    public function setIncentiveCompensation($incentiveCompensation)
     {
-        $this->incentivecompensation = $incentivecompensation;
+        $this->incentiveCompensation = $incentiveCompensation;
     }
 
     /**
@@ -253,33 +316,17 @@ class Vacancy
     /**
      * @return string
      */
-    public function getSocialprotecteds()
+    public function getSocialProtecteds()
     {
-        return $this->socialprotecteds;
+        return $this->socialProtecteds;
     }
 
     /**
-     * @param string $socialprotecteds
+     * @param string $socialProtecteds
      */
-    public function setSocialprotecteds($socialprotecteds)
+    public function setSocialProtecteds($socialProtecteds)
     {
-        $this->socialprotecteds = $socialprotecteds;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMetrostations()
-    {
-        return $this->metrostations;
-    }
-
-    /**
-     * @param string $metrostations
-     */
-    public function setMetrostations($metrostations)
-    {
-        $this->metrostations = $metrostations;
+        $this->socialProtecteds = $socialProtecteds;
     }
 
     /**
@@ -301,45 +348,45 @@ class Vacancy
     /**
      * @return int
      */
-    public function getWorkplaces()
+    public function getWorkPlaces()
     {
-        return $this->workplaces;
+        return $this->workPlaces;
     }
 
     /**
-     * @param int $workplaces
+     * @param int $workPlaces
      */
-    public function setWorkplaces($workplaces)
+    public function setWorkPlaces($workPlaces)
     {
-        $this->workplaces = $workplaces;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAdditionalinfo()
-    {
-        return $this->additionalinfo;
-    }
-
-    /**
-     * @param string $additionalinfo
-     */
-    public function setAdditionalinfo($additionalinfo)
-    {
-        $this->additionalinfo = $additionalinfo;
+        $this->workPlaces = $workPlaces;
     }
 
     /**
      * @return string
      */
-    public function getDeleted()
+    public function getAdditionalInfo()
+    {
+        return $this->additionalInfo;
+    }
+
+    /**
+     * @param string $additionalInfo
+     */
+    public function setAdditionalInfo($additionalInfo)
+    {
+        $this->additionalInfo = $additionalInfo;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted()
     {
         return $this->deleted;
     }
 
     /**
-     * @param string $deleted
+     * @param bool $deleted
      */
     public function setDeleted($deleted)
     {
@@ -379,6 +426,38 @@ class Vacancy
     }
 
     /**
+     * @return Industries
+     */
+    public function getIndustry()
+    {
+        return $this->industry;
+    }
+
+    /**
+     * @param Industries $industry
+     */
+    public function setIndustry($industry)
+    {
+        $this->industry = $industry;
+    }
+
+    /**
+     * @return Organizations
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param Organizations $organization
+     */
+    public function setOrganization($organization)
+    {
+        $this->organization = $organization;
+    }
+
+    /**
      * @return Regions
      */
     public function getRegion()
@@ -395,156 +474,40 @@ class Vacancy
     }
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="profession", type="text", length=65535, nullable=false)
+     * @return Professions
      */
-    private $profession;
+    public function getProfession()
+    {
+        return $this->profession;
+    }
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="creationDate", type="date", nullable=false)
+     * @param Professions $profession
      */
-    private $creationdate;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datePosted", type="datetime", nullable=false)
-     */
-    private $dateposted;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="identifier", type="text", length=65535, nullable=false)
-     */
-    private $identifier;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="hiringOrganization", type="text", length=65535, nullable=false)
-     */
-    private $hiringorganization;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="baseSalary", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $basesalary;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="text", length=65535, nullable=false)
-     */
-    private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="employmentType", type="text", length=65535, nullable=false)
-     */
-    private $employmenttype;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="workHours", type="text", length=65535, nullable=false)
-     */
-    private $workhours;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="responsibilities", type="text", length=65535, nullable=false)
-     */
-    private $responsibilities;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="incentiveCompensation", type="text", length=65535, nullable=false)
-     */
-    private $incentivecompensation;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="requirements", type="text", length=65535, nullable=false)
-     */
-    private $requirements;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="socialProtecteds", type="text", length=65535, nullable=false)
-     */
-    private $socialprotecteds;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="metroStations", type="text", length=65535, nullable=false)
-     */
-    private $metrostations;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="source", type="text", length=65535, nullable=false)
-     */
-    private $source;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="workPlaces", type="integer", nullable=false)
-     */
-    private $workplaces;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="additionalInfo", type="text", length=65535, nullable=false)
-     */
-    private $additionalinfo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="deleted", type="text", length=65535, nullable=false)
-     */
-    private $deleted;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="vacUrl", type="text", length=65535, nullable=false)
-     */
-    private $vacurl;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    public function setProfession($profession)
+    {
+        $this->profession = $profession;
+    }
 
     /**
      * @var \AppBundle\Entity\Regions
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Regions")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="region", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="region__id", referencedColumnName="region_id", nullable=true)
      * })
      */
     private $region;
+
+    /**
+     * @var \AppBundle\Entity\Professions
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Professions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="profession_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $profession;
 
 
 }

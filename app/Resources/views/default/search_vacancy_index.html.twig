@@ -198,56 +198,105 @@
         var progress = {'done':false, 'offset':0};
         var count = 1;
         var timeout;
+        var $regionDone = false;
+        var $profDone = false;
+        var $industryDone = false;
+        var $organizationDone = false;
+        var $vacancyDone = false;
+        var $cvDone = false;
+        var tmp = false;
+        var step = 0;
+        var namesArray = {
+            0:'region',
+            1:'prof',
+            2:'industry',
+            3:'organization',
+            4:'cv'
+        };
+
         var urlsArray = {
-            'vacancy':'http://opendata.trudvsem.ru/7710538364-vacancy/data-20180113T031742-structure-20161130T143000.xml',
-            'cv' : 'http://opendata.trudvsem.ru/7710538364-cv/data-20180206T053855-structure-20161130T143000.xml',
-            'organization' : 'http://opendata.trudvsem.ru/7710538364-organizations/data-20180206T053855-structure-20161130T143000.xml',
-            'region' : 'http://opendata.trudvsem.ru/7710538364-regions/data-20180206T053855-structure-20161130T143000.xml',
-            'prof' : 'http://opendata.trudvsem.ru/7710538364-professions/data-20180206T053855-structure-20161130T143000.xml',
-            'industry' : 'http://opendata.trudvsem.ru/7710538364-industries/data-20180206T053855-structure-20161130T143000.xml'
-            // 'stats_citizens' : 'http://opendata.trudvsem.ru/7710538364-stat-citizens/data-20180205T050000-structure-20170101T000000.xml',
-            // 'stats_company' : 'http://opendata.trudvsem.ru/7710538364-stat-company/data-20180205T050000-structure-20170101T000000.xml'
+            0 : 'http://opendata.trudvsem.ru/7710538364-regions/data-20180208T044857-structure-20161130T143000.xml',
+            1 : 'http://opendata.trudvsem.ru/7710538364-professions/data-20180206T053855-structure-20161130T143000.xml',
+            2 : 'http://opendata.trudvsem.ru/7710538364-industries/data-20180206T053855-structure-20161130T143000.xml',
+            3 : 'http://opendata.trudvsem.ru/7710538364-organizations/data-20180206T053855-structure-20161130T143000.xml',
+            4 : 'http://opendata.trudvsem.ru/7710538364-cv/data-20180213T050836-structure-20161130T143000.xml'
         };
         var sendAjaxVacancies = function (progress) {
-            // $.each(urlsArray,function(indexUrl, itemUrl){
-                $.ajax({
-                    url: Routing.generate('api_vacancies'),
-                    data: {
-                        // url:itemUrl,
-                        // name: indexUrl,
-                        url: 'http://opendata.trudvsem.ru/7710538364-professions/data-20180206T053855-structure-20161130T143000.xml',
-                        name: 'prof',
-                        limit: 100,
-                        offset: progress.offset
-                    },
-                    success: function (arr) {
-                        data = JSON.parse(arr);
-                        if (!progress.done){
-                            progress.offset = data.offset;
-                            progress.done = data.done;
-                            // timeout = setTimeout(sendAjaxVacancies,5000,progress);
-                        }else{
-                            progress.offset = data.offset;
-                            progress.done = data.done;
-                            // clearTimeout(timeout);
-                        }
-                    }
-                });
-            // });
 
+            step = 3;
+            // truncateDB();
+            // processDB(progress,urlsArray,namesArray);
+            reProcessVacancy().then(function(result){
+                return processDB(progress,urlsArray,namesArray);
+            });
+
+            // .then(function(result){
+            //     return processDB(progress,urlsArray,namesArray);
+            // });
+            //     .then(function(result){
+            //     return processDB(progress,urlsArray,namesArray);
+            // }).then(function(result){
+            //     return processDB(progress,urlsArray,namesArray);
+            // }).then(function(result){
+            //     return processDB(progress,urlsArray,namesArray);
+            // }).then(function(result){
+            //     return processDB(progress,urlsArray,namesArray);
+            // });
         };
+
+
+        function processDB(progress,urlsArray,namesArray){
+            $.ajax({
+                url: Routing.generate('write_to_db'),
+                data: {
+                    url: urlsArray[step],
+                    name: namesArray[step],
+                    limit: 100000000,
+                    offset: progress.offset
+                },
+                success: function (arr) {
+                    if (arr.done){
+                        progress = {'done':false, 'offset':0};
+                        step++;
+                    }
+                }
+            });
+        }
+
+        function reProcessVacancy(){
+            $.ajax({
+                url: Routing.generate('get_vacancies'),
+                success: function (data) {
+                    if (data.success){
+                        console.log('OK');
+                    }else{
+                        console.log('FUCK');
+                    }
+                }
+            });
+        }
+
         var getRawXml = function(){
             $.ajax({
                 url: Routing.generate('get_raw_xml'),
                 data: {
                     // url:itemUrl,
                     // name: indexUrl,
-                    url: urlsArray['prof'],
-                    name: 'prof',
-                    limit: 100,
+                    url: urlsArray[4],
+                    name: namesArray[4],
+                    limit: 100000000,
                     offset: 0
                 },
                 success: function (arr) {
+                }
+            });
+        };
+
+        var truncateDB = function(){
+            $.ajax({
+                url: Routing.generate('truncate_db'),
+                success: function(){
+                    console.log(success);
                 }
             });
         };
@@ -289,25 +338,11 @@
                         // console.log(item);
                         arrRegions.push({"name": item.name, "code": item.code });
                     });
-
                     sortRegions();
                 }
             });
 
-            // $.ajax({
-            //     url: Routing.generate('api_vacancies'),
-            //     success:function(data) {
-            //         var regions.region = JSON.parse(data);
-            //         console.log(regions);
-            //         // regions.region.map(function(item,key){
-            //         //     console.log(item.name);
-            //         // });
-            //     }
-            // });
-
-
             var arrSort = arrRegions.slice();
-
 
             function sortRegions() {
                 arrRegions.sort(function (a, b) {
