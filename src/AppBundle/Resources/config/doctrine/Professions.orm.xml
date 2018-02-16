@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Professions" table="professions">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="profId" type="bigint" column="prof_id">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="name" type="text" column="name" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="category" type="text" column="category" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="etks" type="integer" column="etks" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="modifyDate" type="date" column="modify_date" nullable="false"/>
+    <field name="deleted" type="boolean" column="deleted" nullable="false"/>
+    <field name="active" type="boolean" column="active" nullable="false"/>
+  </entity>
+</doctrine-mapping>

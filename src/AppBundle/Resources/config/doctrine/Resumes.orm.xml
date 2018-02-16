@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Resumes" table="resumes">
+    <indexes>
+      <index name="region_id" columns="region_id"/>
+      <index name="profession_id" columns="profession_id"/>
+      <index name="industry_id" columns="industry_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cvId" type="text" column="cv_id" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="positionName" type="text" column="position_name" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="creationDate" type="date" column="creation_date" nullable="false"/>
+    <field name="educationList" type="text" column="education_list" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="driveLicenceList" type="text" column="drive_licence_list" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="country" type="text" column="country" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="publishDate" type="date" column="publish_date" nullable="false"/>
+    <field name="scheduleTypeList" type="text" column="schedule_type_list" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="experience" type="integer" column="experience" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="salary" type="float" column="salary" precision="10" scale="0" nullable="false"/>
+    <field name="skills" type="text" column="skills" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="additionalSkills" type="text" column="additional_skills" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="busyType" type="text" column="busy_type" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="relocation" type="text" column="relocation" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="candidateId" type="text" column="candidate_id" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="retrainingCapability" type="text" column="retraining_capability" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="otherInfo" type="text" column="other_info" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="businessTrips" type="text" column="business_trips" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="addCertificates" type="text" column="add_certificates" length="65535" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="profession" target-entity="Professions" fetch="LAZY">
+      <join-columns>
+        <join-column name="profession_id" referenced-column-name="prof_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="region" target-entity="Regions" fetch="LAZY">
+      <join-columns>
+        <join-column name="region_id" referenced-column-name="region_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="industry" target-entity="Industries" fetch="LAZY">
+      <join-columns>
+        <join-column name="industry_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
