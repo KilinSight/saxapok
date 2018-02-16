@@ -223,12 +223,13 @@
         };
         var sendAjaxVacancies = function (progress) {
 
-            step = 3;
+            step = 4;
             // truncateDB();
             // processDB(progress,urlsArray,namesArray);
-            reProcessVacancy().then(function(result){
-                return processDB(progress,urlsArray,namesArray);
-            });
+            reProcessVacancy();
+            //     .then(function(result){
+            //     return processDB(progress,urlsArray,namesArray);
+            // });
 
             // .then(function(result){
             //     return processDB(progress,urlsArray,namesArray);
@@ -264,7 +265,7 @@
         }
 
         function reProcessVacancy(){
-            $.ajax({
+            return $.ajax({
                 url: Routing.generate('get_vacancies'),
                 success: function (data) {
                     if (data.success){

@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
+        h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
+        h1 { font-size: 36px; }
+        h2 { font-size: 21px; margin-bottom: 1em; }
+        p { margin: 0 0 1em 0; }
+        a { color: #0000F0; }
+        a:hover { text-decoration: none; }
+        code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+        #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
+        #container { padding: 2em; }
+
+        #welcome{
+            display:flex;
+            flex-wrap: wrap;
+        }
+
+        .block{
+            width: 100%;
+            display:flex;
+            flex-flow: column wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .title{
+            width: 100%;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .all-settings{
+            width: 100%;
+            display:flex;
+            justify-content: start;
+            align-items: center;
+        }
+
+        .settings-form{
+            width: 100%;
+            display:flex;
+            flex-flow: column wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .settings-title{
+            width: 100%;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .settings-body{
+            width: 100%;
+            display:flex;
+            flex-flow: column wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #welcome, #status { margin-bottom: 2em; }
+        #welcome h1 span { display: block; font-size: 75%; }
+        #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
+        #icon-book { display: none; }
+
+        @media (min-width: 768px) {
+            #wrapper { width: 80%; margin: 2em auto; }
+            #icon-book { display: inline-block; }
+            #status a, #next a { display: block; }
+
+            @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+            @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+            .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
+        }
+
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+        @media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+            }
+        }
+        input {
+            width: 50%;
+            max-width: 80%;
+            z-index: 1;
+            margin: 8px 0 8px 0;
+        }
+
+        .content {
+            min-width: 98%;
+            max-width: calc(100% - 100px);
+            min-height: calc(100vh - 200px);
+        }
+
+        .settings-urls-form{
+            width:100%;
+            display:flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            align-items: center;
+
+        }
+        .settings-urls-form label {
+            width: 22%;
+            padding-left: 24px;
+        }
+
+        .settings-urls-form input{
+            width: 77%;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container col-sm-12">
+            <div class="content">
+                <div id="welcome">
+                    <div class="block">
+                        <div class="title"><h1>Настройки</h1></div>
+                        <div class="all-settings">
+                            <div class="settings-form">
+                                <div class="settings-title">Введите ссылки на XML документы</div>
+                                <div class="settings-body">
+                                    <form action="/settings/save" class="settings-urls-form"  method="post">
+                                        <label for="regions-url">Регионы</label><input class="form-control" type="text" name="regions-url">
+                                        <label for="profs-url">Профессии</label><input class="form-control" type="text" id="profs-url">
+                                        <label for="industries-url">Сферы деятельности</label><input class="form-control" type="text" id="industries-url">
+                                        <label for="organizations-url">Организации</label><input class="form-control" type="text" id="organizations-url">
+                                        <label for="vacancies-url">Вакансии</label><input class="form-control" type="text" id="vacancies-url">
+                                        <label for="resumes-url">Резюме</label><input class="form-control" type="text" id="resumes-url">
+                                        <button type="submit" class="btn btn-default">Сохранить</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+
+    </script>
+{% endblock %}
+

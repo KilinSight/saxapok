@@ -99,8 +99,6 @@ class ApiController extends Controller
 //        $statsCompaniesUrl = 'http://opendata.trudvsem.ru/7710538364-stat-company/data-20180205T050000-structure-20170101T000000.xml';
 
         /** @var \XMLReader $xmlReader */
-
-        var_dump($url);
         $content = $this->ParseXML($url,$name,$limit,$offset);
         $result[]=$content;
         return new JsonResponse($content);
@@ -118,9 +116,9 @@ class ApiController extends Controller
         ];
         $response['status'] = '200';
         $offset = 1;
-        $limit = 1000;
+        $limit = 100;
         $i = 0;
-        while ($response['status'] === '200') {
+        while ($response['status'] === '200' && $i<1000) {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, 'http://opendata.trudvsem.ru/api/v1/vacancies?offset=' . $offset . '&limit=' . $limit);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json')); // Assuming you're requesting JSON
@@ -152,14 +150,14 @@ class ApiController extends Controller
 
                 $this->setVacancyToDB($vacancyRecord);
                 unset($vacancyRecord);
+                $i++;
             }
-//            $i++;
-//            if ($i === 50){
-//                die;
-//            }
+            $offset += $limit;
         }
-        var_dump($response['status']);
         $result['success'] = true;
+        $result['total'] = $i;
+        $result['last_status'] = $response['status'];
+        $result['offset'] = $offset-1;
         return new JsonResponse($result);
     }
 
@@ -343,6 +341,7 @@ class ApiController extends Controller
 
     /**@param array $result
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     private function setVacancyToDB($result){
         /** @var EntityManager $em */
@@ -362,7 +361,6 @@ class ApiController extends Controller
         $qb->select('profession')->from('AppBundle\Entity\Professions', 'profession')->andWhere('profession.name LIKE '.$qb->expr()->literal('%'.$result['profession_id'].'%').'')->setMaxResults(1);
         $profession = $qb->getQuery()->getOneOrNullResult();
 
-        var_dump($profession);
         if($result['innerInfo'] === 'false'){
             $vac = new Vacancy();
             $vac->setVacancyId($result['vacancy_id']?$result['vacancy_id']:' ');
