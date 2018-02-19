@@ -147,10 +147,6 @@ $(document).ready(function () {
     });
 
     createNotification('AllRight','success','top center', '#searchQuery');
-    createNotification('AllRight','success','top center');
-    createNotification('AllRight','success','left center');
-    createNotification('AllRight','success','bottom center');
-    createNotification('AllRight','success','right center');
 
     var arrSort = arrRegions.slice();
 
