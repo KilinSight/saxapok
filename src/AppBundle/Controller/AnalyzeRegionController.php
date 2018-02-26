@@ -27,13 +27,13 @@ class AnalyzeRegionController extends BaseController
      */
     public function getRegionsFromDBAction(Request $request)
     {
-        $name = $request->get('name');
+        $text = $request->get('text');
 
         $em = $this->getEm();
         $qb = $em->createQueryBuilder();
         $qb->select('regions')->from('AppBundle\Entity\Regions', 'regions');
-        if ($name){
-            $qb->andWhere($qb->expr()->like('regions.name',$name));
+        if ($text){
+            $qb->andWhere($qb->expr()->like('regions.name',$qb->expr()->literal('%'.$text.'%')));
         }
         $regions = $qb->getQuery()->getArrayResult();
 
@@ -47,10 +47,15 @@ class AnalyzeRegionController extends BaseController
      */
     public function getIndustriesFromDBAction(Request $request)
     {
+        $text = $request->get('text');
+
         $em = $this->getEm();
         $qb = $em->createQueryBuilder();
         $qb->select('industries')->from('AppBundle\Entity\Industries', 'industries');
-        $industries = $qb->getQuery()->getResult();
+        if ($text){
+            $qb->andWhere($qb->expr()->like('industries.name',$qb->expr()->literal('%'.$text.'%')));
+        }
+        $industries = $qb->getQuery()->getArrayResult();
 
         return new JsonResponse($industries);
     }
@@ -62,10 +67,16 @@ class AnalyzeRegionController extends BaseController
      */
     public function getProfessionsFromDBAction(Request $request)
     {
+        $text = $request->get('text');
+
         $em = $this->getEm();
         $qb = $em->createQueryBuilder();
         $qb->select('professions')->from('AppBundle\Entity\Professions', 'professions');
-        $professions = $qb->getQuery()->getResult();
+        if ($text){
+            $qb->andWhere($qb->expr()->like('professions.name',$qb->expr()->literal('%'.$text.'%')));
+        }
+
+        $professions = $qb->getQuery()->getArrayResult();
 
         return new JsonResponse($professions);
     }
@@ -77,17 +88,21 @@ class AnalyzeRegionController extends BaseController
      */
     public function getOrganizationsFromDBAction(Request $request)
     {
+        $text = $request->get('text');
         $regions = $request->get('regions');
 
         $em = $this->getEm();
         $qb = $em->createQueryBuilder();
         $qb->select('organizations')
             ->from('AppBundle\Entity\Organizations', 'organizations');
-        if(count($regions)){
-            $qb->andWhere($qb->expr()->in('organizations.region_id', $regions));
+        if ($text){
+            $qb->andWhere($qb->expr()->like('organizations.name',$qb->expr()->literal('%'.$text.'%')));
+        }
+        if($regions){
+            $qb->andWhere($qb->expr()->in('organizations.region', $regions));
         }
 
-        $organizations = $qb->getQuery()->getResult();
+        $organizations = $qb->getQuery()->getArrayResult();
 
         return new JsonResponse($organizations);
     }
@@ -99,7 +114,9 @@ class AnalyzeRegionController extends BaseController
      */
     public function getResumesFromDBAction(Request $request)
     {
+        $text = $request->get('text');
         $regions = $request->get('regions');
+
         $professions = $request->get('professions');
         $industries = $request->get('industries');
 
@@ -108,16 +125,19 @@ class AnalyzeRegionController extends BaseController
         $qb->select('resumes')
             ->from('AppBundle\Entity\Resumes', 'resumes');
         if (count($regions)) {
-            $qb->andWhere($qb->expr()->in('resumes.region_id', $regions));
+            $qb->andWhere($qb->expr()->in('resumes.region', $regions));
         }
         if (count($professions)) {
-            $qb->andWhere($qb->expr()->in('resumes.profession_id', $professions));
+            $qb->andWhere($qb->expr()->in('resumes.profession', $professions));
         }
         if (count($industries)) {
-            $qb->andWhere($qb->expr()->in('resumes.industry_id', $industries));
+            $qb->andWhere($qb->expr()->in('resumes.industry', $industries));
+        }
+        if ($text){
+            $qb->andWhere($qb->expr()->like('resumes.positionName',$qb->expr()->literal('%'.$text.'%')));
         }
 
-        $resumes = $qb->getQuery()->getResult();
+        $resumes = $qb->getQuery()->getArrayResult();
 
         return new JsonResponse($resumes);
     }
@@ -129,6 +149,7 @@ class AnalyzeRegionController extends BaseController
      */
     public function getVacanciesFromDBAction(Request $request)
     {
+        $text = $request->get('text');
         $regions = $request->get('regions');
         $professions = $request->get('professions');
         $industries = $request->get('industries');
@@ -150,8 +171,11 @@ class AnalyzeRegionController extends BaseController
         if (count($organizations)) {
             $qb->andWhere($qb->expr()->in('vacancies.organizations_id', $organizations));
         }
+        if ($text){
+            $qb->andWhere($qb->expr()->like('vacancies.title',$qb->expr()->literal('%'.$text.'%')));
+        }
 
-        $vacancies = $qb->getQuery()->getResult();
+        $vacancies = $qb->getQuery()->getArrayResult();
 
         return new JsonResponse($vacancies);
     }

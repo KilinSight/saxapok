@@ -19,33 +19,33 @@
         </div>
             <div class="row both-col">
             <div class="left-col">
-                <form action="/get_results" method="POST" class="search-form">
+                <form method="POST" class="search-form">
                     <h5>Введите параметры поиска:</h5>
                     <div class="c-regions left-col__inner">
-                        <input  autocomplete="off" class="c-regions__input form-control" type="text" id="searchQuery" name="regions" placeholder="Введите регион">
+                        <input  autocomplete="off" class="c-regions__input form-control" type="text" id="regions_input" name="regions" placeholder="Введите регион">
                         <ul class="c-regions__container">
                         </ul>
                     </div>
 
-                    <div class="c-industry  left-col__inner">
-                        <input  autocomplete="off" class="c-industry__input form-control" type="text" id="searchQuery" name="industries" placeholder="Введите сферу деятельности">
-                        <ul class="c-industry__container">
+                    <div class="c-industries  left-col__inner">
+                        <input  autocomplete="off" class="c-industries__input form-control" type="text" id="industries_input" name="industries" placeholder="Введите сферу деятельности">
+                        <ul class="c-industries__container">
                         </ul>
                     </div>
 
-                    <div class="c-profession  left-col__inner">
-                        <input  autocomplete="off" class="c-profession__input form-control" type="text" id="searchQuery" name="professions" placeholder="Введите профессию">
-                        <ul class="c-profession__container">
+                    <div class="c-professions  left-col__inner">
+                        <input  autocomplete="off" class="c-professions__input form-control" type="text" id="professions_input" name="professions" placeholder="Введите профессию">
+                        <ul class="c-professions__container">
                         </ul>
                     </div>
 
-                    <div class="c-organization  left-col__inner">
-                        <input  autocomplete="off" class="c-organization__input form-control" type="text" id="searchQuery" name="organizations" placeholder="Введите организацию">
-                        <ul class="c-organization__container">
+                    <div class="c-organizations  left-col__inner">
+                        <input  autocomplete="off" class="c-organizations__input form-control" type="text" id="organizations_input" name="organizations" placeholder="Введите организацию">
+                        <ul class="c-organizations__container">
                         </ul>
                     </div>
 
-                    <button class="btn btn-success" type="submit" name="search" value="1">Поиск</button>
+                    <button class="btn btn-success" id="regions_tab_search_button" type="button" name="search" value="1">Поиск</button>
                 </form>
             </div>
                 <div class="right-col">
