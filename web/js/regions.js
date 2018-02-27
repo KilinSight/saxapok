@@ -177,6 +177,7 @@ $(document).ready(function(){
                 $('.'+inputName+'__input').val(regionName);
                 setTimeout(function(){
                     dataArray.push($('.'+inputName+'__input').attr('data-id'));
+                    $('.'+inputName+'__checked').append('<span data-id="'+ $('.'+inputName+'__input').attr('data-id') +'" class="'+inputName+'__checked-item">' + $('.'+inputName+'__input').val() + '</span>');
                     // console.log(dataArray);
                 },200);
 
@@ -187,6 +188,16 @@ $(document).ready(function(){
         }
 
     }
+
+    //НУЖНО!!! универсализировать
+    
+    $(document).on('click','.c-regions__checked-item', function () {
+        var idInSpan = $(this).attr('data-id'),
+        idInArr = dataRegions.indexOf(idInSpan);
+        dataRegions.splice(idInArr, 1);
+        $(this).detach();
+    })
+
 
 
     //************************************Start*************************************************************************
