@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/default/analyze_region_index.html.twig" />
-      <change beforePath="$PROJECT_DIR$/web/css/main.css" afterPath="$PROJECT_DIR$/web/css/main.css" />
-      <change beforePath="$PROJECT_DIR$/web/js/regions.js" afterPath="$PROJECT_DIR$/web/js/regions.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -426,7 +423,7 @@
       <workItem from="1517639899752" duration="779000" />
       <workItem from="1518787859569" duration="1028000" />
       <workItem from="1519654898328" duration="17000" />
-      <workItem from="1519655095713" duration="5381000" />
+      <workItem from="1519655095713" duration="5448000" />
     </task>
     <task id="LOCAL-00001" summary="first commit 16.01.2018">
       <created>1516107585638</created>
@@ -519,11 +516,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517580577949</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="checkpoint 27.02.2018">
+      <created>1519744825097</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1519744825097</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134309000" />
+    <option name="totallyTimeSpent" value="134376000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -593,7 +597,8 @@
     <MESSAGE value="Views for report done 30.01.2018" />
     <MESSAGE value="Search button renamed 01.02.2018" />
     <MESSAGE value="Search buttons renamed &amp; footer position fixed 01.02.2018" />
-    <option name="LAST_COMMIT_MESSAGE" value="Search buttons renamed &amp; footer position fixed 01.02.2018" />
+    <MESSAGE value="checkpoint 27.02.2018" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkpoint 27.02.2018" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
