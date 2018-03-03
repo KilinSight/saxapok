@@ -172,7 +172,6 @@ $(document).ready(function(){
             $('.'+inputName+'__container li').click(function () {
                 var regionId = $(this).data('id'),
                     regionName = $(this).html();
-
                 $('.'+inputName+'__input').attr('data-id', regionId);
                 $('.'+inputName+'__input').val(regionName);
                 setTimeout(function(){
@@ -180,13 +179,11 @@ $(document).ready(function(){
                     $('.'+inputName+'__checked').append('<span data-id="'+ $('.'+inputName+'__input').attr('data-id') +'" class="'+inputName+'__checked-item">' + $('.'+inputName+'__input').val() + '</span>');
                     // console.log(dataArray);
                 },200);
-
             })
         }else{
             html.push('<li> Не результатов по заданным параметрам</li>');
             container.append(html);
         }
-
     }
 
     //НУЖНО!!! универсализировать

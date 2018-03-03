@@ -69,7 +69,7 @@ class ApiController extends Controller
     /**
      * @Route("/api/write_to_db", name="write_to_db", options = {"expose" : true})
      * @param Request $request
-     * @return mixed
+     * @return JsonResponse
      */
     public function writeToDBAction(Request $request)
     {
