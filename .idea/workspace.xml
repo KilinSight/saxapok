@@ -4,11 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/app/Resources/views/default/settings.html.twig" line="6" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="Checkpoint main task in progress 26.02.2018">
-      <change beforePath="$PROJECT_DIR$/.htaccess" afterPath="$PROJECT_DIR$/.htaccess" />
+    <list default="true" id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/ApiController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/ApiController.php" />
-      <change beforePath="$PROJECT_DIR$/web/js/regions.js" afterPath="$PROJECT_DIR$/web/js/regions.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,8 +51,8 @@
       <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="22" column="77" lean-forward="false" selection-start-line="22" selection-start-column="77" selection-end-line="22" selection-end-column="77" />
+            <state relative-caret-position="498">
+              <caret line="46" column="14" lean-forward="true" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -650,7 +647,7 @@
       <workItem from="1519648096523" duration="4614000" />
       <workItem from="1519654638426" duration="616000" />
       <workItem from="1519996968777" duration="7986000" />
-      <workItem from="1520062243631" duration="95000" />
+      <workItem from="1520062243631" duration="717000" />
     </task>
     <task id="LOCAL-00001" summary="first commit 16.01.2018">
       <created>1516107585638</created>
@@ -799,11 +796,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519654143310</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Checkpoint main task in progress 03.03.2018">
+      <created>1520062353443</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1520062353443</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263572000" />
+    <option name="totallyTimeSpent" value="264194000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -878,7 +882,8 @@
     <MESSAGE value="Checkpoint DATABASE 16.02.2018" />
     <MESSAGE value="Checkpoint main task in progress 19.02.2018" />
     <MESSAGE value="Checkpoint main task in progress 26.02.2018" />
-    <option name="LAST_COMMIT_MESSAGE" value="Checkpoint main task in progress 26.02.2018" />
+    <MESSAGE value="Checkpoint main task in progress 03.03.2018" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checkpoint main task in progress 03.03.2018" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1260,8 +1265,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="22" column="77" lean-forward="false" selection-start-line="22" selection-start-column="77" selection-end-line="22" selection-end-column="77" />
+        <state relative-caret-position="498">
+          <caret line="46" column="14" lean-forward="true" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
           <folding />
         </state>
       </provider>
