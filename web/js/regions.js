@@ -211,11 +211,41 @@ $(document).ready(function(){
         }
     });
 
+    $('#regions_input').focus(function() {
+        $('.c-regions__checked').addClass('c-regions__checked--active');
+        $('.c-regions__input').removeClass('input--active');
+    });
+
+    $(document).on('click', function(e){
+        var div = $(".c-regions");
+        if (!div.is(e.target) && div.has(e.target).length === 0) {
+            $('.c-regions__checked').removeClass('c-regions__checked--active');
+            if ($('.c-regions__checked').find('*').length != 0) {
+                $('.c-regions__input').addClass('input--active');
+            }
+        }
+    });
+
     $('#industries_input').focusout(function(event) {
         console.log('OUT');
         if (typeof $(event.target).attr('data-id') !== 'undefined' && !$(event.target).val()){
             dataIndustries = [];
             $(event.target).removeAttr('data-id');
+        }
+    });
+
+    $('#industries_input').focus(function() {
+        $('.c-industries__checked').addClass('c-industries__checked--active');
+        $('.c-industries__input').removeClass('input--active');
+    });
+
+    $(document).on('click', function(e){
+        var div = $(".c-industries");
+        if (!div.is(e.target) && div.has(e.target).length === 0) {
+            $('.c-industries__checked').removeClass('c-regions__checked--active');
+            if ($('.c-industries__checked').find('*').length != 0) {
+                $('.c-industries__input').addClass('input--active');
+            }
         }
     });
 
@@ -227,11 +257,41 @@ $(document).ready(function(){
         }
     });
 
+    $('#organizations_input').focus(function() {
+        $('.c-organizations__checked').addClass('c-organizations__checked--active');
+        $('.c-organizations__input').removeClass('input--active');
+    });
+
+    $(document).on('click', function(e){
+        var div = $(".c-organizations");
+        if (!div.is(e.target) && div.has(e.target).length === 0) {
+            $('.c-organizations__checked').removeClass('c-organizations__checked--active');
+            if ($('.c-organizations__checked').find('*').length != 0) {
+                $('.c-organizations__input').addClass('input--active');
+            }
+        }
+    });
+
     $('#professions_input').focusout(function(event) {
         console.log('OUT');
         if (typeof $(event.target).attr('data-id') !== 'undefined' && !$(event.target).val()){
             dataProfessions = [];
             $(event.target).removeAttr('data-id');
+        }
+    });
+
+    $('#professions_input').focus(function() {
+        $('.c-professions__checked').addClass('c-professions__checked--active');
+        $('.c-professions__input').removeClass('input--active');
+    });
+
+    $(document).on('click', function(e){
+        var div = $(".c-professions");
+        if (!div.is(e.target) && div.has(e.target).length === 0) {
+            $('.c-professions__checked').removeClass('c-professions__checked--active');
+            if ($('.c-professions__checked').find('*').length != 0) {
+                $('.c-professions__input').addClass('input--active');
+            }
         }
     });
 
