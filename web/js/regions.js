@@ -3,10 +3,15 @@ $(document).ready(function(){
     var arrIndustries = [];
     var arrOrganizations = [];
     var arrProfessions = [];
+
     var dataRegions = [];
     var dataIndustries = [];
     var dataOrganizations = [];
     var dataProfessions = [];
+
+    var dataResumes = [];
+    var dataVacancies = [];
+
     var timeout;
     // $('#searchQuery').select2();
 
@@ -142,16 +147,16 @@ $(document).ready(function(){
         });
     }
 
-    function checkInput(aim) {
+    function checkInput(aim,position) {
         var result = true;
         if (aim.val().length === 1) {
-            createNotification('Еще ' + 2 + ' символа...', 'warning', 'right-center', aim);
+            createNotification('Еще ' + 2 + ' символа...', 'warning', 'top-center', aim);
             result = false;
         } else if (aim.val().length === 2) {
-            createNotification('Еще ' + 1 + ' символ...', 'warning', 'right-center', aim);
+            createNotification('Еще ' + 1 + ' символ...', 'warning', 'top-center', aim);
             result = false;
         } else if (aim.val().length === 0) {
-            createNotification('Для вывода результатов введите хотя бы 3 символа', 'warning', 'right-center', aim);
+            createNotification('Для вывода результатов введите хотя бы 3 символа', 'warning', 'top-center', aim);
             result = false;
         }
         return result;
@@ -230,11 +235,8 @@ $(document).ready(function(){
         }
     });
 
+
     $(document).on('click', '#regions_tab_search_button', function(event){
-        console.log(dataRegions);
-        console.log(dataIndustries);
-        console.log(dataProfessions);
-        console.log(dataOrganizations);
         $.ajax({
             url: Routing.generate('get_resumes_from_DB'),
             data: {
@@ -244,9 +246,33 @@ $(document).ready(function(){
                 organizations:dataOrganizations
             },
             success: function (data) {
-
+                dataResumes = [];
+                var tpl;
+                $('.left__section').html('');
+                $.each(data, function (index,item) {
+                    dataResumes.push(item);
+                    tpl =
+                        '<div class="resume-item" data-id="'+item.cvId+'">' +
+                        '   <div class="item-title">'+item.positionName+':</div>' +
+                        '   <div class="item-id">'+item.cvId+'</div>' +
+                        '</div>';
+                    $('.left__section').append(tpl);
+                });
             }
         });
+    });
+
+    $(document).on('click', '.resume-item', function(event){
+        var tpl;
+        console.log(dataResumes[0]);
+        $.each(dataResumes, function (index, item) {
+            if (item.cvId === $(event.target).attr('data-id')){
+                // tpl =
+            }
+        });
+
+        $('.left__section').html('');
+
     });
 
 });
