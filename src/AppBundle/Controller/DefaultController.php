@@ -15,13 +15,8 @@ class DefaultController extends Controller
  */
     public function indexAction(Request $request)
     {
-        $apiController = new ApiController();
-//        $regions = $apiController->getRegionsAction();
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-//            'regions' => $regions,
-        ]);
+
+        return $this->render('game-client/index.html');
     }
 
     /**
