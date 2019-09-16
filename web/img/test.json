@@ -1,0 +1,39 @@
+{"frames": {
+
+"wizard1.png":
+{
+	"frame": {"x":1,"y":1,"w":49,"h":72},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":22,"y":3,"w":49,"h":72},
+	"sourceSize": {"w":75,"h":75}
+},
+"wizard2.png":
+{
+	"frame": {"x":1,"y":75,"w":49,"h":72},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":22,"y":3,"w":49,"h":72},
+	"sourceSize": {"w":75,"h":75}
+},
+"wizard3.png":
+{
+	"frame": {"x":1,"y":149,"w":49,"h":72},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":22,"y":3,"w":49,"h":72},
+	"sourceSize": {"w":75,"h":75}
+}},
+"animations": {
+	"wizard": ["wizard1.png","wizard2.png","wizard3.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "test.png",
+	"format": "RGBA8888",
+	"size": {"w":51,"h":222},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:63a512fdeed244b1b5afd8dace616c87:34dd76e102a8d63e88f3e595dcbcd6ee:02ab132358d6d8b512e80119463a8329$"
+}
+}

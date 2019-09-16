@@ -1,27 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Resources/views/game-client/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/Bird_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/Lizard_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/Plant.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/Snake_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/Spider_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/img/background.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/js/pixi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/js/pixi.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/js/pixi.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/js/pixi.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aguproject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aguproject.iml" afterDir="false" />
+    <list default="true" id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="game api checkpoint 15.09.2019">
+      <change afterPath="$PROJECT_DIR$/web/img/orc_animated.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/symfony_requirements" beforeDir="false" afterPath="$PROJECT_DIR$/bin/symfony_requirements" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/web/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -97,8 +80,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="69" column="26" lean-forward="true" selection-start-line="69" selection-start-column="26" selection-end-line="69" selection-end-column="26" />
+            <state relative-caret-position="141">
+              <caret line="119" column="9" lean-forward="true" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -129,7 +112,11 @@
       <find>DebugBundle</find>
       <find>type</find>
       <find>sprite</find>
+      <find>item</find>
     </findStrings>
+    <replaceStrings>
+      <replace>asset</replace>
+    </replaceStrings>
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
@@ -324,18 +311,18 @@
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\OpenServer\domains\aguproject\app\Resources\views\default" />
-      <recent name="E:\OpenServer\OpenServer\domains\aguproject\assets" />
-      <recent name="E:\OpenServer\OpenServer\domains\aguproject\web\assets\js" />
-      <recent name="E:\OpenServer\OpenServer\domains\aguproject" />
-      <recent name="E:\OpenServer\OpenServer\domains\aguproject\app\Resources\views\default" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="O:\var\www\XMLParserTrudvsem\web\js" />
       <recent name="O:\var\www\XMLParserTrudvsem\web" />
       <recent name="O:\var\www\XMLParserTrudvsem\app\Resources\views\game-client\js" />
       <recent name="E:\OpenServer\OpenServer\domains\aguproject\web" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="O:\var\www\XMLParserTrudvsem\web\img" />
+      <recent name="C:\OpenServer\domains\aguproject\app\Resources\views\default" />
+      <recent name="E:\OpenServer\OpenServer\domains\aguproject\assets" />
+      <recent name="E:\OpenServer\OpenServer\domains\aguproject\web\assets\js" />
+      <recent name="E:\OpenServer\OpenServer\domains\aguproject" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -375,7 +362,8 @@
       <workItem from="1516105026491" duration="1205000" />
       <workItem from="1568220431513" duration="19000" />
       <workItem from="1568303612474" duration="10059000" />
-      <workItem from="1568450963886" duration="21148000" />
+      <workItem from="1568450963886" duration="21299000" />
+      <workItem from="1568639683717" duration="10095000" />
     </task>
     <task id="LOCAL-00001" summary="first commit 16.01.2018">
       <created>1516107585638</created>
@@ -384,17 +372,24 @@
       <option name="project" value="LOCAL" />
       <updated>1516107585638</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="game api checkpoint 15.09.2019">
+      <created>1568564456751</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568564456751</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82903000" />
+    <option name="totallyTimeSpent" value="93149000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.0858209" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.08635394" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -420,8 +415,11 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="first commit 16.01.2018" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit 16.01.2018" />
+    <MESSAGE value="game api checkpoint 15.09.2019" />
+    <option name="LAST_COMMIT_MESSAGE" value="game api checkpoint 15.09.2019" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/tests/AppBundle/Controller/DefaultControllerTest.php" />
@@ -561,6 +559,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/js/pixi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="14566" column="8" selection-start-line="14566" selection-start-column="8" selection-end-line="14566" selection-end-column="8" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -568,6 +576,13 @@
           <folding>
             <element signature="e#40#99#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/app_dev.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -588,20 +603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/app_dev.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/game-client/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -609,20 +610,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/pixi.js">
+    <entry file="file://$PROJECT_DIR$/web/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="14566" column="8" selection-start-line="14566" selection-start-column="8" selection-end-line="14566" selection-end-column="8" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="1315" column="4" selection-start-line="1315" selection-start-column="4" selection-end-line="1315" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="69" column="26" lean-forward="true" selection-start-line="69" selection-start-column="26" selection-end-line="69" selection-end-column="26" />
+        <state relative-caret-position="141">
+          <caret line="119" column="9" lean-forward="true" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="9" />
         </state>
       </provider>
     </entry>

@@ -4,7 +4,7 @@ const app = new PIXI.Application({
     width: 1366, height: 640, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
 });
 document.body.appendChild(app.view);
-
+const ANIMATED = 'animated';
 const container = new PIXI.Container();
 const rootpath = '../../../../web/';
 app.stage.addChild(container);
@@ -41,29 +41,64 @@ $(document).on('click', () => {
     const mouseposition = app.renderer.plugins.interaction.mouse.global;
     console.log('X, Y');
     console.log(Math.round(mouseposition.x) + ', ' + Math.round(mouseposition.y));
-})
+});
 
 function onAssetsLoaded(){
-    $.each(getAllMonsters(), (index, item) => {
-        let texture = item.texture;
-        let coordinates = item.coordinates[randomInteger(0, item.coordinates.length)];
-        let sprite = new PIXI.Sprite(texture);
-        let randX = coordinates[0]-container.width/2;
-        let randY =  coordinates[1]-container.height/2;
-        sprite.scale.x = sprite.scale.y = coordinates[2];
-
-
-        sprite.anchor.set(0.5);
-        sprite.position.set(randX, randY);
-
+    $.each(getAllAssets(), (index, item) => {
+        let sprite;
+        sprite = getAsset(item.name);
 
         container.addChild(sprite);
-        drawBorder(sprite);
+
+        // drawBorder(sprite);
     });
 }
 
-function getAllMonsters() {
-    return [
+function getAsset(name) {
+    let asset;
+    let sprite = null;
+    if(name){
+        getAllAssets().map((item, index) => {
+            if(item.name === name){
+                asset = item;
+                return false;
+            }
+        });
+        if(typeof asset.type !== 'undefined' && asset.type) {
+            console.log(asset)
+            if (asset.type === ANIMATED) {
+                let spriteTextures = [];
+                let coordinates = asset.coordinates[randomInteger(0, asset.coordinates.length)];
+
+                for (let i = 1; i <= asset.frames; i++) {
+                    let texture = PIXI.Texture.from(asset.name + `${i}` + `.` + asset.frame_extension);
+                    spriteTextures.push(texture);
+                }
+                sprite = new PIXI.AnimatedSprite(spriteTextures);
+                sprite.x = coordinates[0] - container.width / 2;
+                sprite.y = coordinates[1] - container.height / 2;
+                sprite.anchor.set(0.5);
+                sprite.scale.x = sprite.scale.y = coordinates[2];
+                sprite.animationSpeed = 0.1;
+                sprite.play();
+            }
+        }else {
+            let texture = asset.texture;
+            let coordinates = asset.coordinates[randomInteger(0, asset.coordinates.length)];
+            sprite = new PIXI.Sprite(texture);
+            let randX = coordinates[0] - container.width / 2;
+            let randY = coordinates[1] - container.height / 2;
+            sprite.scale.x = sprite.scale.y = coordinates[2];
+            sprite.anchor.set(0.5);
+            sprite.position.set(randX, randY);
+        }
+    }
+
+    return sprite;
+}
+
+function getAllAssets() {
+    let result = [
         {
             name: 'bird',
             texture:  PIXI.Texture.from('bird'),
@@ -106,7 +141,20 @@ function getAllMonsters() {
                 [588, 254, 0.2],
             ]
         },
+        {
+            name: 'wizard',
+            type: ANIMATED,
+            texture:  null,
+            frames:  3,
+            frame_name:  'wizard',
+            frame_extension:  'png',
+            coordinates: [
+                [575, 409, 1],
+            ]
+        },
     ];
+    
+    return result;
 }
 
 function initialize() {
@@ -128,6 +176,7 @@ function initialize() {
         .add('snake', rootpath + 'img/Snake_2.png')
         .add('plant', rootpath + 'img/Plant.png')
         .add('spider', rootpath + 'img/Spider_1.png')
+        .add('wizard_animated', rootpath + 'img/test.json')
         .load(onAssetsLoaded);
 
 }
