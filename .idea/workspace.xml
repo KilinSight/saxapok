@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="Checkpoint main task in progress 18.01.2020">
-      <change beforePath="$PROJECT_DIR$/.idea/aguproject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aguproject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AppKernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AppKernel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +189,7 @@
       <workItem from="1579440681233" duration="3693000" />
       <workItem from="1580033832088" duration="1166000" />
       <workItem from="1580227040112" duration="1817000" />
-      <workItem from="1580527649339" duration="35949000" />
+      <workItem from="1580527649339" duration="38045000" />
     </task>
     <task id="LOCAL-00001" summary="first commit 16.01.2018">
       <created>1516107585638</created>
@@ -221,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580725545045</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Checkpoint main task in progress 18.01.2020">
+      <created>1580740188385</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1580740188385</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,27 +237,27 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="first commit 16.01.2018" />
     <MESSAGE value="game api checkpoint 15.09.2019" />
-    <MESSAGE value="Checkpoint main task in progress 18.01.2020" />
     <MESSAGE value="Checkpoint main task in progress 03.02.2020" />
-    <option name="LAST_COMMIT_MESSAGE" value="Checkpoint main task in progress 03.02.2020" />
+    <MESSAGE value="Checkpoint main task in progress 18.01.2020" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checkpoint main task in progress 18.01.2020" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580535855113">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1580535855113" />
-    <state x="615" y="215" key="CommitChangelistDialog2" timestamp="1580725543469">
+    <state x="615" y="215" key="CommitChangelistDialog2" timestamp="1580740187732">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="615" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1580725543469" />
+    <state x="615" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1580740187732" />
     <state x="461" y="163" width="1152" height="713" key="SettingsEditor" timestamp="1580536458080">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" width="1152" height="713" key="SettingsEditor/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1580536458080" />
-    <state x="552" y="242" key="Vcs.Push.Dialog.v2" timestamp="1580725547122">
+    <state x="552" y="242" key="Vcs.Push.Dialog.v2" timestamp="1580740189994">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="242" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1580725547122" />
+    <state x="552" y="242" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1580740189994" />
     <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1580527650435">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
