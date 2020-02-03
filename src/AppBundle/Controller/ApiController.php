@@ -9,6 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ApiController extends Controller
 {
+
+    const apikey = 'txQQ643brE1U';
+    const botapikey = '914200924:AAHcU9V8CCXXHDsealePRW5Yw4ck-Om3Xzg';
+    const saxapokWebhookUrl = 'http://902da367.ngrok.io/';
+    const PARSEHUB_RUN_TOKEN = 'tmbJOi3f8c-T';
+
     /**
     * @Route("/api", name="api_index")
      * @param Request $request

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8"/>
 
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('web/favicon.ico') }}"/>
 
     </head>
     <body>
@@ -34,7 +34,9 @@
 </html>
 <head>
     {% block stylesheets %}
+    <link rel="stylesheet" href="/web/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     {% endblock %}
     <style>
         /* Set black background color, white text and some padding */
@@ -49,14 +51,16 @@
 {% block body %}
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ path }}/web/bundles/fosjsrouting/js/router.js"></script>
-    <script src="{{ path }}/web/js/fos_js_routes.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/web/js/main.js"></script>
+    <script src="/vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.js"></script>
+    <script src="/web/js/fos_js_routes.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 </body>
-
-<footer class="container-fluid text-center">
-    <p>Footer Text</p>
-</footer>
+{% block footer %}
+    <footer class="container-fluid text-center">
+        <p>Footer Text</p>
+    </footer>
+{% endblock %}
 </html>

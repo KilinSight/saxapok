@@ -16,3 +16,6 @@
 /vendor/
 /web/bundles/
 .idea
+/.idea/aguproject.iml
+/.idea/php.xml
+/.idea/workspace.xml

@@ -1,11 +1,41 @@
 body{
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
+
 }
+
+.block{
+    display:flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.bot-results{
+    display:flex;
+    justify-content: flex-start;
+    align-content: center;
+    padding:5px;
+}
+
+.bot-result{
+    display:flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-content: center;
+    padding:5px;
+    margin: 5px;
+    border: 1px #ddd outset;
+}
+
+
+.bot-result.selected{
+    background-color: #ddd353;
+}
+
+.bot-result:hover{
+    cursor: pointer;
+    border: 1px #ddd inset;
+    background-color: #ddd;
+}
+
 div#display{
     display: flex;
     flex-flow: column;
