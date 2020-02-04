@@ -27,17 +27,6 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: ~
     http_method_override: true
-    assets:
-        version: 'v5'
-        version_format: '%%s?version=%%s'
-        packages:
-            js:
-                base_path: js
-            css:
-                base_path: css
-            img:
-                base_path: img
-
     php_errors:
         log: true
 
