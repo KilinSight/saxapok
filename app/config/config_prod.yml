@@ -12,21 +12,11 @@ framework:
         version_format: '%%s?version=%%s'
         packages:
             js:
-                base_path: web/js
+                base_path: js
             css:
-                base_path: web/css
+                base_path: css
             img:
-                base_path: web/img
-assets:
-    version: 'v5'
-    version_format: '%%s?version=%%s'
-    packages:
-        js:
-            base_path: js
-        css:
-            base_path: css
-        img:
-            base_path: img
+                base_path: img
 monolog:
     handlers:
         main:
