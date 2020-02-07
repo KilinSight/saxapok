@@ -79,13 +79,13 @@ $(()=> {
                                     );
                                 }
                                 let from = 'no';
-                                if(item.message.from){
-                                    from = item.message.from.username;
+                                if(item.message.forward_from){
+                                    from = item.message.forward_from.username;
                                 }
                                 sendAjax("https://api.telegram.org/bot" + botapikey + "/sendMessage",
                                     {
                                         chat_id: me,
-                                        text: item.message.from.username + ' написал(а): ' + item.message.text + ' Forwarded: ' + from
+                                        text: item.message.from.username + ' написал(а): "' + item.message.text + '" \n Forwarded: ' + from
                                     });
                                 if(item.message.from.id !== bot && item.message.sticker){
                                     sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});

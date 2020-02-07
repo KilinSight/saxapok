@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c5fac6b-d6b8-4ad5-8ccc-cd061c466235" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +28,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="608">
-              <caret line="86" column="154" selection-start-line="86" selection-start-column="154" selection-end-line="86" selection-end-column="154" />
+            <state relative-caret-position="411">
+              <caret line="81" column="62" lean-forward="true" selection-start-line="81" selection-start-column="62" selection-end-line="81" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -400,11 +400,25 @@
       <option name="project" value="LOCAL" />
       <updated>1581065174343</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="stickers">
+      <created>1581065312397</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1581065312398</updated>
+    </task>
+    <task id="LOCAL-00014" summary="stickers">
+      <created>1581065895398</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1581065895398</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133000" />
+    <option name="totallyTimeSpent" value="844000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
@@ -527,8 +541,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="86" column="154" selection-start-line="86" selection-start-column="154" selection-end-line="86" selection-end-column="154" />
+        <state relative-caret-position="411">
+          <caret line="81" column="62" lean-forward="true" selection-start-line="81" selection-start-column="62" selection-end-line="81" selection-end-column="62" />
         </state>
       </provider>
     </entry>
