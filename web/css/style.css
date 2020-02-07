@@ -34,6 +34,19 @@ body{
     cursor: pointer;
     border: 1px #ddd inset;
     background-color: #ddd;
+    align-items: center;
+}
+
+.test-ajax-block{
+    display:flex;
+    justify-content: space-around;
+}
+.ajax-url-input{
+    width: 20%;
+}
+
+#send-body-textarea{
+    width: 400px;
 }
 
 div#display{
