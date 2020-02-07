@@ -14,6 +14,11 @@ class DefaultController extends Controller
     const BOT_API_GET_UPDATES = 'getUpdates';
     const BOT_API_SEND_MESSAGE = 'sendMessage';
 
+    const CHAT_ID_ME = '328438276';
+    const CHAT_ID_NATASHA = '334733456';
+    const CHAT_ID_MAX = '348558502';
+    const CHAT_ID_BOT = '914200924';
+
     /**
      * @Route("/get_csv", name="get_csv")
      * @param Request $request
@@ -49,13 +54,11 @@ class DefaultController extends Controller
      *
      * @return mixed
      */
-    public function makeRequestAction(Request $request, $method)
+    private function makeRequestAction($method, $body)
     {
-
+        $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
-            self::BOT_API_SET_WEBHOOK,
-            self::BOT_API_SEND_MESSAGE,
-            self::BOT_API_GET_UPDATES,
+            self::BOT_API_SEND_MESSAGE
         ];
 
         if (!in_array($method, $allowedMethods)) {
@@ -65,19 +68,9 @@ class DefaultController extends Controller
 
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_PROXY, $proxy);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 
-        if ($method === self::BOT_API_SET_WEBHOOK) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['url' => ApiController::saxapokWebhookUrl]);
-        } elseif ($method === self::BOT_API_GET_UPDATES) {
-//            curl_setopt($curl, CURLOPT_POSTFIELDS, ['url' => ApiController::saxapokWebhookUrl]);
-        } elseif ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['message' => 'test']);
+        if ($method === self::BOT_API_SEND_MESSAGE) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, ['text' => 'test', 'chat_id' => self::CHAT_ID_ME]);
         }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -102,12 +95,13 @@ class DefaultController extends Controller
      */
     public function webhookAction(Request $request)
     {
-        ApiController::apikey;
-        ApiController::botapikey;
-        ApiController::PARSEHUB_RUN_TOKEN;
-        ApiController::saxapokWebhookUrl;
+//        $updateMessage = $request->get('message', null);
+//        if($updateMessage){
+            $body = [];
+            $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
+//        }
 
-        return 'Hello bruh!';
+        return Response::HTTP_OK;
     }
 
     /**
@@ -130,7 +124,7 @@ class DefaultController extends Controller
     public function parseImagesAction(Request $request)
     {
         $params = array(
-            "api_key" => self::apikey,
+            "api_key" => ApiController::apikey,
             "start_url" => "http://pinterest.ru",
             "start_template" => "login",
             "start_value_override" => "",
