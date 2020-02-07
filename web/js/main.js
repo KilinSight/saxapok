@@ -81,7 +81,15 @@ $(()=> {
                                 sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});
                             }
                             if(item.message && item.message.from.id !== bot && item.message.photo){
-                                sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo.file_id});
+                                if(item.message.photo) {
+                                    if (item.message.photo.length) {
+                                        $.each(item.message.photo, (photoIndex, photoItem) => {
+                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: photoItem.file_id});
+                                        });
+                                    } else {
+                                        sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo.file_id});
+                                    }
+                                }
                             }
                         })
                     }
