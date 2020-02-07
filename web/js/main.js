@@ -44,6 +44,10 @@ $(()=> {
             body = {
                 url: appUrl + '/saxapok_webhook',
             };
+        }else if(command === 'sendAjax'){
+            url = "https://api.telegram.org/bot" + botapikey + "/" . $('.ajax-url-input').val();
+            body = $('#send-body-textarea').val();
+            $('#send-body-textarea').val('{"":}');
         }
 
         sendAjax(url, body);
