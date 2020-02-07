@@ -1,5 +1,6 @@
 $(()=> {
     let botapikey = '914200924:AAHcU9V8CCXXHDsealePRW5Yw4ck-Om3Xzg';
+    let appUrl = "http://my-fathers-voice.com";
     let rootUrl = "https://api.telegram.org/bot" + botapikey + "/";
     let getUpdatesUrl = "https://api.telegram.org/bot" + botapikey + "/getUpdates";
     let body = {};
@@ -7,13 +8,14 @@ $(()=> {
 
     let Natasha = '334733456';
     let me = '328438276';
+    let Max = '348558502';
     let bot = '914200924';
     let replyTo = me;
 
-    // let timeout = setInterval(() => {
-    //
-    //     sendAjax(getUpdatesUrl, {offset});
-    // },3000)
+    let timeout = setInterval(() => {
+
+        sendAjax(getUpdatesUrl, {offset});
+    },3000);
 
     $(document).on('click', '.bot-result', (e)=> {
         let $target = $(e.currentTarget);
@@ -39,6 +41,15 @@ $(()=> {
                 photo: 'https://i.pinimg.com/236x/ea/64/75/ea64756611a42f6a772a91a616efc159.jpg',
                 chat_id: chatId
             };
+        }else if(command === 'setWebhook'){
+            body = {
+                url: appUrl + '/saxapok_webhook',
+            };
+        }else if(command === 'sendAjax'){
+            let command = $('.ajax-url-input').val();
+            url = "https://api.telegram.org/bot" + botapikey + "/" + command;
+            body = JSON.parse($('#send-body-textarea').val());
+            $('#send-body-textarea').val('{"":}');
         }
 
         sendAjax(url, body);
@@ -58,20 +69,47 @@ $(()=> {
                             offset = data.result[data.result.length - 1].update_id + 1;
                         }
                         $.each(data.result, (index,item) => {
-                            console.log(item.message.message_id);
-                            if(!$('.bot-result[data-message-id="' + item.message.message_id + '"]').length){
-                                $('.bot-results').append(
-                                    '<div class="bot-result" data-message-id="' + item.message.message_id + '">' +
-                                    '   <div class="message-from" data-chat-id="' + item.message.chat.id + '">' + item.message.chat.username + '</div>' +
-                                    '   <div class="message-text">' + item.message.text + '</div>' +
-                                    '</div>'
-                                );
-                            }
-                            if(item.message.from.id !== bot){
-                                sendAjax(rootUrl + 'sendMessage', {text: 'Ща погоди отвечу', chat_id: item.message.chat.id});
+                            if(item.message){
+                                console.log(item.message.message_id);
+                                if(!$('.bot-result[data-message-id="' + item.message.message_id + '"]').length){
+                                    $('.bot-results').append(
+                                        '<div class="bot-result" data-message-id="' + item.message.message_id + '">' +
+                                        '   <div class="message-from" data-chat-id="' + item.message.chat.id + '">' + item.message.chat.username + '</div>' +
+                                        '   <div class="message-text">' + item.message.text + '</div>' +
+                                        '</div>'
+                                    );
+                                }
+                                let from = 'no';
+                                if(item.message.forward_from){
+                                    from = item.message.forward_from.username;
+                                }
+                                sendAjax("https://api.telegram.org/bot" + botapikey + "/sendMessage",
+                                    {
+                                        chat_id: me,
+                                        text: item.message.from.username + ' написал(а): "' + (item.message.text?item.message.text:item.message.caption )+ '" \nForwarded: ' + from
+                                    });
+                                if(item.message.from.id !== bot && item.message.sticker){
+                                    sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});
+                                }
+                                if(item.message.from.id !== bot && item.message.photo){
+                                    if(item.message.photo) {
+                                        if (item.message.photo.length) {
+                                            // $.each(item.message.photo, (photoIndex, photoItem) => {
+
+                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {
+                                                chat_id: me,
+                                                photo: item.message.photo[0].file_id,
+                                                caption: item.message.caption?item.message.caption:''
+                                            });
+                                            // });
+                                        } else {
+                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo.file_id,
+                                                caption: item.message.caption?item.message.caption:''});
+                                        }
+                                    }
+                                }
                             }
                         })
-
                     }
 
                 }
