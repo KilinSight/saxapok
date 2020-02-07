@@ -73,7 +73,7 @@ $(()=> {
                                 );
                             }
                             if(item.message && item.message.from.id !== bot && item.message.sticker){
-                                sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, stiker: item.message.sticker.file_id});
+                                sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});
                             }
                         })
                     }
