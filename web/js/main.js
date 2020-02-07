@@ -47,7 +47,7 @@ $(()=> {
         }else if(command === 'sendAjax'){
             let command = $('.ajax-url-input').val();
             url = "https://api.telegram.org/bot" + botapikey + "/" + command;
-            body = $('#send-body-textarea').val();
+            body = JSON.parse($('#send-body-textarea').val());
             $('#send-body-textarea').val('{"":}');
         }
 
@@ -79,6 +79,9 @@ $(()=> {
                             }
                             if(item.message && item.message.from.id !== bot && item.message.sticker){
                                 sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});
+                            }
+                            if(item.message && item.message.from.id !== bot && item.message.photo){
+                                sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, sticker: item.message.photo.file_id});
                             }
                         })
                     }
