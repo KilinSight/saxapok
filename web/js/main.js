@@ -47,7 +47,7 @@ $(()=> {
         }else if(command === 'sendAjax'){
             let command = $('.ajax-url-input').val();
             url = "https://api.telegram.org/bot" + botapikey + "/" + command;
-            body = $('#send-body-textarea').val();
+            body = JSON.parse($('#send-body-textarea').val());
             $('#send-body-textarea').val('{"":}');
         }
 
