@@ -1,5 +1,6 @@
 $(()=> {
     let botapikey = '914200924:AAHcU9V8CCXXHDsealePRW5Yw4ck-Om3Xzg';
+    let appUrl = "http://my-fathers-voice.com";
     let rootUrl = "https://api.telegram.org/bot" + botapikey + "/";
     let getUpdatesUrl = "https://api.telegram.org/bot" + botapikey + "/getUpdates";
     let body = {};
@@ -10,10 +11,10 @@ $(()=> {
     let bot = '914200924';
     let replyTo = me;
 
-    // let timeout = setInterval(() => {
-    //
-    //     sendAjax(getUpdatesUrl, {offset});
-    // },3000)
+    let timeout = setInterval(() => {
+
+        sendAjax(getUpdatesUrl, {offset});
+    },3000);
 
     $(document).on('click', '.bot-result', (e)=> {
         let $target = $(e.currentTarget);
@@ -38,6 +39,10 @@ $(()=> {
             body = {
                 photo: 'https://i.pinimg.com/236x/ea/64/75/ea64756611a42f6a772a91a616efc159.jpg',
                 chat_id: chatId
+            };
+        }else if(command === 'setWebhook'){
+            body = {
+                url: appUrl + '/saxapok_webhook',
             };
         }
 
@@ -66,9 +71,6 @@ $(()=> {
                                     '   <div class="message-text">' + item.message.text + '</div>' +
                                     '</div>'
                                 );
-                            }
-                            if(item.message.from.id !== bot){
-                                sendAjax(rootUrl + 'sendMessage', {text: 'Ща погоди отвечу', chat_id: item.message.chat.id});
                             }
                         })
 
