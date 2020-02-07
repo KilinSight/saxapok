@@ -70,7 +70,7 @@ class DefaultController extends Controller
         curl_setopt($curl, CURLOPT_POST, 1);
 
         if ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['text' => 'test', 'chat_id' => self::CHAT_ID_ME]);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, ['text' => json_encode($body), 'chat_id' => self::CHAT_ID_ME]);
         }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -95,10 +95,11 @@ class DefaultController extends Controller
      */
     public function webhookAction(Request $request)
     {
-//        $updateMessage = $request->get('message', null);
+        $updateMessage = $request->get('message', null);
 //        if($updateMessage){
+//            if($updateMessage)
             $body = [];
-            $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
+            $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $request);
 //        }
 
         return Response::HTTP_OK;
