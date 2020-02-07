@@ -8,6 +8,7 @@ $(()=> {
 
     let Natasha = '334733456';
     let me = '328438276';
+    let Max = '348558502';
     let bot = '914200924';
     let replyTo = me;
 
@@ -85,7 +86,7 @@ $(()=> {
                                 sendAjax("https://api.telegram.org/bot" + botapikey + "/sendMessage",
                                     {
                                         chat_id: me,
-                                        text: item.message.from.username + ' написал(а): "' + item.message.text + '" \n Forwarded: ' + from
+                                        text: item.message.from.username + ' написал(а): "' + (item.message.text?item.message.text:item.message.caption )+ '" \nForwarded: ' + from
                                     });
                                 if(item.message.from.id !== bot && item.message.sticker){
                                     sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});
@@ -94,10 +95,16 @@ $(()=> {
                                     if(item.message.photo) {
                                         if (item.message.photo.length) {
                                             // $.each(item.message.photo, (photoIndex, photoItem) => {
-                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo[0].file_id});
+
+                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {
+                                                chat_id: me,
+                                                photo: item.message.photo[0].file_id,
+                                                caption: item.message.caption?item.message.caption:''
+                                            });
                                             // });
                                         } else {
-                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo.file_id});
+                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo.file_id,
+                                                caption: item.message.caption?item.message.caption:''});
                                         }
                                     }
                                 }
