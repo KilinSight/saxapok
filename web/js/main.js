@@ -68,26 +68,37 @@ $(()=> {
                             offset = data.result[data.result.length - 1].update_id + 1;
                         }
                         $.each(data.result, (index,item) => {
-                            console.log(item.message.message_id);
-                            if(!$('.bot-result[data-message-id="' + item.message.message_id + '"]').length){
-                                $('.bot-results').append(
-                                    '<div class="bot-result" data-message-id="' + item.message.message_id + '">' +
-                                    '   <div class="message-from" data-chat-id="' + item.message.chat.id + '">' + item.message.chat.username + '</div>' +
-                                    '   <div class="message-text">' + item.message.text + '</div>' +
-                                    '</div>'
-                                );
-                            }
-                            if(item.message && item.message.from.id !== bot && item.message.sticker){
-                                sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});
-                            }
-                            if(item.message && item.message.from.id !== bot && item.message.photo){
-                                if(item.message.photo) {
-                                    if (item.message.photo.length) {
-                                        // $.each(item.message.photo, (photoIndex, photoItem) => {
+                            if(item.message){
+                                console.log(item.message.message_id);
+                                if(!$('.bot-result[data-message-id="' + item.message.message_id + '"]').length){
+                                    $('.bot-results').append(
+                                        '<div class="bot-result" data-message-id="' + item.message.message_id + '">' +
+                                        '   <div class="message-from" data-chat-id="' + item.message.chat.id + '">' + item.message.chat.username + '</div>' +
+                                        '   <div class="message-text">' + item.message.text + '</div>' +
+                                        '</div>'
+                                    );
+                                }
+                                let from = 'no';
+                                if(item.message.from){
+                                    from = item.message.from.username;
+                                }
+                                sendAjax("https://api.telegram.org/bot" + botapikey + "/sendMessage",
+                                    {
+                                        chat_id: me,
+                                        text: item.message.from.username + ' написал(а): ' + item.message.text + ' Forwarded: ' + from
+                                    });
+                                if(item.message.from.id !== bot && item.message.sticker){
+                                    sendAjax("https://api.telegram.org/bot" + botapikey + "/sendSticker", {chat_id: me, sticker: item.message.sticker.file_id});
+                                }
+                                if(item.message.from.id !== bot && item.message.photo){
+                                    if(item.message.photo) {
+                                        if (item.message.photo.length) {
+                                            // $.each(item.message.photo, (photoIndex, photoItem) => {
                                             sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo[0].file_id});
-                                        // });
-                                    } else {
-                                        sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo.file_id});
+                                            // });
+                                        } else {
+                                            sendAjax("https://api.telegram.org/bot" + botapikey + "/sendPhoto", {chat_id: me, photo: item.message.photo.file_id});
+                                        }
                                     }
                                 }
                             }
