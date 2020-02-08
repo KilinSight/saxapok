@@ -70,7 +70,7 @@ class DefaultController extends Controller
         curl_setopt($curl, CURLOPT_POST, 1);
 
         if ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['text' => json_encode($body->get('message')), 'chat_id' => self::CHAT_ID_ME]);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, ['text' => json_encode($body->get('update')), 'chat_id' => self::CHAT_ID_ME]);
         }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -79,8 +79,8 @@ class DefaultController extends Controller
         if ($output === false) {
             throw new \Exception(curl_error($curl), curl_errno($curl));
         }
-        print_r($method);
-        var_dump($output);
+        dump($method);
+        dump($output);
         die;
 
         curl_close($curl);
