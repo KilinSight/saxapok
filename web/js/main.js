@@ -6,9 +6,9 @@ let replyTo = me;
 $(document).on('click', '.command-buttons', (e)=> {
     let $target = $(e.currentTarget);
 
+    let command = $target.data('command');
     if(command === 'sendAjax'){
-        let command = $('.ajax-url-input').val();
-        url = Routing.generate('make_request', {method: command});
+        url = Routing.generate('make_request', {method: $('.ajax-url-input').val()});
         body = JSON.parse($('#send-body-textarea').val());
         $('#send-body-textarea').val('{"":}');
     }
