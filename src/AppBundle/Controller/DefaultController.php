@@ -49,6 +49,18 @@ class DefaultController extends Controller
     }
 
     /**
+     * @return \Swift_Mailer
+     */
+    private function getMailer(){
+        $transport = (new \Swift_SmtpTransport($this->getParameter('app_main') , 25))
+            ->setUsername($this->getParameter('mailer_user'))
+            ->setUsername($this->getParameter('mailer_password'));
+
+        return new \Swift_Mailer($transport);
+    }
+
+
+    /**
      * @Route("/bot/make_request/{method}", name="make_request", options = {"expose" : true})
      *
      * @param string $method
@@ -57,14 +69,14 @@ class DefaultController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function makeRequestAction($method, ?Request $request, ?\Swift_Mailer $mailer)
+    public function makeRequestAction($method, ?Request $request)
     {
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
             self::BOT_API_SEND_MESSAGE,
             self::BOT_API_GET_WEBHOOK_INFO
         ];
-
+        $mailer = $this->getMailer();
         $message = new \Swift_Message('Hello');
         $message->setFrom($this->getParameter('mailer_user'));
         $message->setTo('ukrs69@gmail.com');
