@@ -20,7 +20,7 @@ $(document).on('click', '.command-buttons', (e)=> {
 function sendAjax(url, body) {
     $.ajax({
         url: url,
-        data: body,
+        data: {body:body},
         success: (data) => {
             console.log("SUCCESS");
             console.log(data);
