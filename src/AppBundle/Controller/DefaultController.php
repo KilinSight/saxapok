@@ -104,8 +104,9 @@ class DefaultController extends Controller
         $updateMessage = $request->get('message', null);
 //        if($updateMessage){
 //            if($updateMessage)
-            $body = [];
-            $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $request);
+            $body = new \stdClass();
+            $body->body = $request;
+            $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
 //        }
 
         return Response::HTTP_OK;
