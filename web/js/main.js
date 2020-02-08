@@ -10,7 +10,7 @@ $(document).on('click', '.command-buttons', (e)=> {
     if(command === 'sendAjax'){
         url = Routing.generate('make_request', {method: $('.ajax-url-input').val()});
         body = JSON.parse($('#send-body-textarea').val());
-        $('#send-body-textarea').val('{"":}');
+        $('#send-body-textarea').val('{}');
     }
 
     sendAjax(url, body);

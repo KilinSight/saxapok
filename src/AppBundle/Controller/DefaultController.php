@@ -55,7 +55,7 @@ class DefaultController extends Controller
      *
      * @return mixed
      */
-    private function makeRequestAction($method, $request)
+    public function makeRequestAction($method, $request)
     {
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
