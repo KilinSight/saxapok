@@ -50,12 +50,13 @@ class DefaultController extends Controller
     /**
      * @Route("/bot/make_request/{method}", name="make_request", options = {"expose" : true})
      *
-     * @param Request $request
      * @param string $method
      *
+     * @param Request $request
      * @return mixed
+     * @throws \Exception
      */
-    public function makeRequestAction($method, $request)
+    public function makeRequestAction($method, ?Request $request)
     {
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
