@@ -49,10 +49,11 @@ class DefaultController extends Controller
     }
 
     /**
+     *
      * @return \Swift_Mailer
      */
     private function getMailer(){
-        $transport = (new \Swift_SmtpTransport($this->getParameter('mailer_host') , 25))
+        $transport = (new \Swift_SmtpTransport($this->getParameter('mailer_host') , 587))
             ->setUsername($this->getParameter('mailer_user'))
             ->setUsername($this->getParameter('mailer_password'));
 
@@ -78,10 +79,10 @@ class DefaultController extends Controller
         ];
         $mailer = $this->getMailer();
         $message = new \Swift_Message('Hello');
-        $message->setFrom($this->getParameter('mailer_user'));
-        $message->setTo('ukrs69@gmail.com');
+        $message->setFrom([$this->getParameter('mailer_user')=> 'Server Support']);
+        $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
         $message->setBody('Request body');
-        $mailer->send($message);
+        $result = $mailer->send($message);
 
         if (!in_array($method, $allowedMethods)) {
             return new JsonResponse('Method not allowed.');
