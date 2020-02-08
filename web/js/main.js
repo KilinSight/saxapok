@@ -10,11 +10,20 @@ $(document).on('click', '.command-buttons', (e)=> {
     if(command === 'sendAjax'){
         url = Routing.generate('make_request', {method: $('.ajax-url-input').val()});
         body = JSON.parse($('#send-body-textarea').val());
-        $('#send-body-textarea').val('{}');
+        // $('#send-body-textarea').val('{}');
+    }else if(command==='sendMeMessage'){
+        $('.ajax-url-input').val('sendMessage');
+        $('#send-body-textarea').val(
+            '{"chat_id": ' + me + ', "text": "test"}'
+        );
+    }else if(command==='getWebhookInfo'){
+        $('.ajax-url-input').val('getWebhookInfo');
+        $('#send-body-textarea').val(
+            '{}'
+        );
     }
 
     sendAjax(url, body);
-    $('#send-message-textarea').val('');
 });
 
 function sendAjax(url, body) {
