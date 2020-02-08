@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     const BOT_API_SET_WEBHOOK = 'setWebhook';
+    const BOT_API_GET_WEBHOOK_INFO = 'getWebhookInfo';
     const BOT_API_GET_UPDATES = 'getUpdates';
     const BOT_API_SEND_MESSAGE = 'sendMessage';
 
@@ -54,23 +55,27 @@ class DefaultController extends Controller
      *
      * @return mixed
      */
-    private function makeRequestAction($method, $body)
+    private function makeRequestAction($method, $request)
     {
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
-            self::BOT_API_SEND_MESSAGE
+            self::BOT_API_SEND_MESSAGE,
+            self::BOT_API_GET_WEBHOOK_INFO
         ];
 
         if (!in_array($method, $allowedMethods)) {
             return new JsonResponse('Method not allowed.');
         }
+        $body = $request->get('body');
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_POST, 1);
 
         if ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['text' => json_encode($body->get('update')), 'chat_id' => self::CHAT_ID_ME]);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+        }elseif($method === self::BOT_API_GET_WEBHOOK_INFO){
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
