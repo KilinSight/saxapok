@@ -53,7 +53,7 @@ class DefaultController extends Controller
      * @return \Swift_Mailer
      */
     private function getMailer(){
-        $transport = (new \Swift_SmtpTransport($this->getParameter('mailer_host') , 587))
+        $transport = (new \Swift_SmtpTransport($this->getParameter('mailer_host') , 465))
             ->setUsername($this->getParameter('mailer_user'))
             ->setUsername($this->getParameter('mailer_password'));
 
