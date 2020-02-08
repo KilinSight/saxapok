@@ -98,14 +98,15 @@ class DefaultController extends Controller
      * @Route("/saxapok_webhook", name="saxapok_webhook")
      * @param Request $request
      * @return mixed
+     * @throws \Exception
      */
     public function webhookAction(Request $request)
     {
         $updateMessage = $request->get('message', null);
 //        if($updateMessage){
 //            if($updateMessage)
-            $body = new \stdClass();
-            $body->body = $request;
+            $body = new Request();
+            $body->attributes->set('body', $request);
             $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
 //        }
 
