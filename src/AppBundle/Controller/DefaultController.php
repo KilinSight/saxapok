@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -56,13 +57,19 @@ class DefaultController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function makeRequestAction($method, ?Request $request)
+    public function makeRequestAction($method, ?Request $request, ?\Swift_Mailer $mailer)
     {
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
             self::BOT_API_SEND_MESSAGE,
             self::BOT_API_GET_WEBHOOK_INFO
         ];
+
+        $message = new \Swift_Message('Hello');
+        $message->setFrom($this->getParameter('mailer_user'));
+        $message->setTo('ukrs69@gmail.com');
+        $message->setBody('Request body');
+        $mailer->send($message);
 
         if (!in_array($method, $allowedMethods)) {
             return new JsonResponse('Method not allowed.');
