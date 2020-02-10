@@ -123,7 +123,7 @@ class DefaultController extends Controller
      */
     public function webhookAction(Request $request)
     {
-        $updateMessage = $request->get('message', null);
+        $updateMessage = $request;
 //        if($updateMessage){
 //            if($updateMessage)
             $body = new Request();
