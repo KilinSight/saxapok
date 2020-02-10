@@ -90,12 +90,13 @@ class DefaultController extends Controller
         }
         $body = $request->get('body');
         $curl = curl_init();
-
+        $update = json_decode(file_get_contents("php://input"), TRUE);
+        $message = $update["message"];
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_POST, 1);
 
         if ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['chat_id' => self::CHAT_ID_ME, 'text' => json_encode($body)]);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, ['chat_id' => self::CHAT_ID_ME, 'text' => json_encode($update)]);
         }elseif($method === self::BOT_API_GET_WEBHOOK_INFO){
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }
