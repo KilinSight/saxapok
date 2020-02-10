@@ -95,7 +95,7 @@ class DefaultController extends Controller
         curl_setopt($curl, CURLOPT_POST, 1);
 
         if ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['chat_id' => self::CHAT_ID_ME, 'text' => $body]);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, ['chat_id' => self::CHAT_ID_ME, 'text' => json_encode($body)]);
         }elseif($method === self::BOT_API_GET_WEBHOOK_INFO){
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }
