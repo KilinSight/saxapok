@@ -11,6 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
     </execution>
@@ -88,8 +89,16 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
     </include_path>
   </component>
+  <component name="ProjectId" id="1XYVSMpn0wBaxs70uML6Vk1zCmy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
   </component>
   <component name="RecentsManager">
@@ -125,7 +134,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a3521a01-2202-4a6a-adba-c4e25f5ae308" name="Default" comment="" />
+      <changelist id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="" />
       <created>1512995601710</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -152,6 +161,7 @@
       <workItem from="1580033832088" duration="1166000" />
       <workItem from="1580227040112" duration="1817000" />
       <workItem from="1580527649339" duration="38045000" />
+      <workItem from="1581223035025" duration="4711000" />
     </task>
     <task id="LOCAL-00001" summary="first commit 16.01.2018">
       <created>1516107585638</created>
@@ -398,8 +408,18 @@
       <option name="project" value="LOCAL" />
       <updated>1581154122054</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="webhook">
+      <created>1581154296963</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1581154296963</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -415,10 +435,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="webhook" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="585" y="215" key="CommitChangelistDialog2" timestamp="1581154121230">
+    <state x="585" y="215" key="CommitChangelistDialog2" timestamp="1581154296110">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581154121230" />
+    <state x="585" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581154296110" />
     <state x="184" y="92" key="DiffContextDialog" timestamp="1581079216602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -431,6 +451,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581132873375" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581223032517">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581223032517" />
     <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581132137559">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
