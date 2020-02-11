@@ -91,14 +91,11 @@ class DefaultController extends Controller
         }
         $body = $request->get('body');
         $curl = curl_init();
-        $telegramManager = $this->get(TelegramManager::class);
-        $update = $telegramManager->getUpdate();
-        $message = $update["message"];
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_POST, 1);
 
         if ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POSTFIELDS, ['chat_id' => self::CHAT_ID_ME, 'text' => json_encode($update)]);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }elseif($method === self::BOT_API_GET_WEBHOOK_INFO){
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }
@@ -109,9 +106,6 @@ class DefaultController extends Controller
         if ($output === false) {
             throw new \Exception(curl_error($curl), curl_errno($curl));
         }
-        dump($method);
-        dump($output);
-        die;
 
         curl_close($curl);
 
@@ -126,13 +120,11 @@ class DefaultController extends Controller
      */
     public function webhookAction(Request $request)
     {
-        $updateMessage = $request;
-//        if($updateMessage){
-//            if($updateMessage)
-            $body = new Request();
-            $body->attributes->set('body', $request);
-            $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
-//        }
+        $telegramManager = $this->get(TelegramManager::class);
+        $update = $telegramManager->getUpdate();
+        $body = new Request();
+        $body->attributes->set('body', ['chat_id' => self::CHAT_ID_ME, 'text' => $update]);
+        $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
 
         return Response::HTTP_OK;
     }
