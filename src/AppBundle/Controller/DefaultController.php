@@ -109,7 +109,7 @@ class DefaultController extends Controller
 
         curl_close($curl);
 
-        return new JsonResponse($output);
+        return new Response(Response::HTTP_OK);
     }
 
     /**
@@ -126,7 +126,7 @@ class DefaultController extends Controller
         $body->attributes->set('body', ['chat_id' => self::CHAT_ID_ME, 'text' => json_encode($update)]);
         $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
 
-        return Response::HTTP_OK;
+        return new Response(Response::HTTP_OK);
     }
 
     /**
