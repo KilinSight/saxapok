@@ -122,9 +122,31 @@ class DefaultController extends Controller
     {
         $telegramManager = $this->get(TelegramManager::class);
         $update = $telegramManager->getUpdate();
-        $body = new Request();
-        $body->attributes->set('body', ['chat_id' => self::CHAT_ID_ME, 'text' => json_encode($update)]);
-        $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $body);
+
+        $body = [
+            'chat_id' => self::CHAT_ID_ME
+        ];
+
+        if($update['message']){
+            $text = '@' . $update['message']['from']['username'] . ' sent message:' . "\n";
+            $text .= $update['message']['text'] . "\n";
+            $keyboard = [
+                [
+                    [
+                        'text' => 'Reply Now', 'callback_data' => "/reply"
+                    ]
+                ]
+            ];
+            $inlineKeyboardMarkup = [
+                'inline_keyboard' => $keyboard
+            ];
+            $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
+            $body["text"] = $text;
+        }
+
+        $request = new Request();
+        $request->attributes->set('body', $request);
+        $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $request);
 
         return new Response(Response::HTTP_OK);
     }
