@@ -147,7 +147,7 @@ class DefaultController extends Controller
         }
 
         $request = new Request();
-        $request->attributes->set('body', $request);
+        $request->attributes->set('body', $body);
         $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $request);
 
         return new Response(Response::HTTP_OK);
