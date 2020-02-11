@@ -29,6 +29,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\Manager\:
+        resource: '../../src/AppBundle/Manager'
+        public: true
+
+    AppBundle\Manager\TelegramManager:
+        public: true
+        arguments: ['@monolog.logger']
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Manager\TelegramManager;
 use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,7 +91,8 @@ class DefaultController extends Controller
         }
         $body = $request->get('body');
         $curl = curl_init();
-        $update = json_decode(file_get_contents("php://input"), TRUE);
+        $telegramManager = $this->get(TelegramManager::class);
+        $update = $telegramManager->getUpdate();
         $message = $update["message"];
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_POST, 1);
@@ -142,7 +144,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-
+        $telegramManager = $this->get(TelegramManager::class);
+        $telegramManager->getOrCreateParsedImage('test');
 
         return $this->render('saxapok/index.html.twig');
     }
