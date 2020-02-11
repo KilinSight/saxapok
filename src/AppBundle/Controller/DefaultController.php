@@ -131,6 +131,7 @@ class DefaultController extends Controller
         if($update['message']){
             $text = '@' . $update['message']['from']['username'] . ' sent message:' . "\n";
             $text .= $update['message']['text'] . "\n";
+            $text = 'test111111';
             $keyboard = [
                 [
                     [
