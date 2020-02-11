@@ -166,14 +166,7 @@
       <workItem from="1581414435659" duration="68000" />
       <workItem from="1581414517311" duration="56000" />
       <workItem from="1581414584821" duration="6974000" />
-      <workItem from="1581427307535" duration="3410000" />
-    </task>
-    <task id="LOCAL-00001" summary="first commit 16.01.2018">
-      <created>1516107585638</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1516107585638</updated>
+      <workItem from="1581427307535" duration="4728000" />
     </task>
     <task id="LOCAL-00002" summary="game api checkpoint 15.09.2019">
       <created>1568564456751</created>
@@ -511,7 +504,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581430403862</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="manager created">
+      <created>1581430726202</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1581430726203</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,10 +536,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581417085706" />
-    <state x="585" y="215" key="CommitChangelistDialog2" timestamp="1581430402995">
+    <state x="585" y="215" key="CommitChangelistDialog2" timestamp="1581430725350">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581430402995" />
+    <state x="585" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581430725350" />
     <state x="184" y="92" key="DiffContextDialog" timestamp="1581079216602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

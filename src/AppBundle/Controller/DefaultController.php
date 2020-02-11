@@ -124,6 +124,14 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $update = $telegramManager->getUpdate();
 
+        $mailer = $this->getMailer();
+
+        $message = new \Swift_Message('Hello');
+        $message->setFrom($this->getParameter('mailer_user'));
+        $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
+        $message->setBody(json_encode($update));
+        $mailer->send($message);
+
         $body = [
             'chat_id' => self::CHAT_ID_ME
         ];
