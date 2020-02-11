@@ -80,11 +80,6 @@ class DefaultController extends Controller
             self::BOT_API_GET_WEBHOOK_INFO
         ];
         $mailer = $this->getMailer();
-        $message = new \Swift_Message('Hello');
-        $message->setFrom($this->getParameter('mailer_user'));
-        $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
-        $message->setBody('Request body');
-        $result = $mailer->send($message);
 
         if (!in_array($method, $allowedMethods)) {
             return new JsonResponse('Method not allowed.');
@@ -92,9 +87,9 @@ class DefaultController extends Controller
         $body = $request->get('body');
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
-        curl_setopt($curl, CURLOPT_POST, 1);
 
         if ($method === self::BOT_API_SEND_MESSAGE) {
+            curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         }elseif($method === self::BOT_API_GET_WEBHOOK_INFO){
 //            curl_setopt($curl, CURLOPT_POSTFIELDS, []);
@@ -103,6 +98,12 @@ class DefaultController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
         $output = curl_exec($curl);
+
+        $message = new \Swift_Message('Hello');
+        $message->setFrom($this->getParameter('mailer_user'));
+        $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
+        $message->setBody(json_encode($output));
+        $result = $mailer->send($message);
         if ($output === false) {
             throw new \Exception(curl_error($curl), curl_errno($curl));
         }
