@@ -100,9 +100,10 @@ class DefaultController extends Controller
     public function webhookAction(Request $request)
     {
         $telegramManager = $this->get(TelegramManager::class);
-        $update = $telegramManager->getUpdate();
+        $updateRaw = $telegramManager->getUpdateRaw();
+        $update = $telegramManager->getUpdateMetadata($updateRaw);
         $telegramManager->notifyAdmins($update->getUser()->getIsBot() . ' ' . $update->getUser()->getUsername());
-        if(!$update->getUser()->getIsBot()){
+        if(!$update->getUser()->getIsBot() && !isset($updateRaw['message']['forward_from'])){
             $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
         }
 
