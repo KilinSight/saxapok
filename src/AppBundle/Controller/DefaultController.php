@@ -106,7 +106,7 @@ class DefaultController extends Controller
         }
 
 
-        return new JsonResponse(['ok' => true, 'status' => 200]);
+        return new Response();
     }
 
     /**
