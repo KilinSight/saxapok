@@ -102,7 +102,7 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
-        $telegramManager->notifyAdmins(json_encode($update));
+        $telegramManager->notifyAdmins(json_encode($updateRaw));
         if(!$update->getUser()->getIsBot() && !isset($updateRaw['message']['forward_from'])){
             $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
         }
