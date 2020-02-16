@@ -35,7 +35,12 @@ services:
 
     AppBundle\Manager\TelegramManager:
         public: true
-        arguments: ['@monolog.logger']
+        arguments: [
+            $logger: '@monolog.logger'
+            $mailerHost: '%mailer_host%'
+            $mailerUser: '%mailer_user%'
+            $mailerPassword: '%mailer_password%'
+        ]
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:

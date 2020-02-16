@@ -17,11 +17,6 @@ class DefaultController extends Controller
     const BOT_API_GET_UPDATES = 'getUpdates';
     const BOT_API_SEND_MESSAGE = 'sendMessage';
 
-    const CHAT_ID_ME = '328438276';
-    const CHAT_ID_NATASHA = '334733456';
-    const CHAT_ID_MAX = '348558502';
-    const CHAT_ID_BOT = '914200924';
-
     /**
      * @Route("/get_csv", name="get_csv")
      * @param Request $request
@@ -49,18 +44,6 @@ class DefaultController extends Controller
         return new Response($result);
     }
 
-    /**
-     *
-     * @return \Swift_Mailer
-     */
-    private function getMailer(){
-        $transport = (new \Swift_SmtpTransport($this->getParameter('mailer_host') , 465))
-            ->setUsername($this->getParameter('mailer_user'))
-            ->setPassword($this->getParameter('mailer_password'))
-            ->setEncryption('SSL');
-
-        return new \Swift_Mailer($transport);
-    }
 
 
     /**
@@ -74,12 +57,12 @@ class DefaultController extends Controller
      */
     public function makeRequestAction($method, ?Request $request)
     {
+        $telegramManager = $this->get(TelegramManager::class);
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
             self::BOT_API_SEND_MESSAGE,
             self::BOT_API_GET_WEBHOOK_INFO
         ];
-        $mailer = $this->getMailer();
 
         if (!in_array($method, $allowedMethods)) {
             return new JsonResponse('Method not allowed.');
@@ -99,13 +82,8 @@ class DefaultController extends Controller
 
         $output = curl_exec($curl);
 
-        $message = new \Swift_Message('Hello');
-        $message->setFrom($this->getParameter('mailer_user'));
-        $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
-        $message->setBody(json_encode($output));
-        $result = $mailer->send($message);
         if ($output === false) {
-            throw new \Exception(curl_error($curl), curl_errno($curl));
+            $telegramManager->throwException(curl_error($curl));
         }
 
         curl_close($curl);
@@ -124,38 +102,7 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $update = $telegramManager->getUpdate();
 
-        $mailer = $this->getMailer();
-
-        $message = new \Swift_Message('Hello');
-        $message->setFrom($this->getParameter('mailer_user'));
-        $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
-        $message->setBody(json_encode($update));
-        $mailer->send($message);
-
-        $body = [
-            'chat_id' => self::CHAT_ID_ME
-        ];
-
-        if($update['message']){
-            $text = '@' . $update['message']['from']['username'] . ' sent message:' . "\n";
-            $text .= $update['message']['text'] . "\n";
-            $keyboard = [
-                [
-                    [
-                        'text' => 'Reply Now', 'callback_data' => "/reply"
-                    ]
-                ]
-            ];
-            $inlineKeyboardMarkup = [
-                'inline_keyboard' => $keyboard
-            ];
-            $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
-            $body["text"] = $text;
-        }
-
-        $request = new Request();
-        $request->attributes->set('body', $body);
-        $this->makeRequestAction(self::BOT_API_SEND_MESSAGE, $request);
+        $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
 
         return new Response(Response::HTTP_OK);
     }

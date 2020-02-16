@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
+    <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="manager created">
+      <change afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UpdateMetadataDto.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/services.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/services.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,15 +104,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/AppBundle/Entity" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="O:\OSPanel\domains\saxapok\src\AppBundle\Entity" />
       <recent name="O:\OSPanel\domains\saxapok\app\Resources\views" />
       <recent name="O:\var\www\XMLParserTrudvsem\web\img" />
       <recent name="C:\OpenServer\domains\aguproject\app\Resources\views\default" />
       <recent name="E:\OpenServer\OpenServer\domains\aguproject\assets" />
-      <recent name="E:\OpenServer\OpenServer\domains\aguproject\web\assets\js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="O:\OSPanel\domains\saxapok\web\js" />
@@ -167,14 +172,8 @@
       <workItem from="1581414517311" duration="56000" />
       <workItem from="1581414584821" duration="6974000" />
       <workItem from="1581427307535" duration="5447000" />
-      <workItem from="1581818134461" duration="4486000" />
-    </task>
-    <task id="LOCAL-00006" summary="test 07.02.2020">
-      <created>1581058683816</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1581058683816</updated>
+      <workItem from="1581818134461" duration="11771000" />
+      <workItem from="1581853156351" duration="5691000" />
     </task>
     <task id="LOCAL-00007" summary="stickers">
       <created>1581059449162</created>
@@ -512,7 +511,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581824071292</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="manager created">
+      <created>1581825580168</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1581825580168</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,14 +539,18 @@
     <option name="LAST_COMMIT_MESSAGE" value="manager created" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1581417085706">
+    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1581862823390">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581417085706" />
-    <state x="585" y="215" key="CommitChangelistDialog2" timestamp="1581824070003">
+    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581862823390" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1581863675539">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581824070003" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581863675539" />
+    <state x="585" y="215" key="CommitChangelistDialog2" timestamp="1581865295392">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="585" y="215" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581865295392" />
     <state x="184" y="92" key="DiffContextDialog" timestamp="1581079216602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -561,10 +571,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="254" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581132873375" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581818131785">
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1581853171828">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581818131785" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581853171828" />
     <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581430399215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
