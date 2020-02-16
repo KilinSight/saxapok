@@ -27,7 +27,7 @@ services:
     AppBundle\Controller\:
         resource: '../../src/AppBundle/Controller'
         public: true
-        tags: ['controller.service_arguments']
+        tags: 'controller.service_arguments'
 
     AppBundle\Manager\:
         resource: '../../src/AppBundle/Manager'
@@ -35,12 +35,12 @@ services:
 
     AppBundle\Manager\TelegramManager:
         public: true
-        arguments: [
+        arguments:
             $logger: '@monolog.logger'
             $mailerHost: '%mailer_host%'
             $mailerUser: '%mailer_user%'
             $mailerPassword: '%mailer_password%'
-        ]
+
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
