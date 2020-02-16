@@ -101,8 +101,10 @@ class DefaultController extends Controller
     {
         $telegramManager = $this->get(TelegramManager::class);
         $update = $telegramManager->getUpdate();
+        if(!$update->getUser()->getIsBot()){
+            $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
+        }
 
-        $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
 
         return new JsonResponse(['ok' => true, 'status' => 200]);
     }

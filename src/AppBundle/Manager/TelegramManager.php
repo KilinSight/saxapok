@@ -294,6 +294,7 @@ class TelegramManager
             $userLastname = '@' . $message['from']['last_name'];
             $userId = $message['from']['id'];
             $chatId = $message['chat']['id'];
+            $isBot = $message['from']['is_bot'];
             $date = (new \DateTime())->setTimestamp($message['date']);
         }
 
@@ -310,6 +311,7 @@ class TelegramManager
         }
 
         $user = new TelegramUser($userId, $username, $userFirstname, $userLastname);
+        $user->setIsBot($isBot);
         $updateMetadata = new UpdateMetadataDto($user, $date, $chatId);
 
         if($command){
