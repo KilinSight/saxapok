@@ -104,7 +104,7 @@ class DefaultController extends Controller
 
         $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
 
-        return new Response(Response::HTTP_OK);
+        return Response::HTTP_OK;
     }
 
     /**
