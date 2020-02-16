@@ -4,11 +4,11 @@ body{
 
 .block{
     display:flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-content: center;
 }
 
-.bot-result{
+.bot-results{
     display:flex;
     flex-flow: column;
     justify-content: center;
@@ -35,10 +35,15 @@ body{
     justify-content: space-around;
     align-items: center;
     flex-flow: column;
+    max-width: 400px;
     min-height: 300px;
 }
 .ajax-url-input{
     width: 20%;
+}
+
+.command-buttons{
+    margin: 0 5px;
 }
 
 #send-body-textarea{
