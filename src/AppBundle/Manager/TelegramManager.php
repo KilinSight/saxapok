@@ -498,12 +498,14 @@ class TelegramManager
         /** @var TelegramMessage $lastMessage */
         $lastMessage = $qb->getQuery()->getOneOrNullResult();
 
-        $qb = $this->em->createQueryBuilder();
-        $qb->update(TelegramMessage::class, 'tgMessage');
-        $qb->andWhere($qb->expr()->neq('tgMessage.id', $lastMessage->getId()));
-        $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
-        $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
-        $qb->set('tgMessage.status', TelegramMessage::STATUS_CANCELED);
+        if($lastMessage){
+            $qb = $this->em->createQueryBuilder();
+            $qb->update(TelegramMessage::class, 'tgMessage');
+            $qb->andWhere($qb->expr()->neq('tgMessage.id', $lastMessage->getId()));
+            $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
+            $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
+            $qb->set('tgMessage.status', TelegramMessage::STATUS_CANCELED);
+        }
 
         return  $qb->getQuery()->execute();
     }
