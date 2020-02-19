@@ -220,11 +220,6 @@ class TelegramManager
             $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
         }
 
-        if(!$tgMessage->getChat()->getId()){
-            $this->em->persist($tgMessage->getChat());
-            $this->em->flush();
-        }
-
         $body["chat_id"] = $tgMessage->getChat()->getUserId();
         $body["text"] = $tgMessage->getText();
         curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
