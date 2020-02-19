@@ -174,7 +174,7 @@ class DefaultController extends Controller
             }
         }
 
-        return Response::HTTP_OK;
+        return http_response_code(200);
     }
 
     /**
