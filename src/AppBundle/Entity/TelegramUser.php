@@ -52,14 +52,14 @@ class TelegramUser
     private $isBot = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="TelegramMessage", mappedBy="from", cascade={"persist")
+     * @ORM\OneToMany(targetEntity="TelegramMessage", mappedBy="from", cascade={"persist"})
      *
      * @var ArrayCollection|TelegramMessage[]
      */
     private $fromMessages;
 
     /**
-     * @ORM\OneToMany(targetEntity="TelegramMessage", mappedBy="chat", cascade={"persist")
+     * @ORM\OneToMany(targetEntity="TelegramMessage", mappedBy="chat", cascade={"persist"})
      *
      * @var ArrayCollection|TelegramMessage[]
      */
