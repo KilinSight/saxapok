@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use function Doctrine\ORM\QueryBuilder;
 
 class TelegramManager
 {
@@ -159,7 +160,12 @@ class TelegramManager
      */
     public function getOrCreateUser(int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
     {
-        $issetUser = $this->em->getRepository(TelegramUser::class)->findOneBy(['userId' => $userId]);
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('tgUser')->from(TelegramUser::class, 'tgUser');
+        $qb->andWhere($qb->expr()->eq('tgUser.userId', $userId));
+        $qb->setMaxResults(1);
+        $issetUser = $qb->getQuery()->getOneOrNullResult();
         if(!$issetUser){
             $tgUser = new TelegramUser(null, intval($userId), $username, $firstname, $lastname, $isBot);
             $this->em->persist($tgUser);
