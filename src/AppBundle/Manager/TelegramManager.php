@@ -152,8 +152,9 @@ class TelegramManager
     /**
      * @param int $messageId
      * @return TelegramMessage
+     * @throws \Exception
      */
-    public function getOrCreateMessage(int $messageId): Response
+    public function getOrCreateMessage(int $messageId): TelegramMessage
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $messageId]);
         if(!$issetMessage){
@@ -165,9 +166,8 @@ class TelegramManager
 
     /**
      * @param TelegramMessage $tgMessage
-     * @return Response
      */
-    public function saveMessageToDB(TelegramMessage $tgMessage): Response
+    public function saveMessageToDB(TelegramMessage $tgMessage)
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $tgMessage->getMessageId()]);
         if(!$issetMessage){
@@ -188,9 +188,8 @@ class TelegramManager
     /**
      * @param TelegramMessage $tgMessage
      * @param array|null $inlineKeyboardMarkup
-     * @return Response
      */
-    public function sendMessageTo(TelegramMessage $tgMessage, ?array $inlineKeyboardMarkup = null): Response
+    public function sendMessageTo(TelegramMessage $tgMessage, ?array $inlineKeyboardMarkup = null)
     {
         if(!$tgMessage->getChat()){
             throw new \InvalidArgumentException('User "to" is required');
@@ -302,9 +301,6 @@ class TelegramManager
 //                }
 //            }
 //        }
-
-
-        return new Response(Response::HTTP_OK);
     }
 
     /**
