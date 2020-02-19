@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramUser.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,14 +170,7 @@
       <workItem from="1581427307535" duration="5447000" />
       <workItem from="1581818134461" duration="11771000" />
       <workItem from="1581853156351" duration="7827000" />
-      <workItem from="1582028490266" duration="21971000" />
-    </task>
-    <task id="LOCAL-00042" summary="manager created">
-      <created>1581418659091</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1581418659091</updated>
+      <workItem from="1582028490266" duration="22050000" />
     </task>
     <task id="LOCAL-00043" summary="manager created">
       <created>1581420862513</created>
@@ -515,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582120345471</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Reply WIP">
+      <created>1582120407571</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1582120407571</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
