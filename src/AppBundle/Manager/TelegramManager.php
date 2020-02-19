@@ -166,7 +166,7 @@ class TelegramManager
             $this->em->flush();
             return [false, $tgUser];
         }else{
-            return [true, $issetUser[0]];
+            return [true, $issetUser];
         }
     }
 
