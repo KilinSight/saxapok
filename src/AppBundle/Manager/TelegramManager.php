@@ -520,9 +520,9 @@ class TelegramManager
             $this->cancelUserMessages($tgUser);
             $qb = $this->em->createQueryBuilder();
             $qb->select('tgMessage')->from(TelegramMessage::class, 'tgMessage');
-            $qb->andWhere($qb->expr()->max('tgMessage.date'));
             $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
             $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
+            $qb->orderBy('tgMessage.date', 'DESC');
             $qb->setMaxResults(1);
             /** @var TelegramMessage $result */
             $result = $qb->getQuery()->getOneOrNullResult();

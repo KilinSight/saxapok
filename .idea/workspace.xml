@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -170,14 +169,7 @@
       <workItem from="1581427307535" duration="5447000" />
       <workItem from="1581818134461" duration="11771000" />
       <workItem from="1581853156351" duration="7827000" />
-      <workItem from="1582028490266" duration="19928000" />
-    </task>
-    <task id="LOCAL-00033" summary="webhook">
-      <created>1581151474778</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1581151474778</updated>
+      <workItem from="1582028490266" duration="19955000" />
     </task>
     <task id="LOCAL-00034" summary="webhook">
       <created>1581153679878</created>
@@ -515,7 +507,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582118185164</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Reply WIP">
+      <created>1582118366156</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1582118366156</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
