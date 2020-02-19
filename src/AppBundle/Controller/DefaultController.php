@@ -112,12 +112,7 @@ class DefaultController extends Controller
                 if(!$update->isForwarded()){
                     $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
                 }
-                $tgUser = $update->getUser();
-                $tgUserIsset = $em->getRepository(TelegramUser::class)->findBy(['userId' => $tgUser->getUserId()]);
-                if(!$tgUserIsset){
-                    $em->persist($tgUser);
-                    $em->flush();
-                }
+                $tgUser = $telegramManager->getOrCreateUser($update->getUser()->getUserId(), $update->getUser()->getUsername(), $update->getUser()->getFirstname(), $update->getUser()->getLastname(), $update->getUser()->getIsBot());
 
                 $tgFromMessage = $telegramManager->getOrCreateMessage($update->getMessageId());
                 $tgFromMessage->setChat(TelegramUser::getBotUser());
