@@ -191,14 +191,7 @@ class TelegramManager
     public function saveMessageToDB(TelegramMessage $tgMessage)
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $tgMessage->getMessageId()]);
-        if(!$issetMessage){
-            $userTo = $tgMessage->getChat();
-            if($userTo && !$userTo->getId()){
-                $this->em->persist($userTo);
-                $this->em->flush();
-            }
-            $tgMessage->setChat($userTo);
-        }else{
+        if($issetMessage){
             $tgMessage->setId($issetMessage->getId());
         }
 
