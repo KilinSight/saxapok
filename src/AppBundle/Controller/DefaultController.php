@@ -116,7 +116,7 @@ class DefaultController extends Controller
 //                list($tgUserIsset, $tgUser) = $telegramManager->getOrCreateUser($update->getUser()->getUserId(), $update->getUser()->getUsername(), $update->getUser()->getFirstname(), $update->getUser()->getLastname(), $update->getUser()->getIsBot());
 
                 $tgFromMessage = $telegramManager->getOrCreateMessage($update->getMessageId());
-                $tgFromMessage->setChat(TelegramUser::getBotUser());
+                $tgFromMessage->setChat($telegramManager->getBotUser());
                 $tgFromMessage->setFrom($tgUser);
                 $tgFromMessage->setDate($update->getDate());
                 $tgFromMessage->setText($update->getMessageText());
@@ -135,7 +135,7 @@ class DefaultController extends Controller
                         $inlineKeyboardMarkup = [
                             'inline_keyboard' => $keyboard
                         ];
-                        $tgToMessage = new TelegramMessage(null, $update->getMessageId(), TelegramUser::getBotUser(), $tgUser, $update->getDate(), "Введите текст ответа пользователю @" . $tgUser->getUsername());
+                        $tgToMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $tgUser, $update->getDate(), "Введите текст ответа пользователю @" . $tgUser->getUsername());
                         $telegramManager->sendMessageTo($tgToMessage, $inlineKeyboardMarkup);
                     }elseif($command === TelegramMessage::COMMAND_CANCEL){
                         $tgFromMessage->setStatus(TelegramMessage::COMMAND_CANCEL);
@@ -148,7 +148,7 @@ class DefaultController extends Controller
                         $lastCommandFromMessage = $telegramManager->getLastCommandFromMessage($lastMessage);
                         if($lastCommandFromMessage === TelegramMessage::COMMAND_REPLY){
                             $lastMessage->setStatus(TelegramMessage::STATUS_SEEN);
-                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), TelegramUser::getBotUser(), $lastMessage->getFrom(), $update->getDate(), $tgFromMessage->getText());
+                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $lastMessage->getFrom(), $update->getDate(), $tgFromMessage->getText());
                             $telegramManager->sendMessageTo($replyMessage);
                             $em->persist($lastMessage);
                         }

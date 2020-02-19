@@ -132,7 +132,7 @@ class TelegramManager
             $this->throwException(curl_error($curl));
         }
 
-        $tgToMessage = new TelegramMessage(null, $messageId, TelegramUser::getBotUser(), TelegramUser::getAdminUser(), (new \DateTime())->setTimestamp(time()), 'Хотите ответить?');
+        $tgToMessage = new TelegramMessage(null, $messageId, $this->getBotUser(), $this->getAdminUser(), (new \DateTime())->setTimestamp(time()), 'Хотите ответить?');
 
         $keyboard = [
             [
@@ -185,7 +185,7 @@ class TelegramManager
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $messageId]);
         if(!$issetMessage){
-            return new TelegramMessage(null, $messageId, TelegramUser::getAdminUser(), TelegramUser::getBotUser(), (new \DateTime()), '');
+            return new TelegramMessage(null, $messageId, $this->getAdminUser(), $this->getBotUser(), (new \DateTime()), '');
         }else{
             return $issetMessage;
         }
@@ -451,6 +451,16 @@ class TelegramManager
     public function throwException(string $message){
         $this->notifyAdmins($message);
         throw new BadRequestHttpException($message);
+    }
+
+    public function getBotUser():TelegramUser
+    {
+        return $this->em->find(TelegramUser::class, 1);
+    }
+
+    public function getAdminUser():TelegramUser
+    {
+        return $this->em->find(TelegramUser::class, 2);
     }
 
     public function notifyAdmins($messageText){

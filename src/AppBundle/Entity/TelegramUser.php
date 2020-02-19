@@ -182,16 +182,6 @@ class TelegramUser
         $this->id = $id;
     }
 
-    public static function getBotUser():TelegramUser
-    {
-        return new TelegramUser(1, 914200924, 'SaxapokBots', 'SaharokBota', '', true);
-    }
-
-    public static function getAdminUser():TelegramUser
-    {
-        return new TelegramUser(2, TelegramManager::CHAT_ID_ME, 'kilinsight', 'Илья', 'Украинский', false);
-    }
-
     /**
      * @return TelegramMessage[]|ArrayCollection
      */
