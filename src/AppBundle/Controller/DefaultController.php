@@ -112,7 +112,8 @@ class DefaultController extends Controller
                 if(!$update->isForwarded()){
                     $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
                 }
-                list($tgUserIsset, $tgUser) = $telegramManager->getOrCreateUser($update->getUser()->getUserId(), $update->getUser()->getUsername(), $update->getUser()->getFirstname(), $update->getUser()->getLastname(), $update->getUser()->getIsBot());
+                $tgUser = $update->getUser();
+//                list($tgUserIsset, $tgUser) = $telegramManager->getOrCreateUser($update->getUser()->getUserId(), $update->getUser()->getUsername(), $update->getUser()->getFirstname(), $update->getUser()->getLastname(), $update->getUser()->getIsBot());
 
                 $tgFromMessage = $telegramManager->getOrCreateMessage($update->getMessageId());
                 $tgFromMessage->setChat(TelegramUser::getBotUser());
@@ -142,16 +143,14 @@ class DefaultController extends Controller
 
                     $telegramManager->saveMessageToDB($tgFromMessage);
                 }elseif($update->getMessageText()){
-                    if($tgUserIsset){
-                        $lastMessage = $telegramManager->getUserLastOpenedMessage($tgUser);
-                        if($lastMessage){
-                            $lastCommandFromMessage = $telegramManager->getLastCommandFromMessage($lastMessage);
-                            if($lastCommandFromMessage === TelegramMessage::COMMAND_REPLY){
-                                $lastMessage->setStatus(TelegramMessage::STATUS_SEEN);
-                                $replyMessage = new TelegramMessage(null, $update->getMessageId(), TelegramUser::getBotUser(), $lastMessage->getFrom(), $update->getDate(), $tgFromMessage->getText());
-                                $telegramManager->sendMessageTo($replyMessage);
-                                $em->persist($lastMessage);
-                            }
+                    $lastMessage = $telegramManager->getUserLastOpenedMessage($tgUser);
+                    if($lastMessage){
+                        $lastCommandFromMessage = $telegramManager->getLastCommandFromMessage($lastMessage);
+                        if($lastCommandFromMessage === TelegramMessage::COMMAND_REPLY){
+                            $lastMessage->setStatus(TelegramMessage::STATUS_SEEN);
+                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), TelegramUser::getBotUser(), $lastMessage->getFrom(), $update->getDate(), $tgFromMessage->getText());
+                            $telegramManager->sendMessageTo($replyMessage);
+                            $em->persist($lastMessage);
                         }
                     }
 
