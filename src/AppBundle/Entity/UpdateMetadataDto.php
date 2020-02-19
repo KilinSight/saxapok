@@ -42,6 +42,7 @@ class UpdateMetadataDto
         $this->sticker = $sticker;
         $this->audios = $audios;
         $this->documents = $documents;
+        $this->isForwarded = false;
     }
 
     /**
@@ -231,6 +232,11 @@ class UpdateMetadataDto
     private $chatId;
 
     /**
+     * @var boolean
+     */
+    private $isForwarded;
+
+    /**
      * @var string
      */
     private $messageText;
@@ -244,6 +250,11 @@ class UpdateMetadataDto
      * @var string
      */
     private $type;
+
+    /**
+     * @var string
+     */
+    private $command;
 
     /**
      * @var string[]
@@ -288,6 +299,38 @@ class UpdateMetadataDto
     public function setMessageId(int $messageId): void
     {
         $this->messageId = $messageId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForwarded(): bool
+    {
+        return $this->isForwarded;
+    }
+
+    /**
+     * @param bool $isForwarded
+     */
+    public function setIsForwarded(bool $isForwarded): void
+    {
+        $this->isForwarded = $isForwarded;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommand(): string
+    {
+        return $this->command;
+    }
+
+    /**
+     * @param string $command
+     */
+    public function setCommand(string $command): void
+    {
+        $this->command = $command;
     }
 
 

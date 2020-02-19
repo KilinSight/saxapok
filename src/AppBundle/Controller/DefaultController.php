@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\TelegramMessage;
+use AppBundle\Entity\TelegramUser;
+use AppBundle\Entity\UpdateMetadataDto;
 use AppBundle\Manager\TelegramManager;
 use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -99,13 +102,75 @@ class DefaultController extends Controller
      */
     public function webhookAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
 //        $telegramManager->notifyAdmins(json_encode($updateRaw));
         if($update->getDate()->getTimestamp() > (time() - 5)){
-            if(!$update->getUser()->getIsBot() && !isset($updateRaw['message']['forward_from'])){
-                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
+            if(!$update->getUser()->getIsBot()){
+                if(!$update->isForwarded()){
+                    $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
+                }
+                $tgUser = $update->getUser();
+                $tgUserIsset = $em->getRepository(TelegramUser::class)->findBy(['user_id' => $tgUser->getUserId()]);
+                if(!$tgUserIsset){
+                    $em->persist($tgUser);
+                    $em->flush();
+                }
+
+                $tgFromMessage = $telegramManager->getOrCreateMessage($update->getMessageId());
+                $tgFromMessage->setChat(TelegramUser::getBotUser());
+                $tgFromMessage->setFrom($tgUser);
+                $tgFromMessage->setDate($update->getDate());
+                $tgFromMessage->setText($update->getMessageText());
+
+                if($update->getType() === UpdateMetadataDto::TYPE_COMMAND){
+                    $command = $update->getCommand();
+
+                    if($command === TelegramMessage::COMMAND_REPLY){
+                        $keyboard = [
+                            [
+                                [
+                                    'text' => 'Reply Now', 'callback_data' => "/reply"
+                                ]
+                            ]
+                        ];
+                        $inlineKeyboardMarkup = [
+                            'inline_keyboard' => $keyboard
+                        ];
+                        $tgToMessage = new TelegramMessage(null, $update->getMessageId(), TelegramUser::getBotUser(), $tgUser, $update->getDate(), "Введите текст ответа пользователю @" . $tgUser->getUsername());
+                        $telegramManager->sendMessageTo($tgToMessage, $inlineKeyboardMarkup);
+                    }elseif($command === TelegramMessage::COMMAND_CANCEL){
+                        $tgFromMessage->setStatus(TelegramMessage::COMMAND_CANCEL);
+                    }
+
+                    $telegramManager->saveMessageToDB($tgFromMessage);
+                }elseif($update->getMessageText()){
+                    if($tgUserIsset){
+                        $lastMessage = $telegramManager->getUserLastOpenedMessage($tgUser);
+                        if($lastMessage){
+                            $lastCommandFromMessage = $telegramManager->getLastCommandFromMessage($lastMessage);
+                            if($lastCommandFromMessage === TelegramMessage::COMMAND_REPLY){
+                                $lastMessage->setStatus(TelegramMessage::STATUS_SEEN);
+                                $replyMessage = new TelegramMessage(null, $update->getMessageId(), TelegramUser::getBotUser(), $lastMessage->getFrom(), $update->getDate(), $tgFromMessage->getText());
+                                $telegramManager->sendMessageTo($replyMessage);
+                                $em->persist($lastMessage);
+                            }
+                        }
+                    }
+
+                    $lastCommandFromNewMessage = $telegramManager->getLastCommandFromMessage($tgFromMessage);
+                    if($lastCommandFromNewMessage){
+                        if($lastCommandFromNewMessage === TelegramMessage::COMMAND_CANCEL){
+                            $tgFromMessage->setStatus(TelegramMessage::STATUS_CANCELED);
+                        }
+                    }
+                    $tgFromMessage->setStatus(TelegramMessage::STATUS_SEEN);
+
+                    $em->persist($tgFromMessage);
+                }
+                $em->flush();
             }
         }
 

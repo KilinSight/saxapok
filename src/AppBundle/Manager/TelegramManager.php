@@ -4,6 +4,7 @@ namespace AppBundle\Manager;
 
 use AppBundle\Controller\ApiController;
 use AppBundle\Entity\ParsedImage;
+use AppBundle\Entity\TelegramMessage;
 use AppBundle\Entity\TelegramUser;
 use AppBundle\Entity\UpdateMetadataDto;
 use Doctrine\ORM\EntityManagerInterface;
@@ -128,35 +129,90 @@ class TelegramManager
         if ($output === false) {
             $this->throwException(curl_error($curl));
         }
-    }
-    /**
-     * @param string $toChatId
-     * @param UpdateMetadataDto $update
-     * @return Response
-     */
-    public function sendMessageTo(string $toChatId, UpdateMetadataDto $update): Response
-    {
-        $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMessage';
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $apiUrl);
+        $tgToMessage = new TelegramMessage(null, $messageId, TelegramUser::getBotUser(), TelegramUser::getAdminUser(), (new \DateTime())->setTimestamp(time()), 'Хотите ответить?');
 
-
-        $text = $update->getUser()->getUsername() . ' sent message:' . "\n";
-        $text .= $update->getMessageText() . "\n";
         $keyboard = [
             [
                 [
                     'text' => 'Reply Now', 'callback_data' => "/reply"
+                ],
+                [
+                    'text' => 'Cancel', 'callback_data' => "/cancel"
                 ]
             ]
         ];
         $inlineKeyboardMarkup = [
             'inline_keyboard' => $keyboard
         ];
-        $body["chat_id"] = $toChatId;
-        $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
-        $body["text"] = $text;
+        $this->sendMessageTo($tgToMessage, $inlineKeyboardMarkup);
+    }
+
+    /**
+     * @param int $messageId
+     * @return TelegramMessage
+     */
+    public function getOrCreateMessage(int $messageId): Response
+    {
+        $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $messageId]);
+        if(!$issetMessage){
+            return new TelegramMessage(null, $messageId, null, TelegramUser::getBotUser(), null, '');
+        }else{
+            return $issetMessage;
+        }
+    }
+
+    /**
+     * @param TelegramMessage $tgMessage
+     * @return Response
+     */
+    public function saveMessageToDB(TelegramMessage $tgMessage): Response
+    {
+        $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $tgMessage->getMessageId()]);
+        if(!$issetMessage){
+            $userTo = $tgMessage->getChat();
+            if($userTo && !$userTo->getId()){
+                $this->em->persist($userTo);
+                $this->em->flush();
+            }
+            $tgMessage->setChat($userTo);
+        }else{
+            $tgMessage->setId($issetMessage->getId());
+        }
+
+        $this->em->persist($tgMessage);
+        $this->em->flush();
+    }
+
+    /**
+     * @param TelegramMessage $tgMessage
+     * @param array|null $inlineKeyboardMarkup
+     * @return Response
+     */
+    public function sendMessageTo(TelegramMessage $tgMessage, ?array $inlineKeyboardMarkup = null): Response
+    {
+        if(!$tgMessage->getChat()){
+            throw new \InvalidArgumentException('User "to" is required');
+        }
+        if(!$tgMessage->getFrom()){
+            throw new \InvalidArgumentException('User "from" is required');
+        }
+        $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMessage';
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $apiUrl);
+
+        if($inlineKeyboardMarkup){
+            $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
+        }
+
+        if(!$tgMessage->getChat()->getId()){
+            $this->em->persist($tgMessage->getChat());
+            $this->em->flush();
+        }
+
+        $body["chat_id"] = $tgMessage->getChat()->getUserId();
+        $body["text"] = $tgMessage->getText();
         curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
@@ -167,84 +223,84 @@ class TelegramManager
         }
         curl_close($curl);
 
-        if($update->getSticker()){
-            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendSticker';
+//        if($update->getSticker()){
+//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendSticker';
+//
+//            $curl = curl_init();
+//            curl_setopt($curl, CURLOPT_URL, $apiUrl);
+//            $body["chat_id"] = $toChatId;
+//            $body['sticker'] = $update->getSticker();
+//            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+//
+//            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//
+//            $output = curl_exec($curl);
+//
+//            if ($output === false) {
+//                $this->throwException(curl_error($curl));
+//            }
+//        }
 
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, $apiUrl);
-            $body["chat_id"] = $toChatId;
-            $body['sticker'] = $update->getSticker();
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-            $output = curl_exec($curl);
-
-            if ($output === false) {
-                $this->throwException(curl_error($curl));
-            }
-        }
-
-        $photos = $update->getPhotos();
-        if($photos && count($photos)){
-            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMediaGroup';
-
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, $apiUrl);
-            $body["chat_id"] = $toChatId;
-            $body['media'] = $photos;
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-            $output = curl_exec($curl);
-
-            if ($output === false) {
-                $this->throwException(curl_error($curl));
-            }
-        }
-        $videos = $update->getVideos();
-
-        if($videos && count($videos)){
-            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMediaGroup';
-
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, $apiUrl);
-            $body["chat_id"] = $toChatId;
-            $body['media'] = $videos;
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-            $output = curl_exec($curl);
-
-            if ($output === false) {
-                $this->throwException(curl_error($curl));
-            }
-        }
-
-        $documents = $update->getDocuments();
-
-        if($documents && count($documents)){
-            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendDocument';
-
-            foreach ($documents as $document) {
-                $curl = curl_init();
-                curl_setopt($curl, CURLOPT_URL, $apiUrl);
-                $body["chat_id"] = $toChatId;
-                $body['document'] = $document;
-
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-
-                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-                $output = curl_exec($curl);
-
-                if ($output === false) {
-                    $this->throwException(curl_error($curl));
-                }
-            }
-        }
+//        $photos = $update->getPhotos();
+//        if($photos && count($photos)){
+//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMediaGroup';
+//
+//            $curl = curl_init();
+//            curl_setopt($curl, CURLOPT_URL, $apiUrl);
+//            $body["chat_id"] = $toChatId;
+//            $body['media'] = $photos;
+//            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+//
+//            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//
+//            $output = curl_exec($curl);
+//
+//            if ($output === false) {
+//                $this->throwException(curl_error($curl));
+//            }
+//        }
+//        $videos = $update->getVideos();
+//
+//        if($videos && count($videos)){
+//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMediaGroup';
+//
+//            $curl = curl_init();
+//            curl_setopt($curl, CURLOPT_URL, $apiUrl);
+//            $body["chat_id"] = $toChatId;
+//            $body['media'] = $videos;
+//            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+//
+//            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//
+//            $output = curl_exec($curl);
+//
+//            if ($output === false) {
+//                $this->throwException(curl_error($curl));
+//            }
+//        }
+//
+//        $documents = $update->getDocuments();
+//
+//        if($documents && count($documents)){
+//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendDocument';
+//
+//            foreach ($documents as $document) {
+//                $curl = curl_init();
+//                curl_setopt($curl, CURLOPT_URL, $apiUrl);
+//                $body["chat_id"] = $toChatId;
+//                $body['document'] = $document;
+//
+//                curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+//
+//                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//
+//                $output = curl_exec($curl);
+//
+//                if ($output === false) {
+//                    $this->throwException(curl_error($curl));
+//                }
+//            }
+//        }
 
 
         return new Response(Response::HTTP_OK);
@@ -276,12 +332,14 @@ class TelegramManager
         $userId = null;
         $userFirstname = null;
         $userLastname = null;
-
+        $isForwarded = false;
         if(isset($update['message'])) {
             $message = $update['message'];
+            $isForwarded = isset($updateRaw['message']['forward_from']);
         }elseif(isset($update['callback_query'])){
             if(isset($update['callback_query']['message'])){
                 $message = $update['callback_query']['message'];
+                $isForwarded = isset($updateRaw['callback_query']['message']['forward_from']);
             }
             if(isset($update['callback_query']['data'])){
                 $command = $update['callback_query']['data'];
@@ -313,9 +371,10 @@ class TelegramManager
         $user = new TelegramUser($userId, $username, $userFirstname, $userLastname);
         $user->setIsBot($isBot);
         $updateMetadata = new UpdateMetadataDto($user, $date, $chatId);
-
+        $updateMetadata->setIsForwarded($isForwarded);
         if($command){
             $updateMetadata->setType(UpdateMetadataDto::TYPE_COMMAND);
+            $updateMetadata->setCommand($command);
         }else{
             $updateMetadata->setType(UpdateMetadataDto::TYPE_MESSAGE);
         }
@@ -389,6 +448,90 @@ class TelegramManager
         $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
         $message->setBody($messageText);
         $mailer->send($message);
+    }
+
+    /**
+     * @param TelegramMessage $telegramMessage
+     * @return array|null
+     */
+    public function getCommandsFromMessage(TelegramMessage $telegramMessage): ?array
+    {
+        $result = [];
+        if($telegramMessage->getText()){
+            foreach (TelegramMessage::getAllowedCommands() as $allowedCommand) {
+                $result[] = [
+                    $allowedCommand => stripos($telegramMessage->getText(), $allowedCommand)
+                ];
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param TelegramMessage $telegramMessage
+     * @return string|null
+     */
+    public function getLastCommandFromMessage(TelegramMessage $telegramMessage): ?string
+    {
+        $result = null;
+        $commands = $this->getCommandsFromMessage($telegramMessage);
+        $prevPos = -1;
+        foreach ($commands as $allowedCommand => $position) {
+            if($position > $prevPos){
+                $result = $allowedCommand;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param TelegramUser $tgUser
+     * @return mixed
+     */
+    private function cancelUserMessages(TelegramUser $tgUser)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('tgMessage')->from(TelegramMessage::class, 'tgMessage');
+        $qb->andWhere($qb->expr()->max('tgMessage.date'));
+        $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
+        $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
+        $qb->setMaxResults(1);
+        /** @var TelegramMessage $lastMessage */
+        $lastMessage = $qb->getQuery()->getOneOrNullResult();
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->update(TelegramMessage::class, 'tgMessage');
+        $qb->andWhere($qb->expr()->neq('tgMessage.id', $lastMessage->getId()));
+        $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
+        $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
+        $qb->set('tgMessage.status', TelegramMessage::STATUS_CANCELED);
+
+        return  $qb->getQuery()->execute();
+    }
+
+    /**
+     * @param TelegramUser $tgUser
+     * @return TelegramMessage|null
+     */
+    public function getUserLastOpenedMessage(TelegramUser $tgUser): ?TelegramMessage
+    {
+        $result = null;
+
+        if($tgUser->getId()){
+            $this->cancelUserMessages($tgUser);
+            $qb = $this->em->createQueryBuilder();
+            $qb->select('tgMessage')->from(TelegramMessage::class, 'tgMessage');
+            $qb->andWhere($qb->expr()->max('tgMessage.date'));
+            $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
+            $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
+            $qb->setMaxResults(1);
+            /** @var TelegramMessage $result */
+            $result = $qb->getQuery()->getOneOrNullResult();
+        }
+
+        return $result;
     }
 
     /**
