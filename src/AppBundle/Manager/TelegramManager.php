@@ -159,8 +159,8 @@ class TelegramManager
      */
     public function getOrCreateUser(int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
     {
-        $issetUser = $this->em->getRepository(TelegramUser::class)->findBy(['userId' => $userId]);
-        if(!$issetUser || count($issetUser) === 0){
+        $issetUser = $this->em->getRepository(TelegramUser::class)->findOneBy(['userId' => $userId]);
+        if(!$issetUser){
             $tgUser = new TelegramUser(null, intval($userId), $username, $firstname, $lastname, $isBot);
             $this->em->persist($tgUser);
             $this->em->flush();
