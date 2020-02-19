@@ -34,7 +34,7 @@ class TelegramMessage
     private $messageId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TelegramUser", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="TelegramUser")
      * @ORM\JoinColumn(name="user_from", referencedColumnName="id")
      *
      * @var TelegramUser
@@ -42,7 +42,7 @@ class TelegramMessage
     private $from;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TelegramUser", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="TelegramUser")
      * @ORM\JoinColumn(name="user_to", referencedColumnName="id")
      *
      * @var TelegramUser
