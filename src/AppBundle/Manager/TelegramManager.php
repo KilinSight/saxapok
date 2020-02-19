@@ -154,19 +154,19 @@ class TelegramManager
      * @param string $username
      * @param string|null $firstname
      * @param string|null $lastname
-     * @return TelegramUser
+     * @return array
      * @throws \Exception
      */
-    public function getOrCreateUser(int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false): TelegramUser
+    public function getOrCreateUser(int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
     {
         $issetUser = $this->em->getRepository(TelegramUser::class)->findOneBy(['userId' => $userId]);
         if(!$issetUser){
             $tgUser = new TelegramUser(null, $userId, $username, $firstname, $lastname, $isBot);
             $this->em->persist($tgUser);
             $this->em->flush();
-            return $tgUser;
+            return [false, $tgUser];
         }else{
-            return $issetUser;
+            return [true, $issetUser];
         }
     }
 
