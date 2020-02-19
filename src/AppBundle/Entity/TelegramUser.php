@@ -184,7 +184,7 @@ class TelegramUser
 
     public static function getBotUser():TelegramUser
     {
-        return new TelegramUser(1, 914200924, 'SaxapokBot', 'SaharokBot', '', true);
+        return new TelegramUser(1, 914200924, 'SaxapokBots', 'SaharokBota', '', true);
     }
 
     public static function getAdminUser():TelegramUser
