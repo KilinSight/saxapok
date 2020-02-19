@@ -157,7 +157,7 @@ class TelegramManager
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $messageId]);
         if(!$issetMessage){
-            return new TelegramMessage(null, $messageId, null, TelegramUser::getBotUser(), null, '');
+            return new TelegramMessage(null, $messageId, TelegramUser::getAdminUser(), TelegramUser::getBotUser(), null, '');
         }else{
             return $issetMessage;
         }
