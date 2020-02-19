@@ -29,7 +29,7 @@ class TelegramUser
 
     /**
      * @ORM\Column(name="user_id", type="integer", length=11, nullable=false)
-     * @var string
+     * @var integer
      */
     private $userId;
 
@@ -103,15 +103,15 @@ class TelegramUser
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getUserId(): string
+    public function getUserId(): int
     {
         return $this->userId;
     }
 
     /**
-     * @param string $userId
+     * @param int $userId
      */
     public function setUserId(string $userId): void
     {
