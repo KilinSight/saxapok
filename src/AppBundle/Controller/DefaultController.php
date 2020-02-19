@@ -174,7 +174,7 @@ class DefaultController extends Controller
             }
         }
 
-        return http_response_code(200);
+        return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
     }
 
     /**
