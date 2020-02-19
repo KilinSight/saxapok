@@ -386,7 +386,7 @@ class TelegramManager
             $this->throwException('Chat id is required');
         }
 
-        $user = $this->getOrCreateUser(intval($userId), $username, $userFirstname, $userLastname, $isBot);
+        list($issetUser, $user) = $this->getOrCreateUser(intval($userId), $username, $userFirstname, $userLastname, $isBot);
         $user->setIsBot($isBot);
         $updateMetadata = new UpdateMetadataDto($user, $date, $chatId);
         $updateMetadata->setIsForwarded($isForwarded);
