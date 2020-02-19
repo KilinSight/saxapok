@@ -360,8 +360,8 @@ class TelegramManager
 
         if($message){
             $username = '@' . $message['from']['username'];
-            $userFirstname = '@' . $message['from']['first_name'];
-            $userLastname = '@' . $message['from']['last_name'];
+            $userFirstname = $message['from']['first_name'];
+            $userLastname = $message['from']['last_name'];
             $userId = $message['from']['id'];
             $chatId = $message['chat']['id'];
             $isBot = $message['from']['is_bot'];
