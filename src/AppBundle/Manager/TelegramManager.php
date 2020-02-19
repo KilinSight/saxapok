@@ -151,28 +151,33 @@ class TelegramManager
     }
 
     /**
+     * @param int|null $id
      * @param int $userId
      * @param string $username
      * @param string|null $firstname
      * @param string|null $lastname
+     * @param bool|null $isBot
      * @return array
-     * @throws \Exception
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getOrCreateUser(int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
+    public function getOrCreateUser(?int $id = null, int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
     {
-
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('tgUser')->from(TelegramUser::class, 'tgUser');
-        $qb->andWhere($qb->expr()->eq('tgUser.userId', $userId));
-        $qb->setMaxResults(1);
-        $issetUser = $qb->getQuery()->getOneOrNullResult();
-        if(!$issetUser){
-            $tgUser = new TelegramUser(null, intval($userId), $username, $firstname, $lastname, $isBot);
-            $this->em->persist($tgUser);
-            $this->em->flush();
-            return [false, $tgUser];
+        if($id){
+            return [true, $this->em->find(TelegramUser::class, $id)];
         }else{
-            return [true, $issetUser];
+            $qb = $this->em->createQueryBuilder();
+            $qb->select('tgUser')->from(TelegramUser::class, 'tgUser');
+            $qb->andWhere($qb->expr()->eq('tgUser.userId', $userId));
+            $qb->setMaxResults(1);
+            $issetUser = $qb->getQuery()->getOneOrNullResult();
+            if(!$issetUser){
+                $tgUser = new TelegramUser(null, intval($userId), $username, $firstname, $lastname, $isBot);
+                $this->em->persist($tgUser);
+                $this->em->flush();
+                return [false, $tgUser];
+            }else{
+                return [true, $issetUser];
+            }
         }
     }
 
@@ -380,7 +385,7 @@ class TelegramManager
             $this->throwException('Chat id is required');
         }
 
-        list($issetUser, $user) = $this->getOrCreateUser(intval($userId), $username, $userFirstname, $userLastname, $isBot);
+        list($issetUser, $user) = $this->getOrCreateUser(null, intval($userId), $username, $userFirstname, $userLastname, $isBot);
         $user->setIsBot($isBot);
         $updateMetadata = new UpdateMetadataDto($user, $date, $chatId);
         $updateMetadata->setIsForwarded($isForwarded);
