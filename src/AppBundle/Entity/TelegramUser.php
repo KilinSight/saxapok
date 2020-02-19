@@ -68,13 +68,13 @@ class TelegramUser
     /**
      * TelegramUser constructor.
      * @param int|null $id
-     * @param string $userId
+     * @param integer $userId
      * @param string $username
      * @param string $firstname
      * @param string $lastname
      * @param bool|null $isBot
      */
-    public function __construct(?int $id, string $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
+    public function __construct(?int $id, int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
     {
         $this->id = $id;
         $this->username = $username;
@@ -107,13 +107,13 @@ class TelegramUser
      */
     public function getUserId(): int
     {
-        return $this->userId;
+        return intval($this->userId);
     }
 
     /**
      * @param int $userId
      */
-    public function setUserId(string $userId): void
+    public function setUserId(int $userId): void
     {
         $this->userId = $userId;
     }

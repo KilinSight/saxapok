@@ -17,10 +17,10 @@ class TelegramManager
 
 
 
-    const CHAT_ID_ME = '328438276';
-    const CHAT_ID_NATASHA = '334733456';
-    const CHAT_ID_MAX = '348558502';
-    const CHAT_ID_BOT = '914200924';
+    const CHAT_ID_ME = 328438276;
+    const CHAT_ID_NATASHA = 334733456;
+    const CHAT_ID_MAX = 348558502;
+    const CHAT_ID_BOT = 914200924;
 
     /**
      * @var LoggerInterface
@@ -161,7 +161,7 @@ class TelegramManager
     {
         $issetUser = $this->em->getRepository(TelegramUser::class)->findOneBy(['userId' => $userId]);
         if(!$issetUser){
-            $tgUser = new TelegramUser(null, $userId, $username, $firstname, $lastname, $isBot);
+            $tgUser = new TelegramUser(null, intval($userId), $username, $firstname, $lastname, $isBot);
             $this->em->persist($tgUser);
             $this->em->flush();
             return [false, $tgUser];
@@ -386,7 +386,7 @@ class TelegramManager
             $this->throwException('Chat id is required');
         }
 
-        $user = new TelegramUser($userId, $username, $userFirstname, $userLastname);
+        $user = new TelegramUser(intval($userId), $username, $userFirstname, $userLastname);
         $user->setIsBot($isBot);
         $updateMetadata = new UpdateMetadataDto($user, $date, $chatId);
         $updateMetadata->setIsForwarded($isForwarded);
