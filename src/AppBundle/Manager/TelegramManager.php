@@ -108,9 +108,10 @@ class TelegramManager
     /**
      * @param string $from
      * @param string $messageId
-     * @return UpdateMetadataDto|null
+     * @return void
+     * @throws \Exception
      */
-    public function forwardToAdmin(string $from, string $messageId): ?UpdateMetadataDto
+    public function forwardToAdmin(string $from, string $messageId)
     {
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/forwardMessage';
 
