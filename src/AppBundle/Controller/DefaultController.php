@@ -147,7 +147,7 @@ class DefaultController extends Controller
             }elseif($tgFromMessage->getText()){
                 if(!$update->getUser()->getIsBot()){
                     foreach ($userFromUpdate->getUnresolvedCommands() as $unresolvedCommand) {
-                        if($unresolvedCommand->getDate() > time() - 30){
+                        if($unresolvedCommand->getDate() < time() - 30){
                             $em->remove($unresolvedCommand);
                             continue;
                         }
