@@ -111,7 +111,7 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
-//        $telegramManager->notifyAdmins(json_encode($updateRaw));
+        $telegramManager->notifyAdmins(json_encode($updateRaw));
         if($update->getDate()->getTimestamp() > (time() - 10)){
             if(!$update->isForwarded() && !$update->getUser()->getIsBot()){
                 $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
@@ -152,7 +152,6 @@ class DefaultController extends Controller
                             $replyToUser = $telegramManager->getUserByUserId($parameters['reply_to']);
                             $replyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), $tgFromMessage->getText());
                             $telegramManager->sendMessageTo($replyMessage);
-                            $telegramManager->saveMessageToDB($replyMessage);
                         }
                     }
 
