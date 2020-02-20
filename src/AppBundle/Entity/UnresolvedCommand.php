@@ -155,6 +155,8 @@ class UnresolvedCommand
             self::COMMAND_REPLY,
             self::COMMAND_SCHEDULE,
             self::COMMAND_SEEN,
+            self::COMMAND_DEBUG,
+            self::COMMAND_STOP,
             self::COMMAND_CANCEL
         ];
     }
