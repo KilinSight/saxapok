@@ -170,6 +170,8 @@ class DefaultController extends Controller
                     }
 
                     $lastCommand = $telegramManager->getLastCommandFromMessage($tgFromMessage);
+                    $telegramManager->notifyAdmins($lastCommand . ' ssssss ' . $tgFromMessage->getText());
+
                     if($lastCommand){
                         $telegramManager->notifyAdmins($lastCommand);
                         if($lastCommand === UnresolvedCommand::COMMAND_DEBUG){
