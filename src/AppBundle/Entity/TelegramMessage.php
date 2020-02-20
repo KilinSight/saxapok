@@ -71,7 +71,7 @@ class TelegramMessage
         $this->messageId = $messageId;
         $this->from = $from;
         $this->chat = $chat;
-        $this->date = $date;
+        $this->date = $date->getTimestamp();
         $this->text = $text;
     }
 
@@ -144,7 +144,7 @@ class TelegramMessage
      */
     public function getDate(): \DateTime
     {
-        return $this->date;
+        return (new \DateTime())->setTimestamp($this->date);
     }
 
     /**
