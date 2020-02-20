@@ -111,7 +111,7 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
-        $telegramManager->notifyAdmins(json_encode($updateRaw));
+//        $telegramManager->notifyAdmins(json_encode($updateRaw));
         if($update->getDate()->getTimestamp() > (time() - 10)){
             if(!$update->isForwarded()){
                 $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
