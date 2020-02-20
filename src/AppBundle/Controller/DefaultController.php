@@ -111,8 +111,8 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
-        $telegramManager->notifyAdmins(json_encode($updateRaw));
-        if($update->getDate()->getTimestamp() > (time() - 10)){
+//        $telegramManager->notifyAdmins(json_encode($updateRaw));
+        if($update->getDate()->getTimestamp()){
             if(!$update->isForwarded() && !$update->getUser()->getIsBot()){
                 $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
             }
@@ -147,11 +147,16 @@ class DefaultController extends Controller
             }elseif($tgFromMessage->getText()){
                 if(!$update->getUser()->getIsBot()){
                     foreach ($userFromUpdate->getUnresolvedCommands() as $unresolvedCommand) {
+                        if($unresolvedCommand->getDate() > time() - 30){
+                            $em->remove($unresolvedCommand);
+                            continue;
+                        }
                         if($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_REPLY){
                             $parameters = json_decode($unresolvedCommand->getParameters(), true);
                             $replyToUser = $telegramManager->getUserByUserId($parameters['reply_to']);
                             $replyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), $tgFromMessage->getText());
                             $telegramManager->sendMessageTo($replyMessage);
+                            $em->remove($unresolvedCommand);
                         }
                     }
 
