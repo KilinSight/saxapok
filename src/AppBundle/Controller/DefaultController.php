@@ -66,7 +66,8 @@ class DefaultController extends Controller
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
         $allowedMethods = [
             self::BOT_API_SEND_MESSAGE,
-            self::BOT_API_GET_WEBHOOK_INFO
+            self::BOT_API_GET_WEBHOOK_INFO,
+            self::TEST_UPDATE_BODY,
         ];
 
         if (!in_array($method, $allowedMethods)) {
