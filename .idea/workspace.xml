@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="Reply WIP">
-      <change afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" afterDir="false" />
+    <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramUser.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -175,14 +171,7 @@
       <workItem from="1581818134461" duration="11771000" />
       <workItem from="1581853156351" duration="7827000" />
       <workItem from="1582028490266" duration="24872000" />
-      <workItem from="1582194560419" duration="4140000" />
-    </task>
-    <task id="LOCAL-00062" summary="Entities User Update created">
-      <created>1581866300574</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1581866300574</updated>
+      <workItem from="1582194560419" duration="4170000" />
     </task>
     <task id="LOCAL-00063" summary="Entities User Update created">
       <created>1581866450148</created>
@@ -520,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582123259760</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="Reply WIP">
+      <created>1582208618365</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1582208618367</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -551,10 +547,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581863675539" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582207385888">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582208616396">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582207385888" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582208616396" />
     <state x="184" y="92" key="DiffContextDialog" timestamp="1581079216602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

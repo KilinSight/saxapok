@@ -264,7 +264,7 @@ class TelegramManager
             $this->throwException(curl_error($curl));
         }
         curl_close($curl);
-
+        $tgMessage->setStatus(TelegramMessage::STATUS_SEEN);
         $this->saveMessageToDB($tgMessage);
 
 //        if($update->getSticker()){
