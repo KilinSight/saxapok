@@ -28,13 +28,13 @@ class UnresolvedCommand
     /**
      * @ORM\ManyToOne(targetEntity="TelegramUser")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @var string
+     * @var TelegramUser
      */
     private $user;
 
     /**
      * @ORM\Column(name="command", type="string", length=255, nullable=false)
-     * @var integer
+     * @var string
      */
     private $command;
 
@@ -46,7 +46,7 @@ class UnresolvedCommand
 
     /**
      * @ORM\Column(name="date", type="integer", nullable=true)
-     * @var string
+     * @var integer
      */
     private $date;
 
@@ -64,86 +64,6 @@ class UnresolvedCommand
         $this->user = $user;
         $this->command = $command;
         $this->parameters = $parameters;
-        $this->date = $date;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUser(): string
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param string $user
-     */
-    public function setUser(string $user): void
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCommand(): int
-    {
-        return $this->command;
-    }
-
-    /**
-     * @param int $command
-     */
-    public function setCommand(int $command): void
-    {
-        $this->command = $command;
-    }
-
-    /**
-     * @return string
-     */
-    public function getParameters(): string
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * @param string $parameters
-     */
-    public function setParameters(string $parameters): void
-    {
-        $this->parameters = $parameters;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDate(): string
-    {
-        return $this->date;
-    }
-
-    /**
-     * @param string $date
-     */
-    public function setDate(string $date): void
-    {
         $this->date = $date;
     }
 
