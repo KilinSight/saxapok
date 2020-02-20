@@ -157,7 +157,7 @@ class TelegramManager
      */
     public function createUnresolvedCommandByUser(TelegramUser $user, string $command, ?array $parameters = []) : UnresolvedCommand
     {
-        $unresolvedCommand = new UnresolvedCommand(null, $user, $command, json_encode($parameters), (new \DateTime()));
+        $unresolvedCommand = new UnresolvedCommand(null, $user, $command, json_encode($parameters), time());
         $this->em->persist($unresolvedCommand);
         $this->em->flush();
         return $unresolvedCommand;
