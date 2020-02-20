@@ -119,7 +119,7 @@ class DefaultController extends Controller
 //                list($tgUserIsset, $tgUser) = $telegramManager->getOrCreateUser($update->getUser()->getUserId(), $update->getUser()->getUsername(), $update->getUser()->getFirstname(), $update->getUser()->getLastname(), $update->getUser()->getIsBot());
 
                 $tgFromMessage = $telegramManager->getOrCreateMessage($update->getMessageId());
-                $tgFromMessage->setChat($telegramManager->getBotUser());
+                $tgFromMessage->setChat($userBot);
                 $tgFromMessage->setFrom($tgUser);
                 $tgFromMessage->setDate($update->getDate());
                 $tgFromMessage->setText($update->getMessageText());
@@ -128,14 +128,15 @@ class DefaultController extends Controller
                     list($command, $targetId) = explode('_', $update->getCommand());
 
                     if($command === UnresolvedCommand::COMMAND_REPLY){
-                        $targetUser = $telegramManager->getUserByUserId($targetId);
-                        if($targetUser){
-                            $parameters = ['reply_to' => $targetUser->getUserId()];
-                            $telegramManager->createUnresolvedCommandByUser($userAdmin, $command, $parameters);
-                            $tgToMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $tgUser, $update->getDate(), "Введите текст ответа пользователю @" . $targetUser->getUsername());
-                            $telegramManager->sendMessageTo($tgToMessage);
+                        if($telegramManager->validateUserCommand($tgUser, $command)){
+                            $targetUser = $telegramManager->getUserByUserId($targetId);
+                            if($targetUser){
+                                $parameters = ['reply_to' => $targetUser->getUserId()];
+                                $telegramManager->createUnresolvedCommandByUser($userAdmin, $command, $parameters);
+                                $tgToMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), "Введите текст ответа пользователю @" . $targetUser->getUsername());
+                                $telegramManager->sendMessageTo($tgToMessage);
+                            }
                         }
-
                     }elseif($command === UnresolvedCommand::COMMAND_CANCEL){
                         $tgFromMessage->setStatus(UnresolvedCommand::COMMAND_CANCEL);
                     }
@@ -146,7 +147,7 @@ class DefaultController extends Controller
                         if($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_REPLY){
                             $parameters = json_decode($unresolvedCommand->getParameters(), true);
                             $replyToUser = $telegramManager->getUserByUserId($parameters['reply_to']);
-                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $replyToUser, $update->getDate(), $tgFromMessage->getText());
+                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), $tgFromMessage->getText());
                             $telegramManager->sendMessageTo($replyMessage);
                             $telegramManager->saveMessageToDB($replyMessage);
                         }

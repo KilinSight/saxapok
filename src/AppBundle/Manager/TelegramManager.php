@@ -164,6 +164,22 @@ class TelegramManager
     }
 
     /**
+     * @param TelegramUser $user
+     * @param string $command
+     * @return bool
+     */
+    public function validateUserCommand(TelegramUser $user, string $command) : bool
+    {
+        if($command === UnresolvedCommand::COMMAND_REPLY){
+            if($user->getUserId() === TelegramManager::CHAT_ID_ME){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param int $targetId
      * @return TelegramUser
      */
