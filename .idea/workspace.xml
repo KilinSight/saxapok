@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,14 +171,7 @@
       <workItem from="1581818134461" duration="11771000" />
       <workItem from="1581853156351" duration="7827000" />
       <workItem from="1582028490266" duration="24872000" />
-      <workItem from="1582194560419" duration="6632000" />
-    </task>
-    <task id="LOCAL-00074" summary="Reply WIP">
-      <created>1582116729561</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1582116729561</updated>
+      <workItem from="1582194560419" duration="6703000" />
     </task>
     <task id="LOCAL-00075" summary="Reply WIP">
       <created>1582116820033</created>
@@ -516,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582210774946</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <task id="LOCAL-00123" summary="Reply WIP">
+      <created>1582211108102</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1582211108102</updated>
+    </task>
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,10 +547,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581863675539" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582210773660">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582211106774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582210773660" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582211106774" />
     <state x="184" y="92" key="DiffContextDialog" timestamp="1581079216602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

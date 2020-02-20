@@ -57,7 +57,7 @@ class UnresolvedCommand
      * @param string $parameters
      * @param string $date
      */
-    public function __construct(int $id, string $user, int $command, string $parameters, string $date)
+    public function __construct(?int $id = null, string $user, int $command, string $parameters, string $date)
     {
         $this->id = $id;
         $this->user = $user;
