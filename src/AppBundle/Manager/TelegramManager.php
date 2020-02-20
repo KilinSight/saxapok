@@ -571,6 +571,7 @@ class TelegramManager
         foreach ($commands as $allowedCommand => $position) {
             if($position > $prevPos){
                 $result = $allowedCommand;
+                $prevPos = $position;
             }
         }
 
