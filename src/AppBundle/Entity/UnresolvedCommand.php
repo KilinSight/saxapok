@@ -53,12 +53,12 @@ class UnresolvedCommand
     /**
      * UnresolvedCommand constructor.
      * @param int $id
-     * @param TelegramManager $user
+     * @param TelegramUser $user
      * @param string $command
      * @param string $parameters
      * @param int $date
      */
-    public function __construct(?int $id = null, TelegramManager $user, string $command, string $parameters, int $date)
+    public function __construct(?int $id = null, TelegramUser $user, string $command, string $parameters, int $date)
     {
         $this->id = $id;
         $this->user = $user;
