@@ -20,6 +20,7 @@ class DefaultController extends Controller
     const BOT_API_GET_WEBHOOK_INFO = 'getWebhookInfo';
     const BOT_API_GET_UPDATES = 'getUpdates';
     const BOT_API_SEND_MESSAGE = 'sendMessage';
+    const TEST_UPDATE_BODY = 'testUpdateBody';
 
     /**
      * @Route("/get_csv", name="get_csv")
@@ -78,8 +79,10 @@ class DefaultController extends Controller
         if ($method === self::BOT_API_SEND_MESSAGE) {
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-        }elseif($method === self::BOT_API_GET_WEBHOOK_INFO){
-//            curl_setopt($curl, CURLOPT_POSTFIELDS, []);
+        }elseif($method === self::TEST_UPDATE_BODY){
+            $update = $telegramManager->getUpdateMetadata($body);
+            dump($update);
+            die;
         }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

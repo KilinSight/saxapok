@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/saxapok/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/saxapok/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,14 +172,7 @@
       <workItem from="1581818134461" duration="11771000" />
       <workItem from="1581853156351" duration="7827000" />
       <workItem from="1582028490266" duration="24872000" />
-      <workItem from="1582194560419" duration="5241000" />
-    </task>
-    <task id="LOCAL-00067" summary="Entities User Update created">
-      <created>1581866888490</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1581866888490</updated>
+      <workItem from="1582194560419" duration="5488000" />
     </task>
     <task id="LOCAL-00068" summary="Entities User Update created">
       <created>1581867152732</created>
@@ -516,7 +510,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582209591210</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="Reply WIP">
+      <created>1582209716279</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1582209716279</updated>
+    </task>
+    <option name="localTasksCounter" value="117" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,10 +584,10 @@
       <screen x="1920" y="0" width="1280" height="984" />
     </state>
     <state x="1920" y="0" width="1296" height="1025" key="dock-window-1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582031542747" />
-    <state x="656" y="252" width="849" height="640" key="find.popup" timestamp="1582123228603">
+    <state x="656" y="252" width="849" height="640" key="find.popup" timestamp="1582209944203">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="849" height="640" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582123228603" />
+    <state x="656" y="252" width="849" height="640" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582209944203" />
     <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1582207733184">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
