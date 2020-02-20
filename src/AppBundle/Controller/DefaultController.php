@@ -129,9 +129,8 @@ class DefaultController extends Controller
 
             if($update->getType() === UpdateMetadataDto::TYPE_COMMAND){
                 list($command, $targetId) = explode('_', $update->getCommand());
-
                 if($command === UnresolvedCommand::COMMAND_REPLY){
-                    if($telegramManager->validateUserCommand($userFromUpdate, $command)){
+                    if($telegramManager->validateUserCommand($userToUpdate, $command)){
                         $targetUser = $telegramManager->getUserByUserId($targetId);
                         if($targetUser){
                             $parameters = ['reply_to' => $targetUser->getUserId()];
