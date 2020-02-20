@@ -550,9 +550,7 @@ class TelegramManager
         $result = [];
         if($telegramMessage->getText()){
             foreach (UnresolvedCommand::getAllowedCommands() as $allowedCommand) {
-                $result[] = [
-                    $allowedCommand => stripos($telegramMessage->getText(), $allowedCommand)
-                ];
+                $result[$allowedCommand] = stripos($telegramMessage->getText(), $allowedCommand);
             }
         }
 
