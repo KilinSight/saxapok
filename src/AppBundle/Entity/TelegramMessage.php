@@ -172,22 +172,6 @@ class TelegramMessage
     }
 
     /**
-     * @ORM\Column(name="text", type="string", nullable=true)
-     * @var string
-     */
-    private $text = '';
-
-    public static function getAllowedCommands(): array
-    {
-        return [
-            self::COMMAND_REPLY,
-            self::COMMAND_SCHEDULE,
-            self::COMMAND_SEEN,
-            self::COMMAND_CANCEL
-        ];
-    }
-
-    /**
      * @return string
      */
     public function getStatus(): string

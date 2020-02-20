@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,14 +173,7 @@
       <workItem from="1581818134461" duration="11771000" />
       <workItem from="1581853156351" duration="7827000" />
       <workItem from="1582028490266" duration="24872000" />
-      <workItem from="1582194560419" duration="10004000" />
-    </task>
-    <task id="LOCAL-00085" summary="Reply WIP">
-      <created>1582118660884</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1582118660884</updated>
+      <workItem from="1582194560419" duration="10135000" />
     </task>
     <task id="LOCAL-00086" summary="Reply WIP">
       <created>1582118944870</created>
@@ -516,7 +511,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582213687604</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="Reply WIP">
+      <created>1582214485066</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1582214485066</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,10 +549,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1581863675539" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582213686073">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582214615211">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582213686073" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582214615211" />
     <state x="184" y="92" key="DiffContextDialog" timestamp="1581079216602">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -583,10 +585,10 @@
       <screen x="1920" y="0" width="1280" height="984" />
     </state>
     <state x="1920" y="0" width="1296" height="1025" key="dock-window-1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582031542747" />
-    <state x="656" y="252" width="849" height="640" key="find.popup" timestamp="1582209944203">
+    <state x="656" y="252" width="849" height="640" key="find.popup" timestamp="1582214564596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="849" height="640" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582209944203" />
+    <state x="656" y="252" width="849" height="640" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582214564596" />
     <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1582207733184">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

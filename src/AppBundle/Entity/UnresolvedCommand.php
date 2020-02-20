@@ -149,4 +149,14 @@ class UnresolvedCommand
         $this->date = $date;
     }
 
+    public static function getAllowedCommands(): array
+    {
+        return [
+            self::COMMAND_REPLY,
+            self::COMMAND_SCHEDULE,
+            self::COMMAND_SEEN,
+            self::COMMAND_CANCEL
+        ];
+    }
+
 }
