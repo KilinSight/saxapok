@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 
+use AppBundle\Manager\TelegramManager;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -52,12 +53,12 @@ class UnresolvedCommand
     /**
      * UnresolvedCommand constructor.
      * @param int $id
-     * @param string $user
-     * @param int $command
+     * @param TelegramManager $user
+     * @param string $command
      * @param string $parameters
-     * @param string $date
+     * @param int $date
      */
-    public function __construct(?int $id = null, string $user, int $command, string $parameters, string $date)
+    public function __construct(?int $id = null, TelegramManager $user, string $command, string $parameters, int $date)
     {
         $this->id = $id;
         $this->user = $user;
