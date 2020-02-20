@@ -6,6 +6,7 @@ use AppBundle\Controller\ApiController;
 use AppBundle\Entity\ParsedImage;
 use AppBundle\Entity\TelegramMessage;
 use AppBundle\Entity\TelegramUser;
+use AppBundle\Entity\UnresolvedCommand;
 use AppBundle\Entity\UpdateMetadataDto;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -137,10 +138,7 @@ class TelegramManager
         $keyboard = [
             [
                 [
-                    'text' => 'Reply Now', 'callback_data' => "/reply"
-                ],
-                [
-                    'text' => 'Cancel', 'callback_data' => "/cancel"
+                    'text' => 'Reply Now', 'callback_data' => "/reply_" . $from
                 ]
             ]
         ];
@@ -148,6 +146,30 @@ class TelegramManager
             'inline_keyboard' => $keyboard
         ];
         $this->sendMessageTo($tgToMessage, $inlineKeyboardMarkup);
+    }
+
+    /**
+     * @param TelegramUser $user
+     * @param string $command
+     * @param array|null $parameters
+     * @return UnresolvedCommand
+     * @throws \Exception
+     */
+    public function createUnresolvedCommandByUser(TelegramUser $user, string $command, ?array $parameters = []) : UnresolvedCommand
+    {
+        $unresolvedCommand = new UnresolvedCommand(null, $user, $command, json_encode($parameters), (new \DateTime()));
+        $this->em->persist($unresolvedCommand);
+        $this->em->flush();
+        return $unresolvedCommand;
+    }
+
+    /**
+     * @param int $targetId
+     * @return TelegramUser
+     */
+    public function getUserByUserId(int $targetId) : TelegramUser
+    {
+        return $this->em->getRepository(TelegramUser::class)->findOneBy(['userId' => $targetId]);
     }
 
     /**
@@ -242,6 +264,8 @@ class TelegramManager
             $this->throwException(curl_error($curl));
         }
         curl_close($curl);
+
+        $this->saveMessageToDB($tgMessage);
 
 //        if($update->getSticker()){
 //            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendSticker';
@@ -508,56 +532,6 @@ class TelegramManager
             if($position > $prevPos){
                 $result = $allowedCommand;
             }
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param TelegramUser $tgUser
-     * @return mixed
-     */
-    private function cancelUserMessages(TelegramUser $tgUser)
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('tgMessage')->from(TelegramMessage::class, 'tgMessage');
-        $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
-        $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
-        $qb->orderBy('tgMessage.date', 'DESC');
-        $qb->setMaxResults(1);
-        /** @var TelegramMessage $lastMessage */
-        $lastMessage = $qb->getQuery()->getOneOrNullResult();
-
-        if($lastMessage){
-            $qb = $this->em->createQueryBuilder();
-            $qb->update(TelegramMessage::class, 'tgMessage');
-            $qb->andWhere($qb->expr()->neq('tgMessage.id', $lastMessage->getId()));
-            $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
-            $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
-            $qb->set('tgMessage.status', TelegramMessage::STATUS_CANCELED);
-        }
-
-        return  $qb->getQuery()->execute();
-    }
-
-    /**
-     * @param TelegramUser $tgUser
-     * @return TelegramMessage|null
-     */
-    public function getUserLastOpenedMessage(TelegramUser $tgUser): ?TelegramMessage
-    {
-        $result = null;
-
-        if($tgUser->getId()){
-            $this->cancelUserMessages($tgUser);
-            $qb = $this->em->createQueryBuilder();
-            $qb->select('tgMessage')->from(TelegramMessage::class, 'tgMessage');
-            $qb->andWhere($qb->expr()->eq('tgMessage.from', $tgUser->getId()));
-            $qb->andWhere($qb->expr()->isNull('tgMessage.status'));
-            $qb->orderBy('tgMessage.date', 'DESC');
-            $qb->setMaxResults(1);
-            /** @var TelegramMessage $result */
-            $result = $qb->getQuery()->getOneOrNullResult();
         }
 
         return $result;

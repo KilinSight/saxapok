@@ -10,11 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TelegramMessage
 {
-    const COMMAND_REPLY = '/reply';
-    const COMMAND_SCHEDULE = '/schedule';
-    const COMMAND_CANCEL = '/cancel';
-    const COMMAND_SEEN = '/seen';
-
     const STATUS_SCHEDULED = 'scheduled';
     const STATUS_SEEN = 'seen';
     const STATUS_CANCELED = 'canceled';

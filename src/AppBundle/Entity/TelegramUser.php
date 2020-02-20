@@ -66,6 +66,13 @@ class TelegramUser
     private $toMessages;
 
     /**
+     * @ORM\OneToMany(targetEntity="UnresolvedCommand", mappedBy="user")
+     *
+     * @var ArrayCollection|UnresolvedCommand[]
+     */
+    private $unresolvedCommands;
+
+    /**
      * TelegramUser constructor.
      * @param int|null $id
      * @param integer $userId
@@ -84,6 +91,7 @@ class TelegramUser
         $this->isBot = $isBot;
         $this->fromMessages = new ArrayCollection();
         $this->toMessages = new ArrayCollection();
+        $this->unresolvedCommands = new ArrayCollection();
     }
 
     /**
@@ -212,6 +220,22 @@ class TelegramUser
     public function setToMessages($toMessages): void
     {
         $this->toMessages = $toMessages;
+    }
+
+    /**
+     * @return UnresolvedCommand[]|ArrayCollection
+     */
+    public function getUnresolvedCommands()
+    {
+        return $this->unresolvedCommands;
+    }
+
+    /**
+     * @param UnresolvedCommand[]|ArrayCollection $unresolvedCommands
+     */
+    public function setUnresolvedCommands($unresolvedCommands): void
+    {
+        $this->unresolvedCommands = $unresolvedCommands;
     }
 
 }

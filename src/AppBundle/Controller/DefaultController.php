@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\TelegramMessage;
 use AppBundle\Entity\TelegramUser;
+use AppBundle\Entity\UnresolvedCommand;
 use AppBundle\Entity\UpdateMetadataDto;
 use AppBundle\Manager\TelegramManager;
 use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
@@ -113,6 +114,8 @@ class DefaultController extends Controller
                     $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
                 }
                 $tgUser = $update->getUser();
+                $userAdmin = $telegramManager->getAdminUser();
+                $userBot = $telegramManager->getBotUser();
 //                list($tgUserIsset, $tgUser) = $telegramManager->getOrCreateUser($update->getUser()->getUserId(), $update->getUser()->getUsername(), $update->getUser()->getFirstname(), $update->getUser()->getLastname(), $update->getUser()->getIsBot());
 
                 $tgFromMessage = $telegramManager->getOrCreateMessage($update->getMessageId());
@@ -122,49 +125,37 @@ class DefaultController extends Controller
                 $tgFromMessage->setText($update->getMessageText());
 
                 if($update->getType() === UpdateMetadataDto::TYPE_COMMAND){
-                    $command = $update->getCommand();
+                    list($command, $targetId) = explode('_', $update->getCommand());
 
-                    if($command === TelegramMessage::COMMAND_REPLY){
-                        $keyboard = [
-                            [
-                                [
-                                    'text' => 'Reply Now', 'callback_data' => "/reply"
-                                ]
-                            ]
-                        ];
-                        $inlineKeyboardMarkup = [
-                            'inline_keyboard' => $keyboard
-                        ];
-                        $tgToMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $tgUser, $update->getDate(), "Введите текст ответа пользователю @" . $tgUser->getUsername());
-                        $telegramManager->sendMessageTo($tgToMessage, $inlineKeyboardMarkup);
-                    }elseif($command === TelegramMessage::COMMAND_CANCEL){
-                        $tgFromMessage->setStatus(TelegramMessage::COMMAND_CANCEL);
+                    if($command === UnresolvedCommand::COMMAND_REPLY){
+                        $targetUser = $telegramManager->getUserByUserId($targetId);
+                        if($targetUser){
+                            $parameters = ['reply_to' => $targetUser->getUserId()];
+                            $telegramManager->createUnresolvedCommandByUser($userAdmin, $command, $parameters);
+                            $tgToMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $tgUser, $update->getDate(), "Введите текст ответа пользователю @" . $targetUser->getUsername());
+                            $telegramManager->sendMessageTo($tgToMessage);
+                        }
+
+                    }elseif($command === UnresolvedCommand::COMMAND_CANCEL){
+                        $tgFromMessage->setStatus(UnresolvedCommand::COMMAND_CANCEL);
                     }
 
                     $telegramManager->saveMessageToDB($tgFromMessage);
-                }elseif($update->getMessageText()){
-                    $lastMessage = $telegramManager->getUserLastOpenedMessage($tgUser);
-                    if($lastMessage){
-                        $lastCommandFromMessage = $telegramManager->getLastCommandFromMessage($lastMessage);
-                        if($lastCommandFromMessage === TelegramMessage::COMMAND_REPLY){
-                            $lastMessage->setStatus(TelegramMessage::STATUS_SEEN);
-                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $lastMessage->getFrom(), $update->getDate(), $tgFromMessage->getText());
+                }elseif($tgFromMessage->getText()){
+                    foreach ($tgUser->getUnresolvedCommands() as $unresolvedCommand) {
+                        if($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_REPLY){
+                            $parameters = json_decode($unresolvedCommand->getParameters(), true);
+                            $replyToUser = $telegramManager->getUserByUserId($parameters['reply_to']);
+                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), $telegramManager->getBotUser(), $replyToUser, $update->getDate(), $tgFromMessage->getText());
                             $telegramManager->sendMessageTo($replyMessage);
-                            $em->persist($lastMessage);
+                            $telegramManager->saveMessageToDB($replyMessage);
                         }
                     }
 
-                    $lastCommandFromNewMessage = $telegramManager->getLastCommandFromMessage($tgFromMessage);
-                    if($lastCommandFromNewMessage){
-                        if($lastCommandFromNewMessage === TelegramMessage::COMMAND_CANCEL){
-                            $tgFromMessage->setStatus(TelegramMessage::STATUS_CANCELED);
-                        }
-                    }
                     $tgFromMessage->setStatus(TelegramMessage::STATUS_SEEN);
-
-                    $em->persist($tgFromMessage);
+                    $telegramManager->saveMessageToDB($tgFromMessage);
                 }
-                $em->flush();
+
             }
         }
 
