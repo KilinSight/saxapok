@@ -156,7 +156,7 @@ class TelegramManager
     {
 
         $qb = $this->em->createQueryBuilder();
-        $qb->delete('unresolvedCommand')->from(UnresolvedCommand::class, 'unresolvedCommand');
+        $qb->delete(UnresolvedCommand::class, 'unresolvedCommand');
         $qb->andWhere($qb->expr()->eq('unresolvedCommand.user', $user->getId()));
 
         return $qb->getQuery()->execute();;
