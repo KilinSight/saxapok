@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,14 +171,7 @@
       <workItem from="1581818134461" duration="11771000" />
       <workItem from="1581853156351" duration="7827000" />
       <workItem from="1582028490266" duration="24872000" />
-      <workItem from="1582194560419" duration="10135000" />
-    </task>
-    <task id="LOCAL-00086" summary="Reply WIP">
-      <created>1582118944870</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1582118944870</updated>
+      <workItem from="1582194560419" duration="10212000" />
     </task>
     <task id="LOCAL-00087" summary="Reply WIP">
       <created>1582119401841</created>
@@ -518,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582214485066</updated>
     </task>
-    <option name="localTasksCounter" value="135" />
+    <task id="LOCAL-00135" summary="Reply WIP">
+      <created>1582214616992</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1582214616993</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
