@@ -39,6 +39,86 @@ class UnresolvedCommand
     private $command;
 
     /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return TelegramUser
+     */
+    public function getUser(): TelegramUser
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param TelegramUser $user
+     */
+    public function setUser(TelegramUser $user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommand(): string
+    {
+        return $this->command;
+    }
+
+    /**
+     * @param string $command
+     */
+    public function setCommand(string $command): void
+    {
+        $this->command = $command;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParameters(): string
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @param string $parameters
+     */
+    public function setParameters(string $parameters): void
+    {
+        $this->parameters = $parameters;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDate(): int
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param int $date
+     */
+    public function setDate(int $date): void
+    {
+        $this->date = $date;
+    }
+
+    /**
      * @ORM\Column(name="parameters", type="string", nullable=true)
      * @var string
      */
