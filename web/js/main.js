@@ -21,6 +21,11 @@ $(document).on('click', '.command-buttons', (e)=> {
         $('#send-body-textarea').val(
             '{}'
         );
+    }else if(command==='testUpdateBody'){
+        $('.ajax-url-input').val('testUpdateBody');
+        $('#send-body-textarea').val(
+            ''
+        );
     }
 
     sendAjax(url, body);
