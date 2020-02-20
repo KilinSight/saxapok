@@ -150,6 +150,20 @@ class TelegramManager
 
     /**
      * @param TelegramUser $user
+     * @return UnresolvedCommand
+     */
+    public function deleteAllUnresolvedCommandByUser(TelegramUser $user)
+    {
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->delete('unresolvedCommand')->from(UnresolvedCommand::class, 'unresolvedCommand');
+        $qb->andWhere($qb->expr()->eq('unresolvedCommand.user', $user->getId()));
+
+        return $qb->getQuery()->execute();;
+    }
+
+    /**
+     * @param TelegramUser $user
      * @param string $command
      * @param array|null $parameters
      * @return UnresolvedCommand
@@ -170,8 +184,18 @@ class TelegramManager
      */
     public function validateUserCommand(TelegramUser $user, string $command) : bool
     {
-        if($command === UnresolvedCommand::COMMAND_REPLY){
+        $adminsCommands = [
+            UnresolvedCommand::COMMAND_REPLY
+        ];
+        $usersCommands = [
+
+        ];
+        if(in_array($command, $adminsCommands)){
             if($user->getUserId() === TelegramManager::CHAT_ID_ME){
+                return true;
+            }
+        }elseif(in_array($command, $usersCommands)){
+            if(!$user->getIsBot()){
                 return true;
             }
         }

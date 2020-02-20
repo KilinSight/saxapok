@@ -7,12 +7,14 @@ use AppBundle\Entity\TelegramUser;
 use AppBundle\Entity\UnresolvedCommand;
 use AppBundle\Entity\UpdateMetadataDto;
 use AppBundle\Manager\TelegramManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SwiftmailerBundle\Command\SendEmailCommand;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use function Doctrine\ORM\QueryBuilder;
 
 class DefaultController extends Controller
 {
@@ -107,15 +109,16 @@ class DefaultController extends Controller
      */
     public function webhookAction(Request $request)
     {
+        /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
 //        $telegramManager->notifyAdmins(json_encode($updateRaw));
         if($update->getDate()->getTimestamp()){
-            if(!$update->isForwarded() && !$update->getUser()->getIsBot()){
-                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
-            }
+//            if(!$update->isForwarded() && !$update->getUser()->getIsBot()){
+//                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
+//            }
             $userFromUpdate = $update->getUser();
             $userToUpdate = $telegramManager->getUserByUserId($update->getChatId());
             $userAdmin = $telegramManager->getAdminUser();
@@ -146,9 +149,13 @@ class DefaultController extends Controller
                 $telegramManager->saveMessageToDB($tgFromMessage);
             }elseif($tgFromMessage->getText()){
                 if(!$update->getUser()->getIsBot()){
+                    $needResolve = true;
+                    $needClear = false;
                     foreach ($userFromUpdate->getUnresolvedCommands() as $unresolvedCommand) {
                         if($unresolvedCommand->getDate() < time() - 30){
-                            $em->remove($unresolvedCommand);
+                            if($unresolvedCommand->getCommand() !== UnresolvedCommand::COMMAND_DEBUG){
+                                $em->remove($unresolvedCommand);
+                            }
                             continue;
                         }
                         if($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_REPLY){
@@ -157,6 +164,19 @@ class DefaultController extends Controller
                             $replyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), $tgFromMessage->getText());
                             $telegramManager->sendMessageTo($replyMessage);
                             $em->remove($unresolvedCommand);
+                        }elseif($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_DEBUG){
+                            $debugMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), json_encode($updateRaw));
+                            $telegramManager->sendMessageTo($debugMessage);
+                        }
+                        $needResolve = false;
+                    }
+
+                    if(!$needResolve){
+                        $lastCommand = $telegramManager->getLastCommandFromMessage($tgFromMessage);
+                        if($lastCommand && $lastCommand === UnresolvedCommand::COMMAND_DEBUG){
+                            $telegramManager->createUnresolvedCommandByUser($userAdmin, UnresolvedCommand::COMMAND_DEBUG, []);
+                        }elseif($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_STOP){
+                            $telegramManager->deleteAllUnresolvedCommandByUser($userFromUpdate);
                         }
                     }
 
