@@ -179,17 +179,17 @@ class DefaultController extends Controller
                             if(!$issetDebug){
                                 $telegramManager->createUnresolvedCommandByUser($userAdmin, UnresolvedCommand::COMMAND_DEBUG, []);
 
-                                $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), 'Debug mode ON');
+                                $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), 'Debug mode ON');
                                 $telegramManager->sendMessageTo($notifyMessage);
                             }else{
-                                $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), 'Debug mode already inited');
+                                $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), 'Debug mode already inited');
                                 $telegramManager->sendMessageTo($notifyMessage);
                             }
 
                         }elseif($lastCommand === UnresolvedCommand::COMMAND_STOP){
                             $telegramManager->deleteAllUnresolvedCommandByUser($userFromUpdate);
 
-                            $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), 'All active commands was disabled');
+                            $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userFromUpdate, $update->getDate(), 'All active commands was disabled');
                             $telegramManager->sendMessageTo($notifyMessage);
                         }
                     }
