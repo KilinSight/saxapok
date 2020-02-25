@@ -113,7 +113,10 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
-        $update = $telegramManager->getUpdateMetadata($updateRaw);
+	$update = $telegramManager->getUpdateMetadata($updateRaw);
+	if(!$update){
+	    return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
+	}
 //        $telegramManager->notifyAdmins(json_encode($updateRaw));
         if($update->getDate()->getTimestamp()){
 //            if(!$update->isForwarded() && !$update->getUser()->getIsBot()){

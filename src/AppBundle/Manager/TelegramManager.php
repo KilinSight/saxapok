@@ -438,15 +438,18 @@ class TelegramManager
         }
 
         if(!$username){
-            $this->throwException('Username is required');
-        }
+            $this->notifyAdmins('Username is required');
+            return null;
+	}
 
-        if(!$date){
-            $this->throwException('Date is required');
+	if(!$date){
+            $this->notifyAdmins('Date is required');
+            return null;
         }
 
         if(!$chatId){
-            $this->throwException('Chat id is required');
+            $this->notifyAdmins('Chat id is required');
+            return null;    
         }
 
         list($issetUser, $user) = $this->getOrCreateUser(null, intval($userId), $username, $userFirstname, $userLastname, $isBot);
