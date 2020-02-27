@@ -18,7 +18,6 @@ class TelegramManager
 {
 
 
-
     const CHAT_ID_ME = 328438276;
     const CHAT_ID_NATASHA = 334733456;
     const CHAT_ID_MAX = 348558502;
@@ -79,8 +78,9 @@ class TelegramManager
      *
      * @return \Swift_Mailer
      */
-    public function getMailer(){
-        $transport = (new \Swift_SmtpTransport($this->mailerHost , 465))
+    public function getMailer()
+    {
+        $transport = (new \Swift_SmtpTransport($this->mailerHost, 465))
             ->setUsername($this->mailerUser)
             ->setPassword($this->mailerPassword)
             ->setEncryption('SSL');
@@ -98,7 +98,7 @@ class TelegramManager
     public function getOrCreateParsedImage(string $url, ?int $createdAt = null, ?int $publishedAt = null, ?bool $seen = false): ParsedImage
     {
         $parsedImage = $this->em->getRepository(ParsedImage::class)->findOneBy(['url' => $url]);
-        if(!$parsedImage){
+        if (!$parsedImage) {
             $parsedImage = new ParsedImage($url, $createdAt, $publishedAt, $seen);
             $this->em->persist($parsedImage);
             $this->em->flush();
@@ -169,7 +169,7 @@ class TelegramManager
      * @return UnresolvedCommand
      * @throws \Exception
      */
-    public function createUnresolvedCommandByUser(TelegramUser $user, string $command, ?array $parameters = []) : UnresolvedCommand
+    public function createUnresolvedCommandByUser(TelegramUser $user, string $command, ?array $parameters = []): UnresolvedCommand
     {
         $unresolvedCommand = new UnresolvedCommand(null, $user, $command, json_encode($parameters), time());
         $this->em->persist($unresolvedCommand);
@@ -182,7 +182,7 @@ class TelegramManager
      * @param string $command
      * @return bool
      */
-    public function validateUserCommand(TelegramUser $user, string $command) : bool
+    public function validateUserCommand(TelegramUser $user, string $command): bool
     {
         $adminsCommands = [
             UnresolvedCommand::COMMAND_REPLY
@@ -190,12 +190,12 @@ class TelegramManager
         $usersCommands = [
 
         ];
-        if(in_array($command, $adminsCommands)){
-            if($user->getUserId() === TelegramManager::CHAT_ID_ME){
+        if (in_array($command, $adminsCommands)) {
+            if ($user->getUserId() === TelegramManager::CHAT_ID_ME) {
                 return true;
             }
-        }elseif(in_array($command, $usersCommands)){
-            if(!$user->getIsBot()){
+        } elseif (in_array($command, $usersCommands)) {
+            if (!$user->getIsBot()) {
                 return true;
             }
         }
@@ -207,7 +207,7 @@ class TelegramManager
      * @param int $targetId
      * @return TelegramUser
      */
-    public function getUserByUserId(int $targetId) : TelegramUser
+    public function getUserByUserId(int $targetId): TelegramUser
     {
         return $this->em->getRepository(TelegramUser::class)->findOneBy(['userId' => $targetId]);
     }
@@ -224,20 +224,20 @@ class TelegramManager
      */
     public function getOrCreateUser(?int $id = null, int $userId, string $username, ?string $firstname = null, ?string $lastname = null, ?bool $isBot = false)
     {
-        if($id){
+        if ($id) {
             return [true, $this->em->find(TelegramUser::class, $id)];
-        }else{
+        } else {
             $qb = $this->em->createQueryBuilder();
             $qb->select('tgUser')->from(TelegramUser::class, 'tgUser');
             $qb->andWhere($qb->expr()->eq('tgUser.userId', $userId));
             $qb->setMaxResults(1);
             $issetUser = $qb->getQuery()->getOneOrNullResult();
-            if(!$issetUser){
+            if (!$issetUser) {
                 $tgUser = new TelegramUser(null, intval($userId), $username, $firstname, $lastname, $isBot);
                 $this->em->persist($tgUser);
                 $this->em->flush();
                 return [false, $tgUser];
-            }else{
+            } else {
                 return [true, $issetUser];
             }
         }
@@ -251,9 +251,9 @@ class TelegramManager
     public function getOrCreateMessage(int $messageId): TelegramMessage
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $messageId]);
-        if(!$issetMessage){
+        if (!$issetMessage) {
             return new TelegramMessage(null, $messageId, $this->getAdminUser(), $this->getBotUser(), (new \DateTime()), '');
-        }else{
+        } else {
             return $issetMessage;
         }
     }
@@ -264,7 +264,7 @@ class TelegramManager
     public function saveMessageToDB(TelegramMessage $tgMessage)
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $tgMessage->getMessageId()]);
-        if($issetMessage){
+        if ($issetMessage) {
             $tgMessage->setId($issetMessage->getId());
         }
 
@@ -278,10 +278,10 @@ class TelegramManager
      */
     public function sendMessageTo(TelegramMessage $tgMessage, ?array $inlineKeyboardMarkup = null)
     {
-        if(!$tgMessage->getChat()){
+        if (!$tgMessage->getChat()) {
             throw new \InvalidArgumentException('User "to" is required');
         }
-        if(!$tgMessage->getFrom()){
+        if (!$tgMessage->getFrom()) {
             throw new \InvalidArgumentException('User "from" is required');
         }
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMessage';
@@ -289,7 +289,7 @@ class TelegramManager
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
 
-        if($inlineKeyboardMarkup){
+        if ($inlineKeyboardMarkup) {
             $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
         }
 
@@ -414,21 +414,21 @@ class TelegramManager
         $userFirstname = null;
         $userLastname = null;
         $isForwarded = false;
-        if(isset($update['message'])) {
+        if (isset($update['message'])) {
             $message = $update['message'];
             $isForwarded = isset($updateRaw['message']['forward_from']);
-        }elseif(isset($update['callback_query'])){
-            if(isset($update['callback_query']['message'])){
+        } elseif (isset($update['callback_query'])) {
+            if (isset($update['callback_query']['message'])) {
                 $message = $update['callback_query']['message'];
                 $isForwarded = isset($updateRaw['callback_query']['message']['forward_from']);
             }
-            if(isset($update['callback_query']['data'])){
+            if (isset($update['callback_query']['data'])) {
                 $command = $update['callback_query']['data'];
             }
         }
 
-        if($message){
-            $username = '@' . $message['from']['username'];
+        if ($message) {
+            $username = $message['from']['username'];
             $userFirstname = $message['from']['first_name'];
             $userLastname = $message['from']['last_name'];
             $userId = $message['from']['id'];
@@ -437,79 +437,79 @@ class TelegramManager
             $date = (new \DateTime())->setTimestamp($message['date']);
         }
 
-        if(!$username){
+        if (!$username) {
             $this->notifyAdmins('Username is required');
             return null;
-	}
+        }
 
-	if(!$date){
+        if (!$date) {
             $this->notifyAdmins('Date is required');
             return null;
         }
 
-        if(!$chatId){
+        if (!$chatId) {
             $this->notifyAdmins('Chat id is required');
-            return null;    
+            return null;
         }
 
         list($issetUser, $user) = $this->getOrCreateUser(null, intval($userId), $username, $userFirstname, $userLastname, $isBot);
         $user->setIsBot($isBot);
         $updateMetadata = new UpdateMetadataDto($user, $date, $chatId);
         $updateMetadata->setIsForwarded($isForwarded);
-        if($command){
+        if ($command) {
             $updateMetadata->setType(UpdateMetadataDto::TYPE_COMMAND);
             $updateMetadata->setCommand($command);
-        }else{
+        } else {
             $updateMetadata->setType(UpdateMetadataDto::TYPE_MESSAGE);
         }
 
-        if(isset($message['message_id'])){
+        if (isset($message['message_id'])) {
             $updateMetadata->setMessageId($message['message_id']);
         }
 
-        if(isset($message['text'])){
+        if (isset($message['text'])) {
             $updateMetadata->setMessageText($message['text']);
         }
 
-        if(isset($message['photo'])){
+        if (isset($message['photo'])) {
             $photos = [];
             foreach ($message['photo'] as $item) {
                 $photos[] = $item['file_id'];
             }
             $updateMetadata->setPhotos($photos);
-            if(isset($message['photo']['caption'])){
+            if (isset($message['photo']['caption'])) {
                 $updateMetadata->setMessageText($message['photo']['caption']);
             }
         }
-        if(isset($message['sticker'])){
+        if (isset($message['sticker'])) {
             $updateMetadata->setSticker($message['sticker']['file_id']);
         }
-        if(isset($message['audio'])){
+        if (isset($message['audio'])) {
             $updateMetadata->setSticker($message['sticker']['file_id']);
         }
 
-        if(isset($message['audio'])){
+        if (isset($message['audio'])) {
             $audios = [];
             foreach ($message['audio'] as $item) {
                 $audios[] = $item['file_id'];
             }
             $updateMetadata->setAudios($audios);
         }
-        if(isset($message['video'])){
+        if (isset($message['video'])) {
             $videos = [];
             foreach ($message['video'] as $item) {
                 $videos[] = $item['file_id'];
             }
             $updateMetadata->setVideos($videos);
         }
-        if(isset($message['animation'])){
+        if (isset($message['animation'])) {
             $animations = [];
             foreach ($message['animation'] as $item) {
                 $animations[] = $item['file_id'];
             }
             $updateMetadata->setAnimations($animations);
         }
-        if(isset($message['document'])){
+        if (isset($message['document'])) {
             $documents = [];
             foreach ($message['document'] as $item) {
                 $documents[] = $item['file_id'];
@@ -520,22 +520,24 @@ class TelegramManager
         return $updateMetadata;
     }
 
-    public function throwException(string $message){
+    public function throwException(string $message)
+    {
         $this->notifyAdmins($message);
         throw new BadRequestHttpException($message);
     }
 
-    public function getBotUser():TelegramUser
+    public function getBotUser(): TelegramUser
     {
         return $this->em->find(TelegramUser::class, 1);
     }
 
-    public function getAdminUser():TelegramUser
+    public function getAdminUser(): TelegramUser
     {
         return $this->em->find(TelegramUser::class, 2);
     }
 
-    public function notifyAdmins($messageText){
+    public function notifyAdmins($messageText)
+    {
         $mailer = $this->getMailer();
         $message = new \Swift_Message('Exception');
         $message->setFrom($this->mailerUser);
@@ -551,7 +553,7 @@ class TelegramManager
     public function getCommandsFromMessage(TelegramMessage $telegramMessage): ?array
     {
         $result = [];
-        if($telegramMessage->getText()){
+        if ($telegramMessage->getText()) {
             foreach (UnresolvedCommand::getAllowedCommands() as $allowedCommand) {
                 $result[$allowedCommand] = stripos($telegramMessage->getText(), $allowedCommand);
             }
@@ -570,7 +572,7 @@ class TelegramManager
         $commands = $this->getCommandsFromMessage($telegramMessage);
         $prevPos = -1;
         foreach ($commands as $allowedCommand => $position) {
-            if($position > $prevPos){
+            if ($position > $prevPos) {
                 $result = $allowedCommand;
                 $prevPos = $position;
             }

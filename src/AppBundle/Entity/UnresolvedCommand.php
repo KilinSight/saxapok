@@ -15,6 +15,7 @@ class UnresolvedCommand
     const COMMAND_REPLY = '/reply';
     const COMMAND_SCHEDULE = '/schedule';
     const COMMAND_SEEN = '/seen';
+    const COMMAND_START = '/start';
     const COMMAND_CANCEL = '/cancel';
     const COMMAND_STOP = '/stop';
     const COMMAND_DEBUG = '/debug';

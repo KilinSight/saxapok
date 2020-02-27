@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# ... you will probably extend your base template, like base.html.twig #}
+    <div class="wrapper">
+        <div class="user-bundle-block">
+            {% if error %}
+                <div class="errors-block">{{ error | raw}}</div>
+            {% endif %}
+            <div class="user-form-block">
+                <form action="{{ path('register') }}" method="post">
+                    <div class="input-row">
+                        <label for="username">Username:</label>
+                        <input class="form-control" type="text" id="username" name="_username" value="{{ username }}"/>
+                    </div>
+                    <div class="input-row">
+                        <label for="email">Email:</label>
+                        <input class="form-control" type="email" id="email" name="_email" value="{{ email }}"/>
+                    </div>
+                    <div class="input-row">
+                        <label for="password">Password:</label>
+                        <input class="form-control" type="password" id="password" name="_password"/>
+                    </div>
+                    <div class="input-row">
+                        <label for="password">Repeat password:</label>
+                        <input class="form-control" type="password" id="password" name="_password_repeat"/>
+                    </div>
+                    <div class="input-row">
+                        <label for="firstname">Firstname:</label>
+                        <input class="form-control" type="text" id="firstname" name="_firstname" value="{{ firstname }}"/>
+                    </div>
+                    <div class="input-row">
+                        <label for="lastname">Lastname:</label>
+                        <input class="form-control" type="text" id="lastname" name="_lastname" value="{{ lastname }}"/>
+                    </div>
+                    <div class="input-row">
+                        <label for="birthday">Birthday:</label>
+                        <input class="form-control" type="date" id="birthday" name="_birthday" value="{{ birthday }}"/>
+                    </div>
+
+                    <button class="btn btn-default" type="submit">REGISTER</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('user.css', 'css') }}">
+{% endblock %}

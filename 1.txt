@@ -1,0 +1,22 @@
+CREATE TABLE `saxapok_bot`.`parsed_image` ( `id` INT NOT NULL ,  `url` VARCHAR(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL ,  `created_at` INT NULL ,  `seen` TINYINT NOT NULL DEFAULT '0' ,  `published_at` INT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `saxapok_bot`.`parsed_image` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+CREATE TABLE `saxapok_bot`.`telegram_user` ( `id` INT NOT NULL AUTO_INCREMENT , `username` VARCHAR(255) NOT NULL , `user_id` INT NOT NULL , `firstname` VARCHAR(255) NULL , `lastname` VARCHAR(255) NULL , `is_bot` TINYINT NOT NULL DEFAULT '0' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+CREATE TABLE `saxapok_bot`.`telegram_message` ( `id` INT NOT NULL AUTO_INCREMENT , `message_id` INT NOT NULL , `from` INT NOT NULL , `chat` INT NOT NULL , `date` INT NOT NULL , `text` TEXT NOT NULL DEFAULT ' ' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+INSERT INTO `saxapok_bot`.`telegram_user` (`id`, `username`, `user_id`, `firstname`, `lastname`, `is_bot`) VALUES (NULL, 'SaxapokBot', '914200924', 'SaharokBot', NULL, '1');
+ALTER TABLE `saxapok_bot`.`telegram_message` ADD `status` ENUM('scheduled','seen','canceled','') NULL AFTER `text`;
+CREATE TABLE `saxapok_bot`.`unresolved_command` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `command` VARCHAR(255) NOT NULL , `date` INT NOT NULL , `parameters` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `saxapok_bot`.`unresolved_command` ADD FOREIGN KEY (`user_id`) REFERENCES `telegram_user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+**********
+CREATE TABLE `user` ( `id` INT NOT NULL AUTO_INCREMENT , `username` VARCHAR(255) NOT NULL , `email` VARCHAR(255) NOT NULL , `password` VARCHAR(255) NOT NULL , `salt` VARCHAR(1000) NOT NULL , `created_at` DATETIME NOT NULL , `updated_at` DATETIME NOT NULL , `status` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `user` ADD `user_customization` INT NULL AFTER `status`, ADD INDEX (`user_customization`);
+ALTER TABLE `user` ADD FOREIGN KEY (`user_customization`) REFERENCES `user_customization`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+CREATE TABLE `role` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `role` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `user` ADD UNIQUE(`username`);
+ALTER TABLE `user` ADD UNIQUE(`email`);
+ALTER TABLE `role` ADD UNIQUE(`role`);
+CREATE TABLE `user_role` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `role_id` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `user_role` ADD FOREIGN KEY (`role_id`) REFERENCES `role`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `user_role` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+CREATE TABLE `user_customization` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `firstname` VARCHAR(255) NULL , `lastname` VARCHAR(255) NULL , `birthday` DATETIME NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `user_customization` ADD INDEX(`user_id`);
+ALTER TABLE `user_customization` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;

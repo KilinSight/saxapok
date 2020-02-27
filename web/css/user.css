@@ -1,0 +1,68 @@
+.user-bundle-block{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    align-self: center;
+
+    padding: 20px;
+    margin: 20px;
+}
+
+.user-bundle-block>.errors-block{
+    color: #ff3748;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px;
+}
+
+.user-bundle-block>.user-form-block{
+    display: flex;
+    flex-flow: column;
+    flex: 0 0 100%;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.user-bundle-block>.user-form-block>form{
+    display: flex;
+    flex-flow: column;
+    flex: 0 0 100%;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+.user-bundle-block>.user-form-block>form>.input-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    margin: 10px 0;
+}
+
+.user-bundle-block>.user-form-block>form>.input-row>label{
+    margin-right: 10px;
+    max-width: 20%;
+}
+
+.user-bundle-block>.user-form-block>form>.input-row>input{
+    min-width: 80%;
+    max-width: 80%;
+}
+
+.user-bundle-block>.user-form-block>form>button{
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: #555;
+    color: #e2e2e2;
+}
+
+.user-bundle-block>.user-form-block>form>button:hover{
+
+    background-color: #101010;
+    color: #fff;
+}

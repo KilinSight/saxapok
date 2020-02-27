@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {# ... you will probably extend your base template, like base.html.twig #}
+    <div class="wrapper">
+        <div class="user-bundle-block">
+            {% if error %}
+                <div class="errors-block">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <div class="user-form-block">
+                <form action="{{ path('login') }}" method="post">
+
+                    <div class="input-row">
+                        <label for="username">Username:</label>
+                        <input class="form-control"  type="text" id="username" name="_username" value="{{ last_username }}"/>
+                    </div>
+                    <div class="input-row">
+                        <label for="password">Password:</label>
+                        <input class="form-control"  type="password" id="password" name="_password"/>
+                    </div>
+
+                    {#
+                        If you want to control the URL the user
+                        is redirected to on success (more details below)
+                        <input type="hidden" name="_target_path" value="/account"/>
+                    #}
+
+                    <button class="btn btn-default" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('user.css', 'css') }}">
+{% endblock %}

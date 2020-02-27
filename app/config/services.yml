@@ -41,6 +41,15 @@ services:
             $mailerUser: '%mailer_user%'
             $mailerPassword: '%mailer_password%'
 
+    UserBundle\DataFixtures\:
+        resource: '../../src/UserBundle/DataFixtures'
+        tags: ['doctrine.fixture.orm']
+
+    UserBundle\Controller\SecurityController:
+        public: true
+        bind:
+            $authenticationUtils: '@security.authentication_utils'
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
