@@ -2,32 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Controller/SecurityController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/DataFixtures/ORM/RoleLoad.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/DataFixtures/ORM/UserLoad.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Entity/Repository/UserRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Entity/Role.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Entity/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Entity/UserCustomization.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Resources/views/security/login.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Resources/views/security/register.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/UserBundle.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/css/user.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aguproject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aguproject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AppKernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AppKernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/routing.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/security.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/security.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/services.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/services.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,14 +178,7 @@
       <workItem from="1582028490266" duration="24872000" />
       <workItem from="1582194560419" duration="11411000" />
       <workItem from="1582527526094" duration="1327000" />
-      <workItem from="1582544434636" duration="29275000" />
-    </task>
-    <task id="LOCAL-00096" summary="Reply WIP">
-      <created>1582120888151</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1582120888151</updated>
+      <workItem from="1582544434636" duration="30861000" />
     </task>
     <task id="LOCAL-00097" summary="Reply WIP">
       <created>1582120943535</created>
@@ -546,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582215667074</updated>
     </task>
-    <option name="localTasksCounter" value="145" />
+    <task id="LOCAL-00145" summary="User security WIP">
+      <created>1582801095050</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1582801095051</updated>
+    </task>
+    <option name="localTasksCounter" value="146" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +554,8 @@
     <MESSAGE value="manager created" />
     <MESSAGE value="Entities User Update created" />
     <MESSAGE value="Reply WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reply WIP" />
+    <MESSAGE value="User security WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="User security WIP" />
   </component>
   <component name="WindowStateProjectService">
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1582632146931">
@@ -592,10 +570,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582215665733">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582801093403">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582215665733" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582801093403" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1582643065275">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -6,7 +6,8 @@ INSERT INTO `saxapok_bot`.`telegram_user` (`id`, `username`, `user_id`, `firstna
 ALTER TABLE `saxapok_bot`.`telegram_message` ADD `status` ENUM('scheduled','seen','canceled','') NULL AFTER `text`;
 CREATE TABLE `saxapok_bot`.`unresolved_command` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `command` VARCHAR(255) NOT NULL , `date` INT NOT NULL , `parameters` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `saxapok_bot`.`unresolved_command` ADD FOREIGN KEY (`user_id`) REFERENCES `telegram_user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-**********
+
+
 CREATE TABLE `user` ( `id` INT NOT NULL AUTO_INCREMENT , `username` VARCHAR(255) NOT NULL , `email` VARCHAR(255) NOT NULL , `password` VARCHAR(255) NOT NULL , `salt` VARCHAR(1000) NOT NULL , `created_at` DATETIME NOT NULL , `updated_at` DATETIME NOT NULL , `status` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `user` ADD `user_customization` INT NULL AFTER `status`, ADD INDEX (`user_customization`);
 ALTER TABLE `user` ADD FOREIGN KEY (`user_customization`) REFERENCES `user_customization`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
@@ -20,3 +21,6 @@ ALTER TABLE `user_role` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON D
 CREATE TABLE `user_customization` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `firstname` VARCHAR(255) NULL , `lastname` VARCHAR(255) NULL , `birthday` DATETIME NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `user_customization` ADD INDEX(`user_id`);
 ALTER TABLE `user_customization` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+**********
