@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Resources/views/test/bot/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AppBundle/Manager/MailerService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Resources/views/security/new_password.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Resources/views/security/recover_password.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UserBundle/Resources/views/security/verify_email.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/saxapok/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/saxapok/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/services.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/services.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UserBundle/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserBundle/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserBundle/Entity/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserBundle/Entity/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserBundle/Entity/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserBundle/Entity/Role.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserBundle/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserBundle/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserBundle/Entity/UserCustomization.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserBundle/Entity/UserCustomization.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserBundle/Resources/views/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserBundle/Resources/views/security/login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/user.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/user.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,14 +178,7 @@
       <workItem from="1582194560419" duration="11411000" />
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
-      <workItem from="1583035607571" duration="12671000" />
-    </task>
-    <task id="LOCAL-00098" summary="Reply WIP">
-      <created>1582121116964</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1582121116964</updated>
+      <workItem from="1583035607571" duration="13064000" />
     </task>
     <task id="LOCAL-00099" summary="Reply WIP">
       <created>1582121335154</created>
@@ -539,7 +516,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582802405772</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="User pass recover done">
+      <created>1583056918365</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1583056918366</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -573,7 +557,8 @@
     <MESSAGE value="Entities User Update created" />
     <MESSAGE value="Reply WIP" />
     <MESSAGE value="User security WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="User security WIP" />
+    <MESSAGE value="User pass recover done" />
+    <option name="LAST_COMMIT_MESSAGE" value="User pass recover done" />
   </component>
   <component name="WindowStateProjectService">
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1582632146931">
@@ -592,10 +577,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1582802404967">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583056915360">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582802404967" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583056915360" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1582643065275">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

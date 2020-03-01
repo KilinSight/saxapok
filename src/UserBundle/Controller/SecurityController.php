@@ -130,7 +130,14 @@ class SecurityController extends Controller
         $token = $request->get('token', '');
         $info = $request->get('info', '');
 
-        if($request->getMethod() === Request::METHOD_POST){
+        if($token){
+            /** @var User $user */
+            $user = $em->getRepository(User::class)->loadUserByVerifyToken($token);
+
+            if($user && $user->isEnabled()){
+                return $this->redirectToRoute('new_password', ['email' => $user->getEmail()]);
+            }
+        }elseif($request->getMethod() === Request::METHOD_POST){
             $userEntity = null;
             if(!$email){
                 $error = '"Email" field is required';
@@ -152,15 +159,6 @@ class SecurityController extends Controller
 
                 $mailerService->sendMessageTo($email, 'Hello! This is verify URL to approve your email. If you don\'t know about us, please ignore this email. <br>' . $verifyUrl);
                 return $this->redirectToRoute('login', ['info' => 'To your email was sent a recover password url. Check your email']);
-            }
-        }else{
-            if($token){
-                /** @var User $user */
-                $user = $em->getRepository(User::class)->loadUserByVerifyToken($token);
-
-                if($user && $user->isEnabled()){
-                    return $this->redirectToRoute('new_password', ['email' => $user->getEmail()]);
-                }
             }
         }
 
