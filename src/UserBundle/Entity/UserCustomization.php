@@ -39,6 +39,11 @@ class UserCustomization
      */
     private $birthday;
 
+    /**
+     * @ORM\Column(name="email_verify_code", type="string", length=255)
+     */
+    private $emailVerifyCode;
+
     private $entities;
 
     public function __construct()
@@ -166,5 +171,21 @@ class UserCustomization
     public function getEntities($name)
     {
         return isset($this->entities[$name]) ? $this->entities[$name] : null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmailVerifyCode()
+    {
+        return $this->emailVerifyCode;
+    }
+
+    /**
+     * @param mixed $emailVerifyCode
+     */
+    public function setEmailVerifyCode($emailVerifyCode): void
+    {
+        $this->emailVerifyCode = $emailVerifyCode;
     }
 }

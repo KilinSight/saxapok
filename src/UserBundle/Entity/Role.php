@@ -12,6 +12,11 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  */
 class Role implements RoleInterface
 {
+    const ROLE_USER = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_GUEST = 'ROLE_GUEST';
+    const ROLE_BOT = 'ROLE_BOT';
+    const ROLE_CLIENT = 'ROLE_CLIENT';
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

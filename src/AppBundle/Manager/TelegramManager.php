@@ -32,29 +32,19 @@ class TelegramManager
      */
     private $em;
     /**
-     * @var string
+     * @var MailerService
      */
-    private $mailerHost;
-    /**
-     * @var string
-     */
-    private $mailerUser;
-    /**
-     * @var string
-     */
-    private $mailerPassword;
+    private $mailerService;
 
     /**
      * TelegramManager constructor.
      * @param LoggerInterface $logger
      * @param EntityManagerInterface $em
      */
-    public function __construct(LoggerInterface $logger, string $mailerHost, string $mailerUser, string $mailerPassword, EntityManagerInterface $em)
+    public function __construct(LoggerInterface $logger, EntityManagerInterface $em, MailerService $mailerService)
     {
-        $this->mailerHost = $mailerHost;
-        $this->mailerUser = $mailerUser;
-        $this->mailerPassword = $mailerPassword;
         $this->em = $em;
+        $this->mailerService = $mailerService;
     }
 
     /**
@@ -71,21 +61,6 @@ class TelegramManager
     public function getUpdate(): ?UpdateMetadataDto
     {
         return $this->getUpdateMetadata($this->getUpdateRaw());
-    }
-
-
-    /**
-     *
-     * @return \Swift_Mailer
-     */
-    public function getMailer()
-    {
-        $transport = (new \Swift_SmtpTransport($this->mailerHost, 465))
-            ->setUsername($this->mailerUser)
-            ->setPassword($this->mailerPassword)
-            ->setEncryption('SSL');
-
-        return new \Swift_Mailer($transport);
     }
 
     /**
@@ -538,7 +513,7 @@ class TelegramManager
 
     public function notifyAdmins($messageText)
     {
-        $mailer = $this->getMailer();
+        $mailer = $this->mailerService->getMailer();
         $message = new \Swift_Message('Exception');
         $message->setFrom($this->mailerUser);
         $message->setTo(['ukrs69@gmail.com' => 'Ilya']);

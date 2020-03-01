@@ -21,6 +21,5 @@ ALTER TABLE `user_role` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON D
 CREATE TABLE `user_customization` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `firstname` VARCHAR(255) NULL , `lastname` VARCHAR(255) NULL , `birthday` DATETIME NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `user_customization` ADD INDEX(`user_id`);
 ALTER TABLE `user_customization` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
-
-
+ALTER TABLE `user_customization` ADD `email_verify_code` VARCHAR(255) NULL AFTER `birthday`;
 **********

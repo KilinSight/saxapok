@@ -33,13 +33,17 @@ services:
         resource: '../../src/AppBundle/Manager'
         public: true
 
+    AppBundle\Manager\MailerService:
+        public: true
+        arguments:
+            $mailerHost: '%mailer_host%'
+            $mailerUser: '%mailer_user%'
+            $mailerPassword: '%mailer_password%'
+
     AppBundle\Manager\TelegramManager:
         public: true
         arguments:
             $logger: '@monolog.logger'
-            $mailerHost: '%mailer_host%'
-            $mailerUser: '%mailer_user%'
-            $mailerPassword: '%mailer_password%'
 
     UserBundle\DataFixtures\:
         resource: '../../src/UserBundle/DataFixtures'

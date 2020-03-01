@@ -56,7 +56,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/bot/make_request/{method}", name="make_request", options = {"expose" : true})
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      * @param string $method
      *
      * @param Request $request
@@ -215,9 +215,21 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $telegramManager = $this->get(TelegramManager::class);
-        $telegramManager->getOrCreateParsedImage('test');
 
         return $this->render('saxapok/index.html.twig', ['user' => $this->getUser()]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/test/bot", name="test_bot")
+     * @param Request $request
+     * @return mixed
+     */
+    public function testBotAction(Request $request)
+    {
+        $telegramManager = $this->get(TelegramManager::class);
+
+        return $this->render('test/bot/index.html.twig', ['user' => $this->getUser()]);
     }
 
     /**

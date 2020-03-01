@@ -4,13 +4,14 @@ namespace UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="user")
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface
 {
     const USER_STATUS_ACTIVE = 'active';
     const USER_STATUS_DISABLED = 'disabled';
@@ -256,11 +257,11 @@ class User implements UserInterface
     /**
      * Remove role.
      *
-     * @param \UserBundle\Entity\Role $role
+     * @param Role $role
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeRole(\UserBundle\Entity\Role $role)
+    public function removeRole(Role $role)
     {
         return $this->roles->removeElement($role);
     }
@@ -274,9 +275,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return mixed
+     * @return UserCustomization
      */
-    public function getUserCustomization()
+    public function getUserCustomization(): ?UserCustomization
     {
         return $this->userCustomization;
     }
@@ -287,5 +288,37 @@ class User implements UserInterface
     public function setUserCustomization($userCustomization): void
     {
         $this->userCustomization = $userCustomization;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->getStatus() == User::USER_STATUS_ACTIVE;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isEnabled()
+    {
+        return $this->getStatus() == User::USER_STATUS_ACTIVE;
     }
 }
