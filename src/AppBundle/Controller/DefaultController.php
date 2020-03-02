@@ -115,9 +115,10 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
-        $telegramManager->notifyAdmins('BEFORE FORWARD Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
 
         if (!$update) {
+            $telegramManager->notifyAdmins('BEFORE RETURN 1 Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
+
             return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
         }
 	    if($update->getDate()->getTimestamp() > time() - 30){
@@ -206,6 +207,7 @@ class DefaultController extends Controller
             }
         }
 
+        $telegramManager->notifyAdmins('BEFORE RETURN 2 Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
         return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
     }
 

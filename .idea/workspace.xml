@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="mailer fixes">
+    <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,14 +179,7 @@
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
       <workItem from="1583035607571" duration="13289000" />
-      <workItem from="1583140112866" duration="6990000" />
-    </task>
-    <task id="LOCAL-00104" summary="Reply WIP">
-      <created>1582121759670</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1582121759670</updated>
+      <workItem from="1583140112866" duration="7135000" />
     </task>
     <task id="LOCAL-00105" summary="Reply WIP">
       <created>1582122108355</created>
@@ -525,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583151233918</updated>
     </task>
-    <option name="localTasksCounter" value="153" />
+    <task id="LOCAL-00153" summary="forward fixes">
+      <created>1583151909185</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1583151909185</updated>
+    </task>
+    <option name="localTasksCounter" value="154" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -561,7 +560,8 @@
     <MESSAGE value="User security WIP" />
     <MESSAGE value="User pass recover done" />
     <MESSAGE value="mailer fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="mailer fixes" />
+    <MESSAGE value="forward fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="forward fixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1582632146931">
@@ -580,10 +580,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583151586347">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583151907885">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583151586347" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583151907885" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1582643065275">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
