@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/MailerService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/MailerService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserBundle/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserBundle/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,14 +179,7 @@
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
       <workItem from="1583035607571" duration="13289000" />
-      <workItem from="1583140112866" duration="5136000" />
-    </task>
-    <task id="LOCAL-00101" summary="Reply WIP">
-      <created>1582121595916</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1582121595916</updated>
+      <workItem from="1583140112866" duration="5531000" />
     </task>
     <task id="LOCAL-00102" summary="Reply WIP">
       <created>1582121703828</created>
@@ -526,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583149429726</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="mailer fixes">
+      <created>1583150060111</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1583150060111</updated>
+    </task>
+    <option name="localTasksCounter" value="151" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -561,7 +559,8 @@
     <MESSAGE value="Reply WIP" />
     <MESSAGE value="User security WIP" />
     <MESSAGE value="User pass recover done" />
-    <option name="LAST_COMMIT_MESSAGE" value="User pass recover done" />
+    <MESSAGE value="mailer fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="mailer fixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1582632146931">
@@ -580,10 +579,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583150057988">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583150440207">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583150057988" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583150440207" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1582643065275">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

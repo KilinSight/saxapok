@@ -115,6 +115,8 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
+        $telegramManager->notifyAdmins('BEFORE FORWARD Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
+
         if (!$update) {
             return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
         }
