@@ -117,13 +117,9 @@ class DefaultController extends Controller
         $update = $telegramManager->getUpdateMetadata($updateRaw);
 
         if (!$update) {
-            $telegramManager->notifyAdmins('BEFORE RETURN 1 Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
-
             return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
         }
-	    if($update->getDate()->getTimestamp() > time() - 30){
-
-            $telegramManager->notifyAdmins('Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
+	    if($update->getDate()->getTimestamp()){
             $userAdmin = $telegramManager->getAdminUser();
             if(!$update->isForwarded() && !$update->getUser()->getIsBot() && $update->getUser()->getUserId() !== $userAdmin->getUserId() && $update->getChatId() !== $userAdmin->getUserId()){
                 $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
@@ -207,7 +203,6 @@ class DefaultController extends Controller
             }
         }
 
-        $telegramManager->notifyAdmins('BEFORE RETURN 2 Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
         return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
     }
 
