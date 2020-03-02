@@ -70,7 +70,7 @@ class MailerService
      * @param string $text
      * @return void
      */
-    public function sendMessageTo(string $to, string $text)
+    public function sendTextTo(string $to, string $text)
     {
         $mailer = $this->getMailer();
         $message = new \Swift_Message('Exception');
@@ -78,6 +78,19 @@ class MailerService
         $message->setTo($to);
         $message->setContentType('text/html');
         $message->setBody($text);
+        $mailer->send($message);
+    }
+
+    /**
+     *
+     * @param string $to
+     * @param \Swift_Message $message
+     * @return void
+     */
+    public function sendMessageTo(\Swift_Message $message)
+    {
+        $mailer = $this->getMailer();
+        $message->setFrom($this->mailerUser);
         $mailer->send($message);
     }
 }

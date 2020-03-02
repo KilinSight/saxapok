@@ -513,12 +513,10 @@ class TelegramManager
 
     public function notifyAdmins($messageText)
     {
-        $mailer = $this->mailerService->getMailer();
         $message = new \Swift_Message('Exception');
-        $message->setFrom($this->mailerUser);
         $message->setTo(['ukrs69@gmail.com' => 'Ilya']);
         $message->setBody($messageText);
-        $mailer->send($message);
+        $this->mailerService->sendMessageTo($message);
     }
 
     /**

@@ -157,7 +157,7 @@ class SecurityController extends Controller
                 $em->flush();
                 $verifyUrl = $this->generateUrl('recover_password', ['token' => $verifyCode], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                $mailerService->sendMessageTo($email, 'Hello! This is verify URL to approve your email. If you don\'t know about us, please ignore this email. <br>' . $verifyUrl);
+                $mailerService->sendTextTo($email, 'Hello! This is verify URL to approve your email. If you don\'t know about us, please ignore this email. <br>' . $verifyUrl);
                 return $this->redirectToRoute('login', ['info' => 'To your email was sent a recover password url. Check your email']);
             }
         }
@@ -209,7 +209,7 @@ class SecurityController extends Controller
                 $em->flush();
                 $verifyUrl = $this->generateUrl('verify_email', ['token' => $verifyCode], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                $mailerService->sendMessageTo($email, 'Hello! This is verify URL to approve your email. If you don\'t know about us, please ignore this email. <br>' . $verifyUrl);
+                $mailerService->sendTextTo($email, 'Hello! This is verify URL to approve your email. If you don\'t know about us, please ignore this email. <br>' . $verifyUrl);
                 return $this->redirectToRoute('login', ['info' => 'To your email was sent a verify code url. Please confirm your account before login.']);
             }
         }else{
@@ -329,7 +329,7 @@ class SecurityController extends Controller
 
                         $verifyUrl = $this->generateUrl('verify_email', ['token' => $verifyCode], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                        $mailerService->sendMessageTo($email, 'Hello! This is verify URL to approve your email. If you don\'t know about us, please ignore this email. <br>' . $verifyUrl);
+                        $mailerService->sendTextTo($email, 'Hello! This is verify URL to approve your email. If you don\'t know about us, please ignore this email. <br>' . $verifyUrl);
                         return $this->redirectToRoute('login', ['info' => 'To your email was sent a verify code url. Please confirm your account before login.']);
                     }else{
                         $error = 'Email already in use. Please change your email.';
