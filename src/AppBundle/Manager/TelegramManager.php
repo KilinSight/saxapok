@@ -460,7 +460,7 @@ class TelegramManager
             $updateMetadata->setSticker($message['sticker']['file_id']);
         }
         if (isset($message['audio'])) {
-            $updateMetadata->setSticker($message['sticker']['file_id']);
+            $updateMetadata->setSticker($message['audio']['file_id']);
         }
 
         if (isset($message['audio'])) {

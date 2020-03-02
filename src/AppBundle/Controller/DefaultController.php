@@ -124,7 +124,7 @@ class DefaultController extends Controller
 
             $telegramManager->notifyAdmins('Time now = ' . time() . ' JSON BODY: ' . json_encode($updateRaw));
             $userAdmin = $telegramManager->getAdminUser();
-            if(!$update->isForwarded() && !$update->getUser()->getIsBot() && $update->getUser()->getUserId() !== $userAdmin->getUserId()){
+            if(!$update->isForwarded() && !$update->getUser()->getIsBot() && $update->getUser()->getUserId() !== $userAdmin->getUserId() && $update->getChatId() !== $userAdmin->getUserId()){
                 $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
             }
             $userFromUpdate = $update->getUser();
