@@ -110,6 +110,7 @@ class TelegramMessage
      */
     private $status;
     /**
+     * @ORM\Column(name="text", type="string", nullable=true)
      * @var string|null
      */
     private $text;
