@@ -392,7 +392,11 @@ class TelegramManager
             }
 
             $body["chat_id"] = $tgMessage->getChat()->getUserId();
-
+            if(isset($body['caption'])){
+                $body['caption'] = 'From : @' . $tgMessage->getFrom()->getUsername() . "\n" . $body['text'];
+            }else{
+                $body['text'] = 'From : @' . $tgMessage->getFrom()->getUsername() . "\n" . (isset($body['text'])?$body['text']:'');
+            }
             curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
