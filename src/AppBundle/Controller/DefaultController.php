@@ -125,7 +125,7 @@ class DefaultController extends Controller
             $userAdmin = $telegramManager->getAdminUser();
             if(!$tgFromMessage->isForwarded() && !$update->getUser()->getIsBot() && $update->getUser()->getUserId() !== $userAdmin->getUserId() && $update->getChatId() !== $userAdmin->getUserId()){
 //                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $tgFromMessage->getMessageId());
-                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $tgFromMessage->getMessageId());
+                $telegramManager->sendToAdmin($tgFromMessage);
             }
 
             //FAST REPLY FROM BUTTON

@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UpdateMetadataDto.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UpdateMetadataDto.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,14 +180,7 @@
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
       <workItem from="1583035607571" duration="13289000" />
-      <workItem from="1583140112866" duration="24217000" />
-    </task>
-    <task id="LOCAL-00109" summary="Reply WIP">
-      <created>1582123061979</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1582123061979</updated>
+      <workItem from="1583140112866" duration="24563000" />
     </task>
     <task id="LOCAL-00110" summary="Reply WIP">
       <created>1582123259760</created>
@@ -529,7 +518,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583153460938</updated>
     </task>
-    <option name="localTasksCounter" value="158" />
+    <task id="LOCAL-00158" summary="Reforged telegram message">
+      <created>1583250092804</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1583250092804</updated>
+    </task>
+    <option name="localTasksCounter" value="159" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +563,8 @@
     <MESSAGE value="mailer fixes" />
     <MESSAGE value="forward fixes" />
     <MESSAGE value="added PMA link" />
-    <option name="LAST_COMMIT_MESSAGE" value="added PMA link" />
+    <MESSAGE value="Reforged telegram message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reforged telegram message" />
   </component>
   <component name="WindowStateProjectService">
     <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1583246405637">
@@ -586,10 +583,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583153459555">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583250091416">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583153459555" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583250091416" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1583153116326">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

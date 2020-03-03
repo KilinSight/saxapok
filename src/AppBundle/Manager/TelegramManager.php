@@ -110,7 +110,23 @@ class TelegramManager
      */
     public function sendToAdmin(TelegramMessage $tgFromMessage)
     {
+        $keyboard = [
+            [
+                [
+                    'text' => 'Reply Now', 'callback_data' => "/reply_" . $tgFromMessage->getFrom()->getUserId()
+                ]
+            ]
+        ];
+        $inlineKeyboardMarkup = [
+            'inline_keyboard' => $keyboard
+        ];
 
+        $tgFromMessage->setFrom($this->getBotUser());
+        $tgFromMessage->setChat($this->getAdminUser());
+        $this->sendMessageTo($tgFromMessage);
+
+        $tgToMessage = new TelegramMessage($tgFromMessage->getMessageId(), $this->getBotUser(), $this->getAdminUser(), (new \DateTime())->setTimestamp(time()), 'Хотите ответить?');
+        $this->sendMessageTo($tgToMessage, $inlineKeyboardMarkup);
     }
 
     /**
