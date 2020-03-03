@@ -255,7 +255,7 @@ class TelegramMessage
     /**
      * @return string
      */
-    public function getSticker(): string
+    public function getSticker(): ?string
     {
         return $this->sticker;
     }
@@ -263,7 +263,7 @@ class TelegramMessage
     /**
      * @return string
      */
-    public function getAnimation(): string
+    public function getAnimation(): ?string
     {
         return $this->animation;
     }
@@ -271,7 +271,7 @@ class TelegramMessage
     /**
      * @param string $animation
      */
-    public function setAnimation(string $animation): void
+    public function setAnimation(?string $animation): void
     {
         $this->animation = $animation;
     }
@@ -279,7 +279,7 @@ class TelegramMessage
     /**
      * @return string
      */
-    public function getAudio(): string
+    public function getAudio(): ?string
     {
         return $this->audio;
     }
@@ -287,7 +287,7 @@ class TelegramMessage
     /**
      * @param string $audio
      */
-    public function setAudio(string $audio): void
+    public function setAudio(?string $audio): void
     {
         $this->audio = $audio;
     }
@@ -295,7 +295,7 @@ class TelegramMessage
     /**
      * @return string
      */
-    public function getVideo(): string
+    public function getVideo(): ?string
     {
         return $this->video;
     }
@@ -303,7 +303,7 @@ class TelegramMessage
     /**
      * @param string $video
      */
-    public function setVideo(string $video): void
+    public function setVideo(?string $video): void
     {
         $this->video = $video;
     }
@@ -311,7 +311,7 @@ class TelegramMessage
     /**
      * @return string
      */
-    public function getVoice(): string
+    public function getVoice(): ?string
     {
         return $this->voice;
     }
@@ -319,7 +319,7 @@ class TelegramMessage
     /**
      * @param string $voice
      */
-    public function setVoice(string $voice): void
+    public function setVoice(?string $voice): void
     {
         $this->voice = $voice;
     }
@@ -327,7 +327,7 @@ class TelegramMessage
     /**
      * @return string
      */
-    public function getDocument(): string
+    public function getDocument(): ?string
     {
         return $this->document;
     }
@@ -335,7 +335,7 @@ class TelegramMessage
     /**
      * @param string $document
      */
-    public function setDocument(string $document): void
+    public function setDocument(?string $document): void
     {
         $this->document = $document;
     }
@@ -343,7 +343,7 @@ class TelegramMessage
     /**
      * @return TelegramMessage
      */
-    public function getPinnedMessage(): TelegramMessage
+    public function getPinnedMessage(): ?TelegramMessage
     {
         return $this->pinnedMessage;
     }
@@ -351,7 +351,7 @@ class TelegramMessage
     /**
      * @param TelegramMessage $pinnedMessage
      */
-    public function setPinnedMessage(TelegramMessage $pinnedMessage): void
+    public function setPinnedMessage(?TelegramMessage $pinnedMessage): void
     {
         $this->pinnedMessage = $pinnedMessage;
     }
@@ -359,7 +359,7 @@ class TelegramMessage
     /**
      * @return bool
      */
-    public function isForwarded(): bool
+    public function isForwarded(): ?bool
     {
         return $this->isForwarded;
     }
@@ -367,7 +367,7 @@ class TelegramMessage
     /**
      * @param bool $isForwarded
      */
-    public function setIsForwarded(bool $isForwarded): void
+    public function setIsForwarded(?bool $isForwarded): void
     {
         $this->isForwarded = $isForwarded;
     }
@@ -375,7 +375,7 @@ class TelegramMessage
     /**
      * @param string $sticker
      */
-    public function setSticker(string $sticker): void
+    public function setSticker(?string $sticker): void
     {
         $this->sticker = $sticker;
     }
@@ -383,7 +383,7 @@ class TelegramMessage
     /**
      * @return string
      */
-    public function getPhoto(): string
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
@@ -391,7 +391,7 @@ class TelegramMessage
     /**
      * @param string $photo
      */
-    public function setPhoto(string $photo): void
+    public function setPhoto(?string $photo): void
     {
         $this->photo = $photo;
     }
