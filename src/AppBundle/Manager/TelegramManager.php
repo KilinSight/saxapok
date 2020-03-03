@@ -469,6 +469,11 @@ class TelegramManager
             $isBot = $message['from']['is_bot'];
             $date = (new \DateTime())->setTimestamp($message['date']);
 
+            $chatId = $message['chat']['id'];
+            $toUsername = $message['chat']['username'];
+            $toUserFirstname = $message['chat']['first_name'];
+            $toUserLastname = $message['chat']['last_name'];
+            $toUserIsBot = $message['chat']['is_bot'];
             if (!$username) {
                 $this->notifyAdmins('Username is required');
                 return null;
@@ -483,11 +488,6 @@ class TelegramManager
                 $this->notifyAdmins('Chat id is required');
                 return null;
             }
-            $chatId = $message['chat']['id'];
-            $toUsername = $message['chat']['username'];
-            $toUserFirstname = $message['chat']['first_name'];
-            $toUserLastname = $message['chat']['last_name'];
-            $toUserIsBot = $message['chat']['is_bot'];
 
             list($issetUser, $user) = $this->getOrCreateUser(null, intval($userId), $username, $userFirstname, $userLastname, $isBot);
             /** @var TelegramUser $toUser */
