@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -180,14 +179,7 @@
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
       <workItem from="1583035607571" duration="13289000" />
-      <workItem from="1583140112866" duration="25911000" />
-    </task>
-    <task id="LOCAL-00117" summary="Reply WIP">
-      <created>1582209964783</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1582209964783</updated>
+      <workItem from="1583140112866" duration="26017000" />
     </task>
     <task id="LOCAL-00118" summary="Reply WIP">
       <created>1582210043641</created>
@@ -525,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583251421401</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="Reforged telegram message">
+      <created>1583251776346</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1583251776346</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,10 +582,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583251420212">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583251774731">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583251420212" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583251774731" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1583153116326">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

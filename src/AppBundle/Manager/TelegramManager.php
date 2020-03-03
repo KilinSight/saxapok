@@ -306,17 +306,16 @@ class TelegramManager
         if (!$tgMessage->getFrom()) {
             throw new \InvalidArgumentException('User "from" is required');
         }
-        $method = '/sendMessage';
 
         $curl = curl_init();
 
         $bodies = [];
         $body = [];
-        if($tgMessage->getPhoto()){
+        if ($tgMessage->getPhoto()) {
             $method = '/sendPhoto';
 
             $photos = explode(',', $tgMessage->getPhoto());
-            if(count($photos) > 1){
+            if (count($photos) > 1) {
                 $medias = [];
                 foreach ($photos as $photo) {
                     $medias[] = [
@@ -328,17 +327,17 @@ class TelegramManager
                 $method = '/sendMediaGroup';
 
                 $body['media'] = $medias;
-            }else{
+            } else {
                 $body['photo'] = $photos[0];
-                if($tgMessage->getText()){
+                if ($tgMessage->getText()) {
                     $body['caption'] = $tgMessage->getText();
                 }
             }
-        }elseif ($tgMessage->getVideo()){
+        } elseif ($tgMessage->getVideo()) {
             $method = '/sendVideo';
 
             $videos = explode(',', $tgMessage->getPhoto());
-            if(count($videos) > 1){
+            if (count($videos) > 1) {
                 $medias = [];
                 foreach ($videos as $video) {
                     $medias[] = [
@@ -350,35 +349,39 @@ class TelegramManager
                 $method = '/sendMediaGroup';
 
                 $body['media'] = $medias;
-            }else{
+            } else {
                 $body['video'] = $videos[0];
-                if($tgMessage->getText()){
+                if ($tgMessage->getText()) {
                     $body['caption'] = $tgMessage->getText();
                 }
             }
-        }elseif ($tgMessage->getAudio()){
+        } elseif ($tgMessage->getAudio()) {
             $method = '/sendAudio';
 
             $bodies = $this->getBodiesByType('audio', $tgMessage);
-        }elseif ($tgMessage->getSticker()){
+        } elseif ($tgMessage->getSticker()) {
             $method = '/sendSticker';
 
             $body['sticker'] = $tgMessage->getSticker();
-        }elseif ($tgMessage->getAnimation()){
+        } elseif ($tgMessage->getAnimation()) {
             $method = '/sendAnimation';
 
             $bodies = $this->getBodiesByType('animation', $tgMessage);
-        }elseif ($tgMessage->getDocument()){
+        } elseif ($tgMessage->getDocument()) {
             $method = '/sendDocument';
 
             $bodies = $this->getBodiesByType('document', $tgMessage);
-        }elseif ($tgMessage->getVoice()){
-             $method = '/sendVoice';
+        } elseif ($tgMessage->getVoice()) {
+            $method = '/sendVoice';
 
             $bodies = $this->getBodiesByType('voice', $tgMessage);
+        } elseif ($tgMessage->getText()) {
+            $method = '/sendMessage';
+
+            $body['text'] = $tgMessage->getSticker();
         }
 
-        if(!count($bodies) && !empty($body)) {
+        if (!count($bodies) && !empty($body)) {
             $bodies[] = $body;
         }
 
@@ -417,18 +420,18 @@ class TelegramManager
         $body = [];
         $bodies = [];
         $items = [];
-        if($type === 'animation'){
+        if ($type === 'animation') {
             $items = explode(',', $tgMessage->getAnimation());
-        }elseif($type === 'audio'){
+        } elseif ($type === 'audio') {
             $items = explode(',', $tgMessage->getAudio());
-        }elseif($type === 'document'){
+        } elseif ($type === 'document') {
             $items = explode(',', $tgMessage->getDocument());
-        }elseif($type === 'voice'){
+        } elseif ($type === 'voice') {
             $items = explode(',', $tgMessage->getVoice());
         }
         foreach ($items as $item) {
             $body[$type] = $item;
-            if($tgMessage->getText()){
+            if ($tgMessage->getText()) {
                 $body['caption'] = $tgMessage->getText();
             }
             $bodies[] = $body;
@@ -486,14 +489,14 @@ class TelegramManager
             $userFirstname = $message['from']['first_name'];
             $userLastname = $message['from']['last_name'];
             $userId = $message['from']['id'];
-            $isBot = $message['from']['is_bot']?true:false;
+            $isBot = $message['from']['is_bot'] ? true : false;
             $date = (new \DateTime())->setTimestamp($message['date']);
 
             $chatId = $message['chat']['id'];
             $toUsername = $message['chat']['username'];
             $toUserFirstname = $message['chat']['first_name'];
             $toUserLastname = $message['chat']['last_name'];
-            $toUserIsBot = $message['chat']['is_bot']?true:false;
+            $toUserIsBot = $message['chat']['is_bot'] ? true : false;
             if (!$username) {
                 $this->notifyAdmins('Username is required');
                 return null;
@@ -574,7 +577,7 @@ class TelegramManager
             }
             $tgMessage->setDocument(join(',', $documents));
         }
-        if($tgMessage){
+        if ($tgMessage) {
             $this->saveMessageToDB($tgMessage);
             $updateMetadata->setMessage($tgMessage);
         }
