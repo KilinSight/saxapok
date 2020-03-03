@@ -22,4 +22,18 @@ CREATE TABLE `user_customization` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id`
 ALTER TABLE `user_customization` ADD INDEX(`user_id`);
 ALTER TABLE `user_customization` ADD FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE `user_customization` ADD `email_verify_code` VARCHAR(255) NULL AFTER `birthday`;
+
+ALTER TABLE `telegram_message`
+ ADD `sticker` VARCHAR(255) NULL AFTER `text`,
+ ADD `photo` TEXT NULL AFTER `sticker`,
+  ADD `animation` TEXT NULL AFTER `photo`,
+   ADD `audio` TEXT NULL AFTER `animation`,
+    ADD `video` TEXT NULL AFTER `audio`,
+     ADD `voice` TEXT NULL AFTER `video`,
+      ADD `document` TEXT NULL AFTER `voice`,
+       ADD `pinned_message` INT NULL AFTER `document`,
+        ADD `is_forwarded` TINYINT NULL DEFAULT '0' AFTER `pinned_message`,
+         ADD INDEX (`pinned_message`);
+
+ ALTER TABLE `telegram_message` ADD FOREIGN KEY (`pinned_message`) REFERENCES `telegram_message`(`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
 **********

@@ -51,28 +51,93 @@ class TelegramMessage
     private $date;
 
     /**
+     * @ORM\Column(name="sticker", type="string", nullable=true)
+     * @var string
+     */
+    private $sticker;
+
+    /**
+     * @ORM\Column(name="photo", type="string", nullable=true)
+     * @var string
+     */
+    private $photo;
+
+    /**
+     * @ORM\Column(name="animation", type="string", nullable=true)
+     * @var string
+     */
+    private $animation;
+
+    /**
+     * @ORM\Column(name="audio", type="string", nullable=true)
+     * @var string
+     */
+    private $audio;
+
+    /**
+     * @ORM\Column(name="video", type="string", nullable=true)
+     * @var string
+     */
+    private $video;
+
+    /**
+     * @ORM\Column(name="voice", type="string", nullable=true)
+     * @var string
+     */
+    private $voice;
+
+    /**
+     * @ORM\Column(name="document", type="string", nullable=true)
+     * @var string
+     */
+    private $document;
+
+    /**
+     * @ORM\Column(name="pinned_message", type="integer", nullable=true)
+     * @var TelegramMessage
+     */
+    private $pinnedMessage;
+
+    /**
+     * @ORM\Column(name="is_forwarded", type="boolean", nullable=true)
+     * @var bool
+     */
+    private $isForwarded;
+
+    /**
      * @ORM\Column(name="status", type="string", nullable=true)
      * @var string
      */
     private $status;
+    /**
+     * @var string|null
+     */
+    private $text;
 
     /**
      * TelegramMessage constructor.
-     * @param int|null $id
      * @param int $messageId
      * @param TelegramUser $from
      * @param TelegramUser $chat
      * @param \DateTime $date
      * @param string $text
      */
-    public function __construct(?int $id, int $messageId, TelegramUser $from, TelegramUser $chat, \DateTime $date, string $text)
+    public function __construct(int $messageId, TelegramUser $from, TelegramUser $chat, \DateTime $date, ?string $text)
     {
-        $this->id = $id;
         $this->messageId = $messageId;
         $this->from = $from;
         $this->chat = $chat;
         $this->date = $date->getTimestamp();
         $this->text = $text;
+        $this->sticker = null;
+        $this->photo = null;
+        $this->animation = null;
+        $this->audio = null;
+        $this->video = null;
+        $this->voice = null;
+        $this->document = null;
+        $this->pinnedMessage = null;
+        $this->isForwarded = false;
     }
 
     /**
@@ -156,9 +221,9 @@ class TelegramMessage
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getText(): string
+    public function getText(): ?string
     {
         return $this->text;
     }
@@ -166,7 +231,7 @@ class TelegramMessage
     /**
      * @param string $text
      */
-    public function setText(string $text): void
+    public function setText(?string $text): void
     {
         $this->text = $text;
     }
@@ -185,5 +250,149 @@ class TelegramMessage
     public function setStatus(string $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSticker(): string
+    {
+        return $this->sticker;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnimation(): string
+    {
+        return $this->animation;
+    }
+
+    /**
+     * @param string $animation
+     */
+    public function setAnimation(string $animation): void
+    {
+        $this->animation = $animation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAudio(): string
+    {
+        return $this->audio;
+    }
+
+    /**
+     * @param string $audio
+     */
+    public function setAudio(string $audio): void
+    {
+        $this->audio = $audio;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVideo(): string
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param string $video
+     */
+    public function setVideo(string $video): void
+    {
+        $this->video = $video;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVoice(): string
+    {
+        return $this->voice;
+    }
+
+    /**
+     * @param string $voice
+     */
+    public function setVoice(string $voice): void
+    {
+        $this->voice = $voice;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocument(): string
+    {
+        return $this->document;
+    }
+
+    /**
+     * @param string $document
+     */
+    public function setDocument(string $document): void
+    {
+        $this->document = $document;
+    }
+
+    /**
+     * @return TelegramMessage
+     */
+    public function getPinnedMessage(): TelegramMessage
+    {
+        return $this->pinnedMessage;
+    }
+
+    /**
+     * @param TelegramMessage $pinnedMessage
+     */
+    public function setPinnedMessage(TelegramMessage $pinnedMessage): void
+    {
+        $this->pinnedMessage = $pinnedMessage;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForwarded(): bool
+    {
+        return $this->isForwarded;
+    }
+
+    /**
+     * @param bool $isForwarded
+     */
+    public function setIsForwarded(bool $isForwarded): void
+    {
+        $this->isForwarded = $isForwarded;
+    }
+
+    /**
+     * @param string $sticker
+     */
+    public function setSticker(string $sticker): void
+    {
+        $this->sticker = $sticker;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string $photo
+     */
+    public function setPhoto(string $photo): void
+    {
+        $this->photo = $photo;
     }
 }

@@ -13,6 +13,8 @@ class UnresolvedCommand
 {
 
     const COMMAND_REPLY = '/reply';
+    const COMMAND_MENU = '/menu';
+    const COMMAND_NOTIFY = '/notify';
     const COMMAND_SCHEDULE = '/schedule';
     const COMMAND_SEEN = '/seen';
     const COMMAND_START = '/start';
@@ -141,9 +143,8 @@ class UnresolvedCommand
      * @param string $parameters
      * @param int $date
      */
-    public function __construct(?int $id = null, TelegramUser $user, string $command, string $parameters, int $date)
+    public function __construct(TelegramUser $user, string $command, string $parameters, int $date)
     {
-        $this->id = $id;
         $this->user = $user;
         $this->command = $command;
         $this->parameters = $parameters;

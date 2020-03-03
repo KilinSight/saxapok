@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UnresolvedCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/UpdateMetadataDto.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/UpdateMetadataDto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Manager/TelegramManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,14 +184,7 @@
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
       <workItem from="1583035607571" duration="13289000" />
-      <workItem from="1583140112866" duration="8536000" />
-    </task>
-    <task id="LOCAL-00108" summary="Reply WIP">
-      <created>1582122856113</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1582122856113</updated>
+      <workItem from="1583140112866" duration="24217000" />
     </task>
     <task id="LOCAL-00109" summary="Reply WIP">
       <created>1582123061979</created>
@@ -524,7 +522,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583153152135</updated>
     </task>
-    <option name="localTasksCounter" value="157" />
+    <task id="LOCAL-00157" summary="added PMA link">
+      <created>1583153460938</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1583153460938</updated>
+    </task>
+    <option name="localTasksCounter" value="158" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -561,13 +566,14 @@
     <MESSAGE value="User pass recover done" />
     <MESSAGE value="mailer fixes" />
     <MESSAGE value="forward fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="forward fixes" />
+    <MESSAGE value="added PMA link" />
+    <option name="LAST_COMMIT_MESSAGE" value="added PMA link" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1582632146931">
+    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1583246405637">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582632146931" />
+    <state x="753" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583246405637" />
     <state x="701" y="268" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583044434512">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -580,10 +586,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583153150701">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583153459555">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583153150701" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583153459555" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1583153116326">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -628,10 +634,10 @@
       <screen x="1920" y="0" width="1280" height="984" />
     </state>
     <state x="1920" y="0" width="1296" height="1025" key="dock-window-1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582031542747" />
-    <state x="656" y="252" width="849" height="640" key="find.popup" timestamp="1583149984342">
+    <state x="656" y="252" width="849" height="640" key="find.popup" timestamp="1583243070960">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="849" height="640" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583149984342" />
+    <state x="656" y="252" width="849" height="640" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583243070960" />
     <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1583148101692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

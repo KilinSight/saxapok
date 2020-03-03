@@ -37,6 +37,26 @@ class TelegramManager
     private $mailerService;
 
     /**
+     * @var TelegramUser
+     */
+    private $userBot;
+
+    /**
+     * @var TelegramUser
+     */
+    private $userAdmin;
+
+    /**
+     * @var string
+     */
+    private $updateRaw;
+
+    /**
+     * @var UpdateMetadataDto
+     */
+    private $update;
+
+    /**
      * TelegramManager constructor.
      * @param LoggerInterface $logger
      * @param EntityManagerInterface $em
@@ -45,6 +65,8 @@ class TelegramManager
     {
         $this->em = $em;
         $this->mailerService = $mailerService;
+        $this->userBot = $this->em->find(TelegramUser::class, 2);
+        $this->userAdmin = $this->em->find(TelegramUser::class, 1);
     }
 
     /**
@@ -52,7 +74,7 @@ class TelegramManager
      */
     public function getUpdateRaw(): ?array
     {
-        return json_decode(file_get_contents("php://input"), TRUE);
+        return $this->updateRaw = json_decode(file_get_contents("php://input"), TRUE);
     }
 
     /**
@@ -80,6 +102,15 @@ class TelegramManager
         }
 
         return $parsedImage;
+    }
+
+    /**
+     * @param TelegramMessage $tgFromMessage
+     * @return void
+     */
+    public function sendToAdmin(TelegramMessage $tgFromMessage)
+    {
+
     }
 
     /**
@@ -146,7 +177,7 @@ class TelegramManager
      */
     public function createUnresolvedCommandByUser(TelegramUser $user, string $command, ?array $parameters = []): UnresolvedCommand
     {
-        $unresolvedCommand = new UnresolvedCommand(null, $user, $command, json_encode($parameters), time());
+        $unresolvedCommand = new UnresolvedCommand($user, $command, json_encode($parameters), time());
         $this->em->persist($unresolvedCommand);
         $this->em->flush();
         return $unresolvedCommand;
@@ -264,102 +295,110 @@ class TelegramManager
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
 
-        if ($inlineKeyboardMarkup) {
-            $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
+        $bodies = [];
+        $body = [];
+        if($tgMessage->getPhoto()){
+            $photos = explode(',', $tgMessage->getPhoto());
+            if(count($photos) > 1){
+                $medias = [];
+                foreach ($photos as $photo) {
+                    $medias[] = [
+                        'type' => 'photo',
+                        'media' => $photo,
+                        'caption' => $tgMessage->getText()
+                    ];
+                }
+                $body['media'] = $medias;
+            }else{
+                $body['photo'] = $photos[0];
+                if($tgMessage->getText()){
+                    $body['caption'] = $tgMessage->getText();
+                }
+            }
+        }elseif ($tgMessage->getVideo()){
+            $videos = explode(',', $tgMessage->getPhoto());
+            if(count($videos) > 1){
+                $medias = [];
+                foreach ($videos as $video) {
+                    $medias[] = [
+                        'type' => 'video',
+                        'media' => $video,
+                        'caption' => $tgMessage->getText()
+                    ];
+                }
+                $body['media'] = $medias;
+            }else{
+                $body['video'] = $videos[0];
+                if($tgMessage->getText()){
+                    $body['caption'] = $tgMessage->getText();
+                }
+            }
+        }elseif ($tgMessage->getAudio()){
+            $bodies = $this->getBodiesByType('audio', $tgMessage);
+        }elseif ($tgMessage->getSticker()){
+            $body['sticker'] = $tgMessage->getSticker();
+        }elseif ($tgMessage->getAnimation()){
+            $bodies = $this->getBodiesByType('animation', $tgMessage);
+        }elseif ($tgMessage->getDocument()){
+            $bodies = $this->getBodiesByType('document', $tgMessage);
+        }elseif ($tgMessage->getVoice()){
+            $bodies = $this->getBodiesByType('voice', $tgMessage);
         }
 
-        $body["chat_id"] = $tgMessage->getChat()->getUserId();
-        $body["text"] = $tgMessage->getText();
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-        $output = curl_exec($curl);
-
-        if ($output === false) {
-            $this->throwException(curl_error($curl));
+        if(!count($bodies) && !empty($body)) {
+            $bodies[] = $body;
         }
+
+        foreach ($bodies as $body) {
+            if ($inlineKeyboardMarkup) {
+                $body["reply_markup"] = json_encode($inlineKeyboardMarkup);
+            }
+
+            $body["chat_id"] = $tgMessage->getChat()->getUserId();
+
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+            $output = curl_exec($curl);
+
+            if ($output === false) {
+                $this->throwException(curl_error($curl));
+            }
+        }
+
         curl_close($curl);
         $tgMessage->setStatus(TelegramMessage::STATUS_SEEN);
         $this->saveMessageToDB($tgMessage);
+    }
 
-//        if($update->getSticker()){
-//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendSticker';
-//
-//            $curl = curl_init();
-//            curl_setopt($curl, CURLOPT_URL, $apiUrl);
-//            $body["chat_id"] = $toChatId;
-//            $body['sticker'] = $update->getSticker();
-//            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-//
-//            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//
-//            $output = curl_exec($curl);
-//
-//            if ($output === false) {
-//                $this->throwException(curl_error($curl));
-//            }
-//        }
+    /**
+     * @param string $type
+     * @param TelegramMessage $tgMessage
+     * @return array
+     */
+    private function getBodiesByType(string $type, TelegramMessage $tgMessage): array
+    {
+        $body = [];
+        $bodies = [];
+        $items = [];
+        if($type === 'animation'){
+            $items = explode(',', $tgMessage->getAnimation());
+        }elseif($type === 'audio'){
+            $items = explode(',', $tgMessage->getAudio());
+        }elseif($type === 'document'){
+            $items = explode(',', $tgMessage->getDocument());
+        }elseif($type === 'voice'){
+            $items = explode(',', $tgMessage->getVoice());
+        }
+        foreach ($items as $item) {
+            $body[$type] = $item;
+            if($tgMessage->getText()){
+                $body['caption'] = $tgMessage->getText();
+            }
+            $bodies[] = $body;
+        }
 
-//        $photos = $update->getPhotos();
-//        if($photos && count($photos)){
-//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMediaGroup';
-//
-//            $curl = curl_init();
-//            curl_setopt($curl, CURLOPT_URL, $apiUrl);
-//            $body["chat_id"] = $toChatId;
-//            $body['media'] = $photos;
-//            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-//
-//            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//
-//            $output = curl_exec($curl);
-//
-//            if ($output === false) {
-//                $this->throwException(curl_error($curl));
-//            }
-//        }
-//        $videos = $update->getVideos();
-//
-//        if($videos && count($videos)){
-//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMediaGroup';
-//
-//            $curl = curl_init();
-//            curl_setopt($curl, CURLOPT_URL, $apiUrl);
-//            $body["chat_id"] = $toChatId;
-//            $body['media'] = $videos;
-//            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-//
-//            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//
-//            $output = curl_exec($curl);
-//
-//            if ($output === false) {
-//                $this->throwException(curl_error($curl));
-//            }
-//        }
-//
-//        $documents = $update->getDocuments();
-//
-//        if($documents && count($documents)){
-//            $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendDocument';
-//
-//            foreach ($documents as $document) {
-//                $curl = curl_init();
-//                curl_setopt($curl, CURLOPT_URL, $apiUrl);
-//                $body["chat_id"] = $toChatId;
-//                $body['document'] = $document;
-//
-//                curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-//
-//                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//
-//                $output = curl_exec($curl);
-//
-//                if ($output === false) {
-//                    $this->throwException(curl_error($curl));
-//                }
-//            }
-//        }
+        return $bodies;
     }
 
     /**
@@ -384,6 +423,7 @@ class TelegramManager
         $date = null;
         $chatId = null;
         $message = null;
+        $tgMessage = null;
         $command = null;
         $userId = null;
         $userFirstname = null;
@@ -391,6 +431,9 @@ class TelegramManager
         $isForwarded = false;
         if (isset($update['message'])) {
             $message = $update['message'];
+            $isForwarded = isset($updateRaw['message']['forward_from']);
+        } elseif (isset($update['edited_message'])) {
+            $message = $update['edited_message'];
             $isForwarded = isset($updateRaw['message']['forward_from']);
         } elseif (isset($update['callback_query'])) {
             if (isset($update['callback_query']['message'])) {
@@ -407,30 +450,44 @@ class TelegramManager
             $userFirstname = $message['from']['first_name'];
             $userLastname = $message['from']['last_name'];
             $userId = $message['from']['id'];
-            $chatId = $message['chat']['id'];
             $isBot = $message['from']['is_bot'];
+            if (!$username) {
+                $this->notifyAdmins('Username is required');
+                return null;
+            }
+
+            if (!$date) {
+                $this->notifyAdmins('Date is required');
+                return null;
+            }
+
+            if (!$chatId) {
+                $this->notifyAdmins('Chat id is required');
+                return null;
+            }
+            $chatId = $message['chat']['id'];
+            $toUsername = $message['chat']['username'];
+            $toUserFirstname = $message['chat']['first_name'];
+            $toUserLastname = $message['chat']['last_name'];
+            $toUserIsBot = $message['chat']['is_bot'];
+
+            list($issetUser, $user) = $this->getOrCreateUser(null, intval($userId), $username, $userFirstname, $userLastname, $isBot);
+            /** @var TelegramUser $toUser */
+            list($issetToUser, $toUser) = $this->getOrCreateUser(null, intval($chatId), $toUsername, $toUserFirstname, $toUserLastname, $toUserIsBot);
+
+            $user->setIsBot($isBot);
+            $toUser->setIsBot($toUserIsBot);
             $date = (new \DateTime())->setTimestamp($message['date']);
+
+            $tgMessage = $this->getOrCreateMessage($message['message_id']);
+            $tgMessage->setFrom($user);
+            $tgMessage->setChat($toUser);
+            $tgMessage->setDate($date);
+            $tgMessage->setText($message['text']);
+            $tgMessage->setIsForwarded($isForwarded);
         }
 
-        if (!$username) {
-            $this->notifyAdmins('Username is required');
-            return null;
-        }
-
-        if (!$date) {
-            $this->notifyAdmins('Date is required');
-            return null;
-        }
-
-        if (!$chatId) {
-            $this->notifyAdmins('Chat id is required');
-            return null;
-        }
-
-        list($issetUser, $user) = $this->getOrCreateUser(null, intval($userId), $username, $userFirstname, $userLastname, $isBot);
-        $user->setIsBot($isBot);
         $updateMetadata = new UpdateMetadataDto($user, $date, $chatId);
-        $updateMetadata->setIsForwarded($isForwarded);
         if ($command) {
             $updateMetadata->setType(UpdateMetadataDto::TYPE_COMMAND);
             $updateMetadata->setCommand($command);
@@ -438,29 +495,18 @@ class TelegramManager
             $updateMetadata->setType(UpdateMetadataDto::TYPE_MESSAGE);
         }
 
-        if (isset($message['message_id'])) {
-            $updateMetadata->setMessageId($message['message_id']);
-        }
-
-        if (isset($message['text'])) {
-            $updateMetadata->setMessageText($message['text']);
-        }
-
         if (isset($message['photo'])) {
             $photos = [];
             foreach ($message['photo'] as $item) {
                 $photos[] = $item['file_id'];
             }
-            $updateMetadata->setPhotos($photos);
+            $tgMessage->setPhoto(join(',', $photos));
             if (isset($message['photo']['caption'])) {
-                $updateMetadata->setMessageText($message['photo']['caption']);
+                $tgMessage->setText($message['photo']['caption']);
             }
         }
         if (isset($message['sticker'])) {
-            $updateMetadata->setSticker($message['sticker']['file_id']);
-        }
-        if (isset($message['audio'])) {
-            $updateMetadata->setSticker($message['audio']['file_id']);
+            $tgMessage->setSticker($message['sticker']['file_id']);
         }
 
         if (isset($message['audio'])) {
@@ -468,30 +514,34 @@ class TelegramManager
             foreach ($message['audio'] as $item) {
                 $audios[] = $item['file_id'];
             }
-            $updateMetadata->setAudios($audios);
+            $tgMessage->setAudio(join(',', $audios));
         }
         if (isset($message['video'])) {
             $videos = [];
             foreach ($message['video'] as $item) {
                 $videos[] = $item['file_id'];
             }
-            $updateMetadata->setVideos($videos);
+            $tgMessage->setVideo(join(',', $videos));
         }
         if (isset($message['animation'])) {
             $animations = [];
             foreach ($message['animation'] as $item) {
                 $animations[] = $item['file_id'];
             }
-            $updateMetadata->setAnimations($animations);
+            $tgMessage->setAnimation(join(',', $animations));
         }
         if (isset($message['document'])) {
             $documents = [];
             foreach ($message['document'] as $item) {
                 $documents[] = $item['file_id'];
             }
-            $updateMetadata->setDocuments($documents);
+            $tgMessage->setDocument(join(',', $documents));
         }
-
+        if($tgMessage){
+            $this->saveMessageToDB($tgMessage);
+            $updateMetadata->setMessage($tgMessage);
+        }
+        $this->update = $updateMetadata;
         return $updateMetadata;
     }
 
@@ -503,12 +553,12 @@ class TelegramManager
 
     public function getBotUser(): TelegramUser
     {
-        return $this->em->find(TelegramUser::class, 1);
+        return $this->userBot;
     }
 
     public function getAdminUser(): TelegramUser
     {
-        return $this->em->find(TelegramUser::class, 2);
+        return $this->userAdmin;
     }
 
     public function notifyAdmins($messageText)
@@ -533,6 +583,107 @@ class TelegramManager
         }
 
         return $result;
+    }
+
+    /**
+     * @param TelegramMessage $telegramMessage
+     * @return TelegramMessage
+     * @throws \Exception
+     */
+    public function processCommandFromMessage(TelegramMessage $telegramMessage): TelegramMessage
+    {
+        $em = $this->em;
+        $userAdmin = $this->getAdminUser();
+        $userBot = $this->getBotUser();
+
+        list($command, $targetId) = explode('_', $this->update->getCommand());
+        if ($command === UnresolvedCommand::COMMAND_REPLY) {
+            if ($this->validateUserCommand($telegramMessage->getChat(), $command)) {
+                $targetUser = $this->getUserByUserId($targetId);
+                if ($targetUser) {
+                    $parameters = ['reply_to' => $targetUser->getUserId()];
+                    $this->createUnresolvedCommandByUser($userAdmin, $command, $parameters);
+                    $tgToMessage = new TelegramMessage(null, $this->update->getMessageId(), $userBot, $userAdmin, $this->update->getDate(), "Введите текст ответа пользователю @" . $targetUser->getUsername());
+                    $this->sendMessageTo($tgToMessage);
+                }
+            }
+        } elseif ($command === UnresolvedCommand::COMMAND_START) {
+            $telegramMessage->setStatus(TelegramMessage::STATUS_SEEN);
+        } elseif ($command === UnresolvedCommand::COMMAND_CANCEL) {
+            $telegramMessage->setStatus(TelegramMessage::STATUS_SEEN);
+        }
+
+        return $telegramMessage;
+    }
+
+    /**
+     * @param TelegramMessage $telegramMessage
+     * @return void
+     * @throws \Exception
+     */
+    public function processUnresolvedCommandsFromMessage(TelegramMessage $telegramMessage): void
+    {
+        $em = $this->em;
+        $userAdmin = $this->getAdminUser();
+        $userBot = $this->getBotUser();
+
+        foreach ($telegramMessage->getFrom()->getUnresolvedCommands() as $unresolvedCommand) {
+            if ($unresolvedCommand->getDate() < time() - 30) {
+                if ($unresolvedCommand->getCommand() !== UnresolvedCommand::COMMAND_DEBUG) {
+                    $em->remove($unresolvedCommand);
+                }
+                continue;
+            }
+            if ($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_REPLY) {
+                $parameters = json_decode($unresolvedCommand->getParameters(), true);
+                $replyToUser = $this->getUserByUserId($parameters['reply_to']);
+                $replyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $replyToUser, $telegramMessage->getDate(), $telegramMessage->getText());
+                $this->sendMessageTo($replyMessage);
+                $em->remove($unresolvedCommand);
+            } elseif ($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_DEBUG) {
+                $debugMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), json_encode($this->updateRaw));
+                $this->sendMessageTo($debugMessage);
+            }
+        }
+    }
+
+    /**
+     * @param TelegramMessage $telegramMessage
+     * @return void
+     * @throws \Exception
+     */
+    public function processLastCommandFromMessage(TelegramMessage $telegramMessage): void
+    {
+        $em = $this->em;
+        $userAdmin = $this->getAdminUser();
+        $userBot = $this->getBotUser();
+        $em = $this->em;
+        $lastCommand = $this->getLastCommandFromMessage($telegramMessage);
+        if ($lastCommand) {
+            if ($lastCommand === UnresolvedCommand::COMMAND_DEBUG) {
+                $issetDebug = $em->getRepository(UnresolvedCommand::class)->findOneBy(['command' => UnresolvedCommand::COMMAND_DEBUG]);
+                if (!$issetDebug) {
+                    $this->createUnresolvedCommandByUser($userAdmin, UnresolvedCommand::COMMAND_DEBUG, []);
+
+                    $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), 'Debug mode ON');
+                    $this->sendMessageTo($notifyMessage);
+                } else {
+                    $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), 'Debug mode already inited');
+                    $this->sendMessageTo($notifyMessage);
+                }
+
+            } elseif ($lastCommand === UnresolvedCommand::COMMAND_STOP) {
+                $this->deleteAllUnresolvedCommandByUser($telegramMessage->getFrom());
+
+                $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $telegramMessage->getFrom(), $telegramMessage->getDate(), 'All active commands was disabled');
+                $this->sendMessageTo($notifyMessage);
+            } elseif ($lastCommand === UnresolvedCommand::COMMAND_MENU) {
+                $this->deleteAllUnresolvedCommandByUser($telegramMessage->getFrom());
+
+                $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $telegramMessage->getFrom(), $telegramMessage->getDate(), 'All active commands was disabled');
+                $this->sendMessageTo($notifyMessage);
+            }
+        }
     }
 
     /**

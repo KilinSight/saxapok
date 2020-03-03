@@ -120,82 +120,25 @@ class DefaultController extends Controller
             return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
         }
 	    if($update->getDate()->getTimestamp() > time() - 10){
+            $tgFromMessage = $update->getMessage();
+
             $userAdmin = $telegramManager->getAdminUser();
-            if(!$update->isForwarded() && !$update->getUser()->getIsBot() && $update->getUser()->getUserId() !== $userAdmin->getUserId() && $update->getChatId() !== $userAdmin->getUserId()){
-                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $update->getMessageId());
+            if(!$tgFromMessage->isForwarded() && !$update->getUser()->getIsBot() && $update->getUser()->getUserId() !== $userAdmin->getUserId() && $update->getChatId() !== $userAdmin->getUserId()){
+//                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $tgFromMessage->getMessageId());
+                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $tgFromMessage->getMessageId());
             }
-            $userFromUpdate = $update->getUser();
-            $userToUpdate = $telegramManager->getUserByUserId($update->getChatId());
-            $userBot = $telegramManager->getBotUser();
 
-            $tgFromMessage = $telegramManager->getOrCreateMessage($update->getMessageId());
-            $tgFromMessage->setChat($userToUpdate);
-            $tgFromMessage->setFrom($userFromUpdate);
-            $tgFromMessage->setDate($update->getDate());
-            $tgFromMessage->setText($update->getMessageText());
-
+            //FAST REPLY FROM BUTTON
             if ($update->getType() === UpdateMetadataDto::TYPE_COMMAND) {
-                list($command, $targetId) = explode('_', $update->getCommand());
-                if ($command === UnresolvedCommand::COMMAND_REPLY) {
-                    if ($telegramManager->validateUserCommand($userToUpdate, $command)) {
-                        $targetUser = $telegramManager->getUserByUserId($targetId);
-                        if ($targetUser) {
-                            $parameters = ['reply_to' => $targetUser->getUserId()];
-                            $telegramManager->createUnresolvedCommandByUser($userAdmin, $command, $parameters);
-                            $tgToMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), "Введите текст ответа пользователю @" . $targetUser->getUsername());
-                            $telegramManager->sendMessageTo($tgToMessage);
-                        }
-                    }
-                } elseif ($command === UnresolvedCommand::COMMAND_START) {
-                    $tgFromMessage->setStatus(TelegramMessage::STATUS_SEEN);
-                } elseif ($command === UnresolvedCommand::COMMAND_CANCEL) {
-                    $tgFromMessage->setStatus(TelegramMessage::STATUS_SEEN);
-                }
-
+                $tgFromMessage = $telegramManager->processCommandFromMessage($tgFromMessage);
                 $telegramManager->saveMessageToDB($tgFromMessage);
             } elseif ($tgFromMessage->getText()) {
+                //JUST MESSAGE
                 if (!$update->getUser()->getIsBot()) {
 
-                    foreach ($userFromUpdate->getUnresolvedCommands() as $unresolvedCommand) {
-                        if ($unresolvedCommand->getDate() < time() - 30) {
-                            if ($unresolvedCommand->getCommand() !== UnresolvedCommand::COMMAND_DEBUG) {
-                                $em->remove($unresolvedCommand);
-                            }
-                            continue;
-                        }
-                        if ($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_REPLY) {
-                            $parameters = json_decode($unresolvedCommand->getParameters(), true);
-                            $replyToUser = $telegramManager->getUserByUserId($parameters['reply_to']);
-                            $replyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $replyToUser, $update->getDate(), $tgFromMessage->getText());
-                            $telegramManager->sendMessageTo($replyMessage);
-                            $em->remove($unresolvedCommand);
-                        } elseif ($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_DEBUG) {
-                            $debugMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), json_encode($updateRaw));
-                            $telegramManager->sendMessageTo($debugMessage);
-                        }
-                    }
+                    $telegramManager->processUnresolvedCommandsFromMessage($tgFromMessage);
 
-                    $lastCommand = $telegramManager->getLastCommandFromMessage($tgFromMessage);
-                    if ($lastCommand) {
-                        if ($lastCommand === UnresolvedCommand::COMMAND_DEBUG) {
-                            $issetDebug = $em->getRepository(UnresolvedCommand::class)->findOneBy(['command' => UnresolvedCommand::COMMAND_DEBUG]);
-                            if (!$issetDebug) {
-                                $telegramManager->createUnresolvedCommandByUser($userAdmin, UnresolvedCommand::COMMAND_DEBUG, []);
-
-                                $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), 'Debug mode ON');
-                                $telegramManager->sendMessageTo($notifyMessage);
-                            } else {
-                                $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userAdmin, $update->getDate(), 'Debug mode already inited');
-                                $telegramManager->sendMessageTo($notifyMessage);
-                            }
-
-                        } elseif ($lastCommand === UnresolvedCommand::COMMAND_STOP) {
-                            $telegramManager->deleteAllUnresolvedCommandByUser($userFromUpdate);
-
-                            $notifyMessage = new TelegramMessage(null, $update->getMessageId(), $userBot, $userFromUpdate, $update->getDate(), 'All active commands was disabled');
-                            $telegramManager->sendMessageTo($notifyMessage);
-                        }
-                    }
+                    $telegramManager->processLastCommandFromMessage($tgFromMessage);
 
                     $tgFromMessage->setStatus(TelegramMessage::STATUS_SEEN);
                     $telegramManager->saveMessageToDB($tgFromMessage);
