@@ -218,7 +218,7 @@ class TelegramMessage
      */
     public function setDate(\DateTime $date): void
     {
-        $this->date = $date;
+        $this->date = $date->getTimestamp();
     }
 
     /**
