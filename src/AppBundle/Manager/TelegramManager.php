@@ -65,8 +65,8 @@ class TelegramManager
     {
         $this->em = $em;
         $this->mailerService = $mailerService;
-        $this->userBot = $this->em->find(TelegramUser::class, 2);
-        $this->userAdmin = $this->em->find(TelegramUser::class, 1);
+        $this->userBot = $this->em->find(TelegramUser::class, 1);
+        $this->userAdmin = $this->em->find(TelegramUser::class, 2);
     }
 
     /**
