@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ff31299-bcee-4166-ab06-e08c8bb37042" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/TelegramMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,14 +179,7 @@
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
       <workItem from="1583035607571" duration="13289000" />
-      <workItem from="1583140112866" duration="26713000" />
-    </task>
-    <task id="LOCAL-00121" summary="Reply WIP">
-      <created>1582210629408</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1582210629408</updated>
+      <workItem from="1583140112866" duration="26802000" />
     </task>
     <task id="LOCAL-00122" summary="Reply WIP">
       <created>1582210774946</created>
@@ -524,7 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583252522245</updated>
     </task>
-    <option name="localTasksCounter" value="170" />
+    <task id="LOCAL-00170" summary="Reforged telegram message">
+      <created>1583252579509</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1583252579509</updated>
+    </task>
+    <option name="localTasksCounter" value="171" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -123,11 +123,13 @@ class DefaultController extends Controller
             $tgFromMessage = $update->getMessage();
 
             $userAdmin = $telegramManager->getAdminUser();
-            if(!$tgFromMessage->isForwarded() && !$update->getUser()->getIsBot() && $update->getUser()->getUserId() !== $userAdmin->getUserId() && $update->getChatId() !== $userAdmin->getUserId()){
+//            if(!$tgFromMessage->isForwarded() && !$update->getUser()->getIsBot()
+//                && $update->getUser()->getUserId() !== $userAdmin->getUserId() && $update->getChatId() !== $userAdmin->getUserId()
+//            ){
 //                $telegramManager->forwardToAdmin($update->getUser()->getUserId(), $tgFromMessage->getMessageId());
 
                 $telegramManager->sendToAdmin($tgFromMessage);
-            }
+//            }
 
             //FAST REPLY FROM BUTTON
             if ($update->getType() === UpdateMetadataDto::TYPE_COMMAND) {
