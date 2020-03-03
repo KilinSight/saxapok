@@ -306,14 +306,15 @@ class TelegramManager
         if (!$tgMessage->getFrom()) {
             throw new \InvalidArgumentException('User "from" is required');
         }
-        $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/sendMessage';
+        $method = '/sendMessage';
 
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $apiUrl);
 
         $bodies = [];
         $body = [];
         if($tgMessage->getPhoto()){
+            $method = '/sendPhoto';
+
             $photos = explode(',', $tgMessage->getPhoto());
             if(count($photos) > 1){
                 $medias = [];
@@ -324,6 +325,8 @@ class TelegramManager
                         'caption' => $tgMessage->getText()
                     ];
                 }
+                $method = '/sendMediaGroup';
+
                 $body['media'] = $medias;
             }else{
                 $body['photo'] = $photos[0];
@@ -332,6 +335,8 @@ class TelegramManager
                 }
             }
         }elseif ($tgMessage->getVideo()){
+            $method = '/sendVideo';
+
             $videos = explode(',', $tgMessage->getPhoto());
             if(count($videos) > 1){
                 $medias = [];
@@ -342,6 +347,8 @@ class TelegramManager
                         'caption' => $tgMessage->getText()
                     ];
                 }
+                $method = '/sendMediaGroup';
+
                 $body['media'] = $medias;
             }else{
                 $body['video'] = $videos[0];
@@ -350,20 +357,33 @@ class TelegramManager
                 }
             }
         }elseif ($tgMessage->getAudio()){
+            $method = '/sendAudio';
+
             $bodies = $this->getBodiesByType('audio', $tgMessage);
         }elseif ($tgMessage->getSticker()){
+            $method = '/sendSticker';
+
             $body['sticker'] = $tgMessage->getSticker();
         }elseif ($tgMessage->getAnimation()){
+            $method = '/sendAnimation';
+
             $bodies = $this->getBodiesByType('animation', $tgMessage);
         }elseif ($tgMessage->getDocument()){
+            $method = '/sendDocument';
+
             $bodies = $this->getBodiesByType('document', $tgMessage);
         }elseif ($tgMessage->getVoice()){
+             $method = '/sendVoice';
+
             $bodies = $this->getBodiesByType('voice', $tgMessage);
         }
 
         if(!count($bodies) && !empty($body)) {
             $bodies[] = $body;
         }
+
+        $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . $method;
+        curl_setopt($curl, CURLOPT_URL, $apiUrl);
 
         foreach ($bodies as $body) {
             if ($inlineKeyboardMarkup) {
