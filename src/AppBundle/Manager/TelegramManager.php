@@ -274,7 +274,11 @@ class TelegramManager
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $messageId]);
         if (!$issetMessage) {
-            return new TelegramMessage($messageId, $this->getAdminUser(), $this->getBotUser(), new \DateTime(), '');
+            $message = new TelegramMessage($messageId, $this->getAdminUser(), $this->getBotUser(), new \DateTime(), '');
+            $this->em->persist($message);
+            $this->em->flush();
+
+            return $message;
         } else {
             return $issetMessage;
         }
@@ -574,6 +578,7 @@ class TelegramManager
         }
         if ($tgMessage) {
             $this->saveMessageToDB($tgMessage);
+
             $updateMetadata->setMessage($tgMessage);
         }
         $this->update = $updateMetadata;
