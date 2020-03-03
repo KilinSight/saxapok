@@ -305,7 +305,7 @@ class TelegramManager
         if (!$tgMessage->getFrom()) {
             throw new \InvalidArgumentException('User "from" is required');
         }
-
+        $method = '/sendMessage';
         $curl = curl_init();
 
         $bodies = [];
@@ -375,9 +375,8 @@ class TelegramManager
 
             $bodies = $this->getBodiesByType('voice', $tgMessage);
         } elseif ($tgMessage->getText()) {
-            $method = '/sendMessage';
 
-            $body['text'] = $tgMessage->getSticker();
+            $body['text'] = $tgMessage->getText();
         }
 
         if (!count($bodies) && !empty($body)) {
