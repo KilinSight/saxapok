@@ -155,7 +155,7 @@ class TelegramManager
             $this->throwException(curl_error($curl));
         }
 
-        $tgToMessage = new TelegramMessage(null, $messageId, $this->getBotUser(), $this->getAdminUser(), (new \DateTime())->setTimestamp(time()), 'Хотите ответить?');
+        $tgToMessage = new TelegramMessage($messageId, $this->getBotUser(), $this->getAdminUser(), (new \DateTime())->setTimestamp(time()), 'Хотите ответить?');
 
         $keyboard = [
             [
@@ -274,7 +274,7 @@ class TelegramManager
     {
         $issetMessage = $this->em->getRepository(TelegramMessage::class)->findOneBy(['messageId' => $messageId]);
         if (!$issetMessage) {
-            return new TelegramMessage(null, $messageId, $this->getAdminUser(), $this->getBotUser(), (new \DateTime()), '');
+            return new TelegramMessage($messageId, $this->getAdminUser(), $this->getBotUser(), (new \DateTime()), '');
         } else {
             return $issetMessage;
         }
@@ -620,7 +620,7 @@ class TelegramManager
                 if ($targetUser) {
                     $parameters = ['reply_to' => $targetUser->getUserId()];
                     $this->createUnresolvedCommandByUser($userAdmin, $command, $parameters);
-                    $tgToMessage = new TelegramMessage(null, $this->update->getMessageId(), $userBot, $userAdmin, $this->update->getDate(), "Введите текст ответа пользователю @" . $targetUser->getUsername());
+                    $tgToMessage = new TelegramMessage($this->update->getMessageId(), $userBot, $userAdmin, $this->update->getDate(), "Введите текст ответа пользователю @" . $targetUser->getUsername());
                     $this->sendMessageTo($tgToMessage);
                 }
             }
@@ -654,11 +654,11 @@ class TelegramManager
             if ($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_REPLY) {
                 $parameters = json_decode($unresolvedCommand->getParameters(), true);
                 $replyToUser = $this->getUserByUserId($parameters['reply_to']);
-                $replyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $replyToUser, $telegramMessage->getDate(), $telegramMessage->getText());
+                $replyMessage = new TelegramMessage($telegramMessage->getMessageId(), $userBot, $replyToUser, $telegramMessage->getDate(), $telegramMessage->getText());
                 $this->sendMessageTo($replyMessage);
                 $em->remove($unresolvedCommand);
             } elseif ($unresolvedCommand->getCommand() === UnresolvedCommand::COMMAND_DEBUG) {
-                $debugMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), json_encode($this->updateRaw));
+                $debugMessage = new TelegramMessage($telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), json_encode($this->updateRaw));
                 $this->sendMessageTo($debugMessage);
             }
         }
@@ -682,22 +682,22 @@ class TelegramManager
                 if (!$issetDebug) {
                     $this->createUnresolvedCommandByUser($userAdmin, UnresolvedCommand::COMMAND_DEBUG, []);
 
-                    $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), 'Debug mode ON');
+                    $notifyMessage = new TelegramMessage($telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), 'Debug mode ON');
                     $this->sendMessageTo($notifyMessage);
                 } else {
-                    $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), 'Debug mode already inited');
+                    $notifyMessage = new TelegramMessage($telegramMessage->getMessageId(), $userBot, $userAdmin, $telegramMessage->getDate(), 'Debug mode already inited');
                     $this->sendMessageTo($notifyMessage);
                 }
 
             } elseif ($lastCommand === UnresolvedCommand::COMMAND_STOP) {
                 $this->deleteAllUnresolvedCommandByUser($telegramMessage->getFrom());
 
-                $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $telegramMessage->getFrom(), $telegramMessage->getDate(), 'All active commands was disabled');
+                $notifyMessage = new TelegramMessage($telegramMessage->getMessageId(), $userBot, $telegramMessage->getFrom(), $telegramMessage->getDate(), 'All active commands was disabled');
                 $this->sendMessageTo($notifyMessage);
             } elseif ($lastCommand === UnresolvedCommand::COMMAND_MENU) {
                 $this->deleteAllUnresolvedCommandByUser($telegramMessage->getFrom());
 
-                $notifyMessage = new TelegramMessage(null, $telegramMessage->getMessageId(), $userBot, $telegramMessage->getFrom(), $telegramMessage->getDate(), 'All active commands was disabled');
+                $notifyMessage = new TelegramMessage($telegramMessage->getMessageId(), $userBot, $telegramMessage->getFrom(), $telegramMessage->getDate(), 'All active commands was disabled');
                 $this->sendMessageTo($notifyMessage);
             }
         }
