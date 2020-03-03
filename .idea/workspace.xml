@@ -180,14 +180,7 @@
       <workItem from="1582527526094" duration="1327000" />
       <workItem from="1582544434636" duration="33082000" />
       <workItem from="1583035607571" duration="13289000" />
-      <workItem from="1583140112866" duration="24563000" />
-    </task>
-    <task id="LOCAL-00110" summary="Reply WIP">
-      <created>1582123259760</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1582123259760</updated>
+      <workItem from="1583140112866" duration="24982000" />
     </task>
     <task id="LOCAL-00111" summary="Reply WIP">
       <created>1582208618365</created>
@@ -525,7 +518,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583250092804</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="Reforged telegram message">
+      <created>1583250426169</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1583250426169</updated>
+    </task>
+    <option name="localTasksCounter" value="160" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,10 +583,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="368" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582638582920" />
-    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583250091416">
+    <state x="658" y="149" key="CommitChangelistDialog2" timestamp="1583250424779">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583250091416" />
+    <state x="658" y="149" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583250424779" />
     <state x="184" y="92" width="1536" height="858" key="DiffContextDialog" timestamp="1583153116326">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -639,10 +639,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583148101692" />
-    <state x="634" y="229" width="672" height="678" key="search.everywhere.popup" timestamp="1583040155117">
+    <state x="634" y="229" width="672" height="678" key="search.everywhere.popup" timestamp="1583250568213">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="634" y="229" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583040155117" />
+    <state x="634" y="229" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1583250568213" />
     <state x="682" y="433" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1581415586491">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

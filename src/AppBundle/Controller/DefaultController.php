@@ -115,7 +115,7 @@ class DefaultController extends Controller
         $telegramManager = $this->get(TelegramManager::class);
         $updateRaw = $telegramManager->getUpdateRaw();
         $update = $telegramManager->getUpdateMetadata($updateRaw);
-
+        $telegramManager->notifyAdmins(json_encode($updateRaw));
         if (!$update) {
             return new Response(null, Response::HTTP_OK, ["HTTP/1.1 200 OK"]);
         }

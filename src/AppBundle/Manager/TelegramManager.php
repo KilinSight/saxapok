@@ -467,6 +467,8 @@ class TelegramManager
             $userLastname = $message['from']['last_name'];
             $userId = $message['from']['id'];
             $isBot = $message['from']['is_bot'];
+            $date = (new \DateTime())->setTimestamp($message['date']);
+
             if (!$username) {
                 $this->notifyAdmins('Username is required');
                 return null;
@@ -493,7 +495,6 @@ class TelegramManager
 
             $user->setIsBot($isBot);
             $toUser->setIsBot($toUserIsBot);
-            $date = (new \DateTime())->setTimestamp($message['date']);
 
             $tgMessage = $this->getOrCreateMessage($message['message_id']);
             $tgMessage->setFrom($user);
