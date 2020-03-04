@@ -67,15 +67,15 @@ class DefaultController extends Controller
     {
         $telegramManager = $this->get(TelegramManager::class);
         $apiUrl = 'https://api.telegram.org/bot' . ApiController::botapikey . '/' . $method;
-        $allowedMethods = [
-            self::BOT_API_SEND_MESSAGE,
-            self::BOT_API_GET_WEBHOOK_INFO,
-            self::TEST_UPDATE_BODY,
-        ];
-
-        if (!in_array($method, $allowedMethods)) {
-            return new JsonResponse('Method not allowed.');
-        }
+//        $allowedMethods = [
+//            self::BOT_API_SEND_MESSAGE,
+//            self::BOT_API_GET_WEBHOOK_INFO,
+//            self::TEST_UPDATE_BODY,
+//        ];
+//
+//        if (!in_array($method, $allowedMethods)) {
+//            return new JsonResponse('Method not allowed.');
+//        }
         $body = $request->get('body');
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
