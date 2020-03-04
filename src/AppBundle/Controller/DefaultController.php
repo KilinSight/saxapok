@@ -80,14 +80,16 @@ class DefaultController extends Controller
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
 
-        if ($method === self::BOT_API_SEND_MESSAGE) {
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-        } elseif ($method === self::TEST_UPDATE_BODY) {
-            $update = $telegramManager->getUpdateMetadata($body);
-            dump($update);
-            die;
-        }
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+//        if ($method === self::BOT_API_SEND_MESSAGE) {
+//            curl_setopt($curl, CURLOPT_POST, 1);
+//            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+//        } elseif ($method === self::TEST_UPDATE_BODY) {
+//            $update = $telegramManager->getUpdateMetadata($body);
+//            dump($update);
+//            die;
+//        }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
