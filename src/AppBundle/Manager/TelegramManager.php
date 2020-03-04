@@ -316,12 +316,16 @@ class TelegramManager
             $photos = explode(',', $tgMessage->getPhoto());
             if (count($photos) > 1) {
                 $medias = [];
+                $uniqueIds = [];
                 foreach ($photos as $photo) {
-                    $medias[] = [
-                        'type' => 'photo',
-                        'media' => $photo,
-                        'caption' => $tgMessage->getText()
-                    ];
+                    if(!in_array($photo, $uniqueIds)){
+                        $medias[] = [
+                            'type' => 'photo',
+                            'media' => $photo,
+                            'caption' => $tgMessage->getText()
+                        ];
+                        $uniqueIds[] = $photo;
+                    }
                 }
                 $method = '/sendMediaGroup';
 
@@ -338,12 +342,16 @@ class TelegramManager
             $videos = explode(',', $tgMessage->getPhoto());
             if (count($videos) > 1) {
                 $medias = [];
+                $uniqueIds = [];
                 foreach ($videos as $video) {
-                    $medias[] = [
-                        'type' => 'video',
-                        'media' => $video,
-                        'caption' => $tgMessage->getText()
-                    ];
+                    if(!in_array($video, $uniqueIds)) {
+                        $medias[] = [
+                            'type' => 'video',
+                            'media' => $video,
+                            'caption' => $tgMessage->getText()
+                        ];
+                        $uniqueIds[] = $video;
+                    }
                 }
                 $method = '/sendMediaGroup';
 
@@ -431,12 +439,16 @@ class TelegramManager
         } elseif ($type === 'voice') {
             $items = explode(',', $tgMessage->getVoice());
         }
+        $uniqueIds = [];
         foreach ($items as $item) {
-            $body[$type] = $item;
-            if ($tgMessage->getText()) {
-                $body['caption'] = $tgMessage->getText();
+            if(!in_array($item, $uniqueIds)){
+                $body[$type] = $item;
+                if ($tgMessage->getText()) {
+                    $body['caption'] = $tgMessage->getText();
+                }
+                $bodies[] = $body;
+                $uniqueIds[] = $item;
             }
-            $bodies[] = $body;
         }
 
         return $bodies;
